@@ -4,3 +4,21 @@ export enum AppRoute {
   Basket = '/basket',
 };
 
+export const BACKEND_URL = 'https://camera-shop.accelerator.pages.academy';
+
+export const REQUEST_TIMEOUT = 5000;
+
+export enum NameSpace {
+  Data = 'Data',
+  Catalog = 'Catalog',
+};
+
+export enum APIRoute {
+  Cameras = '/cameras',
+  Reviews = '/reviews',
+  Similar = '/similar',
+  Promo = '/promo',
+  Coupons = '/coupons',
+  Orders = '/orders'
+};
+
