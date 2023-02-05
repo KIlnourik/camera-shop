@@ -24,7 +24,6 @@
   "bugs": {
     "url": "https://github.com/htmlacademy/cra-template-typescript-htmlacademy/issues"
   },
-  "homepage": "https://github.com/htmlacademy/cra-template-typescript-htmlacademy#readme",
   "dependencies": {
     "react": "^18.2.0",
     "@reduxjs/toolkit": "^1.8.6",
