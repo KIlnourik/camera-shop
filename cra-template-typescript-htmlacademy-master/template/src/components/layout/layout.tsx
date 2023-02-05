@@ -1,8 +1,8 @@
-import { Outlet } from "react-router-dom";
-import FooterNavList from "../footer-nav-list/footer-nav-list";
-import Logo from "../logo/logo";
-import NavList from "../nav-list/nav-list";
-import SocialList from "../social-list/social-list";
+import { Outlet } from 'react-router-dom';
+import FooterNavList from '../footer-nav-list/footer-nav-list';
+import Logo from '../logo/logo';
+import NavList from '../nav-list/nav-list';
+import SocialList from '../social-list/social-list';
 
 function Layout(): JSX.Element {
   return (
