@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Camera } from '../../types/camera';
+import { MAX_RATING_COUNT } from '../../const';
 
 type Props = {
   camera: Camera,
@@ -41,10 +42,11 @@ function CatalogCard({ camera }: Props): JSX.Element {
       <div className="product-card__buttons">
         <button className="btn btn--purple product-card__btn" type="button">Купить
         </button>
-        <Link to='' className="btn btn--transparent">Подробнее
+        <Link className="btn btn--transparent" to={`/cameras/${camera.id}`}>Подробнее
         </Link>
       </div>
     </div>
+
   );
 }
 

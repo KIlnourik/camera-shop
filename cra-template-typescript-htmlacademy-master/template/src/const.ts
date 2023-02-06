@@ -4,7 +4,7 @@ export enum AppRoute {
   Basket = '/basket',
 };
 
-export const BACKEND_URL = 'https://camera-shop.accelerator.pages.academy';
+export const BACKEND_URL = 'https://camera-shop.accelerator.pages.academy/';
 
 export const REQUEST_TIMEOUT = 5000;
 
@@ -21,4 +21,6 @@ export enum APIRoute {
   Coupons = '/coupons',
   Orders = '/orders'
 };
+
+export const MAX_RATING_COUNT = 5;
 
