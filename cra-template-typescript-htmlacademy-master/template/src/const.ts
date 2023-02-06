@@ -24,3 +24,5 @@ export enum APIRoute {
 
 export const MAX_RATING_COUNT = 5;
 
+export const RETRO_CAMERA_NAME = 'Ретрокамера';
+
