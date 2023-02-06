@@ -6,13 +6,14 @@ import CatalogPagination from '../components/catalog-pagination/catalog-paginati
 import CatalogSortForm from '../components/catalog-sort-form/catalog-sort-form';
 import { useAppDispatch } from '../hooks';
 import { useEffect } from 'react';
-import { fetchCamerasAction } from '../store/api-actions';
+import { fetchCamerasAction, fetchPromoAction } from '../store/api-actions';
 
 function CatalogPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchCamerasAction());
+    dispatch(fetchPromoAction());
   });
 
   return (
