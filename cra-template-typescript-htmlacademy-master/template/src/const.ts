@@ -1,5 +1,6 @@
 export enum AppRoute {
   Catalog = '/',
+  Pages = '/:page',
   Product = '/cameras/:id',
   Basket = '/basket',
 };
@@ -26,3 +27,4 @@ export const MAX_RATING_COUNT = 5;
 
 export const RETRO_CAMERA_NAME = 'Ретрокамера';
 
+export const MAX_CARDS_PER_PAGE = 9;

@@ -12,7 +12,7 @@ function App(): JSX.Element {
     <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={AppRoute.Catalog} element={<Layout />}>
-          <Route index element={<CatalogPage />} />
+          <Route path={AppRoute.Pages} element={<CatalogPage />} />
           <Route path={AppRoute.Product} element={<ProductPage />} />
           <Route path={AppRoute.Basket} element={<BasketPage />} />
 

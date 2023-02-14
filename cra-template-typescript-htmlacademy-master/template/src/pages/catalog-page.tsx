@@ -4,17 +4,39 @@ import CatalogCards from '../components/catalog-cards/catalog-cards';
 import CatalogFilter from '../components/catalog-filter/catalog-filter';
 import CatalogPagination from '../components/catalog-pagination/catalog-pagination';
 import CatalogSortForm from '../components/catalog-sort-form/catalog-sort-form';
-import { useAppDispatch } from '../hooks';
-import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { useEffect, useState } from 'react';
 import { fetchCamerasAction, fetchPromoAction } from '../store/api-actions';
+import { MAX_CARDS_PER_PAGE } from '../const';
+import { getCameras } from '../store/data-process/selector';
 
 function CatalogPage(): JSX.Element {
-  const dispatch = useAppDispatch();
-
   useEffect(() => {
     dispatch(fetchCamerasAction());
     dispatch(fetchPromoAction());
   });
+
+  const dispatch = useAppDispatch();
+
+  const [offset, setOffset] = useState(0);
+  const [page, setPage] = useState(1);
+  const handlePageButtonClick = (currentPage: number, page: number) => {
+    (currentPage !== page)
+      ? setOffset((page - 1) * MAX_CARDS_PER_PAGE)
+      : setOffset(offset);
+
+  };
+
+  const handleBackButtonClick = (currentPage: number) => {
+    setOffset((currentPage - 2) * MAX_CARDS_PER_PAGE);
+  };
+
+  const handleNextButtonClick = (currentPage: number) => {
+    setOffset(currentPage * MAX_CARDS_PER_PAGE);
+  };
+
+  console.log('Офсет', offset);
+  console.log('Сумма', offset + MAX_CARDS_PER_PAGE);
 
   return (
     <main>
@@ -28,8 +50,12 @@ function CatalogPage(): JSX.Element {
               <CatalogFilter />
               <div className="catalog__content">
                 <CatalogSortForm />
-                <CatalogCards />
-                <CatalogPagination />
+                <CatalogCards offset={offset} />
+                <CatalogPagination
+                  handlePageButtonClick={handlePageButtonClick}
+                  handleBackButtonClick={handleBackButtonClick}
+                  handleNextButtonClick={handleNextButtonClick}
+                />
               </div>
             </div>
           </div>
