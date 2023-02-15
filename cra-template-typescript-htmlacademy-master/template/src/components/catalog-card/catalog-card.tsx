@@ -1,24 +1,14 @@
 import { Link } from 'react-router-dom';
 import { Camera } from '../../types/camera';
-import { RETRO_CAMERA_NAME } from '../../const';
 import CatalogRating from '../catalog-rating/catalog-rating';
-
+import { getCameraTitle, getPrice } from '../../utils/utils';
 
 type Props = {
   camera: Camera,
+  handleBuyButtonClick(camera: Camera): void;
 }
 
-const getPrice = (price: number): string => {
-  const slicedHundredPrice = price.toString().slice(-3);
-  const slicedThousandPrice = price.toString().slice(0, -3);
-  return `${slicedThousandPrice} ${slicedHundredPrice}`;
-};
-
-function CatalogCard({ camera }: Props): JSX.Element {
-
-  const getName = () => camera.name.split(' ')[0] === RETRO_CAMERA_NAME
-    ? camera.name
-    : `${camera.category} ${camera.name}`;
+function CatalogCard({ camera, handleBuyButtonClick }: Props): JSX.Element {
 
   return (
     <div className="product-card" >
@@ -34,12 +24,12 @@ function CatalogCard({ camera }: Props): JSX.Element {
           <p className="visually-hidden">Рейтинг: {camera.rating}</p>
           <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{camera.reviewCount}</p>
         </div>
-        <p className="product-card__title">{getName()}</p>
+        <p className="product-card__title">{getCameraTitle(camera)}</p>
         <p className="product-card__price"><span className="visually-hidden">Цена:</span>{getPrice(camera.price)} ₽
         </p>
       </div>
       <div className="product-card__buttons">
-        <button className="btn btn--purple product-card__btn" type="button">Купить
+        <button className="btn btn--purple product-card__btn" type="button" onClick={() => handleBuyButtonClick(camera)}>Купить
         </button>
         <Link className="btn btn--transparent" to={`/cameras/${camera.id}`}>Подробнее
         </Link>

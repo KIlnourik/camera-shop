@@ -9,6 +9,8 @@ import { useEffect, useState } from 'react';
 import { fetchCamerasAction, fetchPromoAction } from '../store/api-actions';
 import { MAX_CARDS_PER_PAGE } from '../const';
 import { getCameras } from '../store/data-process/selector';
+import { Camera } from '../types/camera';
+import AddItemPopup from '../components/add-item-popup/add-item-popup';
 
 function CatalogPage(): JSX.Element {
   useEffect(() => {
@@ -19,12 +21,12 @@ function CatalogPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const [offset, setOffset] = useState(0);
-  const [page, setPage] = useState(1);
+  const [isActivePopup, setActivePopup] = useState(false);
+  const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined) ;
   const handlePageButtonClick = (currentPage: number, page: number) => {
     (currentPage !== page)
       ? setOffset((page - 1) * MAX_CARDS_PER_PAGE)
       : setOffset(offset);
-
   };
 
   const handleBackButtonClick = (currentPage: number) => {
@@ -34,6 +36,15 @@ function CatalogPage(): JSX.Element {
   const handleNextButtonClick = (currentPage: number) => {
     setOffset(currentPage * MAX_CARDS_PER_PAGE);
   };
+
+  const handleBuyButtonClick = (camera: Camera) => {
+    setActivePopup(!isActivePopup);
+    setChosenCamera(camera);
+  }
+
+  const handleCloseButtonPopup = () => {
+    setActivePopup(!isActivePopup);
+  }
 
   console.log('Офсет', offset);
   console.log('Сумма', offset + MAX_CARDS_PER_PAGE);
@@ -50,17 +61,19 @@ function CatalogPage(): JSX.Element {
               <CatalogFilter />
               <div className="catalog__content">
                 <CatalogSortForm />
-                <CatalogCards offset={offset} />
+                <CatalogCards offset={offset} handleBuyButtonClick={handleBuyButtonClick}/>
                 <CatalogPagination
                   handlePageButtonClick={handlePageButtonClick}
                   handleBackButtonClick={handleBackButtonClick}
                   handleNextButtonClick={handleNextButtonClick}
                 />
+
               </div>
             </div>
           </div>
         </section>
       </div>
+      {isActivePopup && <AddItemPopup camera={chosenCamera} handleCloseButtonPopup={handleCloseButtonPopup}/>}
     </main>
   );
 }
