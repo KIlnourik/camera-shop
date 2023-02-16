@@ -46,9 +46,6 @@ function CatalogPage(): JSX.Element {
     setActivePopup(!isActivePopup);
   }
 
-  console.log('Офсет', offset);
-  console.log('Сумма', offset + MAX_CARDS_PER_PAGE);
-
   return (
     <main>
       <Banner />

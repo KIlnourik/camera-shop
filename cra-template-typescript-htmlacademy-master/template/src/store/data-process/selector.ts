@@ -7,3 +7,5 @@ export const getCameras = (state: State): Camera[] => state[NameSpace.Data].came
 export const getCamerasLoadingStatus = (state: State): boolean => state[NameSpace.Data].isCamerasLoading;
 export const getPromo = (state: State): Promo => state[NameSpace.Data].promo;
 export const getPromoLoadingStatus = (state: State): boolean => state[NameSpace.Data].isPromoLoading;
+export const getCamera = (state: State): Camera => state[NameSpace.Data].camera;
+export const getCameraLoadingStatus = (state: State): boolean => state[NameSpace.Data].isCameraLoading;

@@ -2,7 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { Promo } from '../../types/promo';
 import { DataProcess } from '../../types/state';
+import { Camera } from '../../types/camera';
 import {
+  fetchCameraAction,
   fetchCamerasAction,
   fetchPromoAction,
 } from '../api-actions';
@@ -10,8 +12,10 @@ import {
 const initialState: DataProcess = {
   cameras: [],
   promo: {} as Promo,
+  camera: {} as Camera,
   isCamerasLoading: false,
   isPromoLoading: false,
+  isCameraLoading: false,
 };
 
 export const dataProcess = createSlice({
@@ -33,6 +37,13 @@ export const dataProcess = createSlice({
       .addCase(fetchPromoAction.fulfilled, (state, action) => {
         state.promo = action.payload;
         state.isPromoLoading = false;
+      })
+      .addCase(fetchCameraAction.pending, (state) => {
+        state.isCameraLoading = true;
+      })
+      .addCase(fetchCameraAction.fulfilled, (state, action) => {
+        state.camera = action.payload;
+        state.isCameraLoading = false;
       })
       ;
   }

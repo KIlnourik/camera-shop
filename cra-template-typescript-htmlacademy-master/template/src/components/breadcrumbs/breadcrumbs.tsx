@@ -1,5 +1,19 @@
+import { Link, useLocation, useParams } from 'react-router-dom';
+import { AppRoute } from '../../const';
+import { Camera } from '../../types/camera';
 
-function Breadcrumbs(): JSX.Element {
+type Props = {
+  isProductPage?: boolean;
+  camera?: Camera
+};
+
+function Breadcrumbs({ isProductPage, camera }: Props): JSX.Element {
+
+  const location = useLocation();
+  const { page } = useParams();
+  console.log(location);
+  console.log(page);
+
   return (
     <div className="breadcrumbs">
       <div className="container">
@@ -11,9 +25,25 @@ function Breadcrumbs(): JSX.Element {
               </svg>
             </a>
           </li>
-          <li className="breadcrumbs__item">
-            <span className="breadcrumbs__link breadcrumbs__link--active">Каталог</span>
-          </li>
+          {(location.pathname === AppRoute.Catalog || location.pathname === `${AppRoute.Catalog}${page}`)
+            ?
+            <li className="breadcrumbs__item">
+              <span className="breadcrumbs__link breadcrumbs__link--active">Каталог</span>
+            </li>
+            :
+            <li className="breadcrumbs__item">
+              <Link className="breadcrumbs__link" to={AppRoute.Pages}>Каталог
+                <svg width="5" height="8" aria-hidden="true">
+                  <use xlinkHref="#icon-arrow-mini"></use>
+                </svg>
+              </Link>
+            </li>}
+          {isProductPage &&
+            <li className="breadcrumbs__item">
+              <span className="breadcrumbs__link breadcrumbs__link--active">
+                {camera?.name}
+              </span>
+            </li>}
         </ul>
       </div>
     </div>
