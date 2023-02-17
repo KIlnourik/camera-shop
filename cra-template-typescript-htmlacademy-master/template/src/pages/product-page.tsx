@@ -10,7 +10,7 @@ import { fetchCameraAction } from '../store/api-actions';
 import { getCameraLoadingStatus, getCamera } from '../store/data-process/selector';
 
 function ProductPage(): JSX.Element {
-  const {id} = useParams();
+  const { id } = useParams();
   const dispatch = useAppDispatch();
   const camera = useAppSelector(getCamera);
   const isCameraLoading = useAppSelector(getCameraLoadingStatus);
@@ -21,15 +21,17 @@ function ProductPage(): JSX.Element {
     }
   }, [dispatch, id]);
 
-  if (isCameraLoading) {
+  if (isCameraLoading || !camera) {
     return <Spinner />;
   }
+
+  console.log(camera);
 
   return (
     <>
       <main>
         <div className="page-content">
-          <Breadcrumbs isProductPage camera={camera}/>
+          <Breadcrumbs isProductPage camera={camera} />
           <div className="page-content__section">
             <ProductInfo />
           </div>

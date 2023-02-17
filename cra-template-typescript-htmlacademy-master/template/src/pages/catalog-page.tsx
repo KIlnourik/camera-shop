@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from '../hooks';
 import { useEffect, useState } from 'react';
 import { fetchCamerasAction, fetchPromoAction } from '../store/api-actions';
 import { MAX_CARDS_PER_PAGE } from '../const';
-import { getCameras } from '../store/data-process/selector';
 import { Camera } from '../types/camera';
 import AddItemPopup from '../components/add-item-popup/add-item-popup';
 
@@ -19,22 +18,29 @@ function CatalogPage(): JSX.Element {
   });
 
   const dispatch = useAppDispatch();
-
+  const [page, setPage] = useState(1);
   const [offset, setOffset] = useState(0);
   const [isActivePopup, setActivePopup] = useState(false);
-  const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined) ;
-  const handlePageButtonClick = (currentPage: number, page: number) => {
-    (currentPage !== page)
-      ? setOffset((page - 1) * MAX_CARDS_PER_PAGE)
-      : setOffset(offset);
+  const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
+  const handlePageButtonClick = (currentPage: number, chosenPage: number) => {
+
+    if (currentPage !== chosenPage) {
+      setOffset((chosenPage - 1) * MAX_CARDS_PER_PAGE);
+      setPage(chosenPage);
+    } else {
+      setOffset(offset);
+      setPage(currentPage);
+    }
   };
 
   const handleBackButtonClick = (currentPage: number) => {
     setOffset((currentPage - 2) * MAX_CARDS_PER_PAGE);
+    setPage(currentPage - 1);
   };
 
   const handleNextButtonClick = (currentPage: number) => {
     setOffset(currentPage * MAX_CARDS_PER_PAGE);
+    setPage(currentPage + 1);
   };
 
   const handleBuyButtonClick = (camera: Camera) => {
@@ -58,7 +64,7 @@ function CatalogPage(): JSX.Element {
               <CatalogFilter />
               <div className="catalog__content">
                 <CatalogSortForm />
-                <CatalogCards offset={offset} handleBuyButtonClick={handleBuyButtonClick}/>
+                <CatalogCards offset={offset} handleBuyButtonClick={handleBuyButtonClick} />
                 <CatalogPagination
                   handlePageButtonClick={handlePageButtonClick}
                   handleBackButtonClick={handleBackButtonClick}
@@ -70,7 +76,7 @@ function CatalogPage(): JSX.Element {
           </div>
         </section>
       </div>
-      {isActivePopup && <AddItemPopup camera={chosenCamera} handleCloseButtonPopup={handleCloseButtonPopup}/>}
+      {isActivePopup && <AddItemPopup camera={chosenCamera} handleCloseButtonPopup={handleCloseButtonPopup} />}
     </main>
   );
 }

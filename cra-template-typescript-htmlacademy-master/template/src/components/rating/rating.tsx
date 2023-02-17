@@ -1,11 +1,10 @@
-import { random } from 'faker';
 import { MAX_RATING_COUNT } from '../../const';
 
 type Props = {
   rating: number;
 };
 
-function CatalogRating({ rating }: Props): JSX.Element {
+function Rating({ rating }: Props): JSX.Element {
 
   return (
     <>
@@ -24,4 +23,4 @@ function CatalogRating({ rating }: Props): JSX.Element {
   );
 }
 
-export default CatalogRating;
+export default Rating;

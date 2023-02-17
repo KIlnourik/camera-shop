@@ -11,8 +11,8 @@ import {
 
 const initialState: DataProcess = {
   cameras: [],
-  promo: {} as Promo,
-  camera: {} as Camera,
+  promo: undefined,
+  camera: undefined,
   isCamerasLoading: false,
   isPromoLoading: false,
   isCameraLoading: false,

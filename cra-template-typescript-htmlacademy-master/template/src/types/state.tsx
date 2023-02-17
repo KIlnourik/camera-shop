@@ -7,8 +7,8 @@ export type AppDispatch = typeof store.dispatch;
 
 export type DataProcess = {
   cameras: Camera[];
-  promo: Promo;
-  camera: Camera;
+  promo: Promo | undefined;
+  camera: Camera | undefined;
   isCamerasLoading: boolean;
   isPromoLoading: boolean;
   isCameraLoading: boolean;

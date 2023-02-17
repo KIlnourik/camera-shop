@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
 import { MAX_CARDS_PER_PAGE } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks';
 import { getCameras, getCamerasLoadingStatus } from '../../store/data-process/selector';
 import { Camera } from '../../types/camera';
 import CatalogCard from '../catalog-card/catalog-card';

@@ -11,8 +11,6 @@ function Breadcrumbs({ isProductPage, camera }: Props): JSX.Element {
 
   const location = useLocation();
   const { page } = useParams();
-  console.log(location);
-  console.log(page);
 
   return (
     <div className="breadcrumbs">
@@ -25,7 +23,7 @@ function Breadcrumbs({ isProductPage, camera }: Props): JSX.Element {
               </svg>
             </a>
           </li>
-          {(location.pathname === AppRoute.Catalog || location.pathname === `${AppRoute.Catalog}${page}`)
+          {(location.pathname === AppRoute.Catalog || location.pathname === `${AppRoute.Catalog}/${page}`)
             ?
             <li className="breadcrumbs__item">
               <span className="breadcrumbs__link breadcrumbs__link--active">Каталог</span>

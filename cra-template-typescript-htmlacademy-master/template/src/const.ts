@@ -1,8 +1,8 @@
 export enum AppRoute {
-  Catalog = '/',
-  Pages = '/:page',
-  Product = '/cameras/:id',
-  Basket = '/basket',
+  Catalog = '/catalog',
+  Pages = '/catalog/:page',
+  Product = '/catalog/cameras/:id',
+  Basket = '/catalog/basket',
 };
 
 export const BACKEND_URL = 'https://camera-shop.accelerator.pages.academy/';
@@ -28,3 +28,8 @@ export const MAX_RATING_COUNT = 5;
 export const RETRO_CAMERA_NAME = 'Ретрокамера';
 
 export const MAX_CARDS_PER_PAGE = 9;
+
+export enum Tabs {
+  Parameters = 'Характеристики',
+  Description = 'Описание'
+};
