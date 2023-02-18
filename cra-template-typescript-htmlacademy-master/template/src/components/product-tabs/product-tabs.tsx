@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import { getCamera } from '../../store/data-process/selector';
 import { AppRoute, Tabs } from '../../const';
-import { Navigate, Outlet, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../spinner/spinner';
 
 
@@ -10,8 +10,14 @@ function ProductTabs(): JSX.Element {
 
   const camera = useAppSelector(getCamera);
   const navigate = useNavigate();
-  const [tab, setTab] = useState(Tabs.Parameters);
   const { id } = useParams();
+  const { pathname } = useLocation();
+  const urlPathname = pathname.split('/');
+  console.log(urlPathname[urlPathname.length - 1]);
+  const [tab, setTab] = useState((urlPathname[urlPathname.length - 1] === id
+    || urlPathname[urlPathname.length - 1] === AppRoute.Parameters)
+    ? Tabs.Parameters
+    : Tabs.Description);
 
   const handlerParametersTabClick = () => {
     setTab(Tabs.Parameters);
