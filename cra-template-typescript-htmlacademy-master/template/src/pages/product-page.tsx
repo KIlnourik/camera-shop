@@ -6,22 +6,27 @@ import ProductReview from '../components/product-review/product-review';
 import SimilarProducts from '../components/similar-products/similar-products';
 import Spinner from '../components/spinner/spinner';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { fetchCameraAction } from '../store/api-actions';
-import { getCameraLoadingStatus, getCamera } from '../store/data-process/selector';
+import { fetchCameraAction, fetchSimilarCamerasAction } from '../store/api-actions';
+import { getCameraLoadingStatus, getCamera, getSimilarCameras, getSimilarCamerasLoadingStatus } from '../store/data-process/selector';
 
 function ProductPage(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const camera = useAppSelector(getCamera);
+  const similarCameras = useAppSelector(getSimilarCameras);
   const isCameraLoading = useAppSelector(getCameraLoadingStatus);
+  const isSimilarCamerasLoading = useAppSelector(getSimilarCamerasLoadingStatus);
+
 
   useEffect(() => {
-    if (id && !isCameraLoading) {
+    if (id && !isCameraLoading && !isSimilarCamerasLoading) {
       dispatch(fetchCameraAction(id));
+      dispatch(fetchSimilarCamerasAction(id));
     }
   }, [dispatch, id]);
 
-  if (isCameraLoading || !camera) {
+  console.log(similarCameras);
+  if (isCameraLoading || isSimilarCamerasLoading || !camera) {
     return <Spinner />;
   }
 

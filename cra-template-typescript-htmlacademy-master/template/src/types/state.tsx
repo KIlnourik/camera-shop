@@ -9,9 +9,11 @@ export type DataProcess = {
   cameras: Camera[];
   promo: Promo | undefined;
   camera: Camera | undefined;
+  similarCameras: Camera[];
   isCamerasLoading: boolean;
   isPromoLoading: boolean;
   isCameraLoading: boolean;
+  isSimilarCamerasLoading: boolean;
 }
 
 export type UserProcess = {

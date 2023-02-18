@@ -9,3 +9,5 @@ export const getPromo = (state: State): Promo | undefined => state[NameSpace.Dat
 export const getPromoLoadingStatus = (state: State): boolean => state[NameSpace.Data].isPromoLoading;
 export const getCamera = (state: State): Camera | undefined=> state[NameSpace.Data].camera;
 export const getCameraLoadingStatus = (state: State): boolean => state[NameSpace.Data].isCameraLoading;
+export const getSimilarCameras = (state: State): Camera[] => state[NameSpace.Data].similarCameras;
+export const getSimilarCamerasLoadingStatus = (state: State): boolean => state[NameSpace.Data].isSimilarCamerasLoading;
