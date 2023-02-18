@@ -4,12 +4,13 @@ import CatalogCards from '../components/catalog-cards/catalog-cards';
 import CatalogFilter from '../components/catalog-filter/catalog-filter';
 import CatalogPagination from '../components/catalog-pagination/catalog-pagination';
 import CatalogSortForm from '../components/catalog-sort-form/catalog-sort-form';
-import { useAppDispatch, useAppSelector } from '../hooks';
+import { useAppDispatch } from '../hooks';
 import { useEffect, useState } from 'react';
 import { fetchCamerasAction, fetchPromoAction } from '../store/api-actions';
 import { MAX_CARDS_PER_PAGE } from '../const';
 import { Camera } from '../types/camera';
 import AddItemPopup from '../components/add-item-popup/add-item-popup';
+import { useParams } from 'react-router-dom';
 
 function CatalogPage(): JSX.Element {
   useEffect(() => {
@@ -18,29 +19,30 @@ function CatalogPage(): JSX.Element {
   });
 
   const dispatch = useAppDispatch();
-  const [chosenPage, setPage] = useState(1);
-  const [offset, setOffset] = useState(0);
+  const {page} = useParams();
+  const pageNumber = Number(page?.split('_')[1]);
+  const [chosenPage, setChosenPage] = useState(page ? pageNumber : 1);
+  const [offset, setOffset] = useState(page ? ((pageNumber - 1) * MAX_CARDS_PER_PAGE) : 0);
   const [isActivePopup, setActivePopup] = useState(false);
   const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
-  const handlePageButtonClick = (currentPage: number, chosenPage: number) => {
 
+  const handlePageButtonClick = (currentPage: number, chosenPage: number) => {
     if (currentPage !== chosenPage) {
       setOffset((chosenPage - 1) * MAX_CARDS_PER_PAGE);
-      setPage(chosenPage);
+      setChosenPage(chosenPage)
     } else {
       setOffset(offset);
-      setPage(currentPage);
     }
   };
 
   const handleBackButtonClick = (currentPage: number) => {
     setOffset((currentPage - 2) * MAX_CARDS_PER_PAGE);
-    setPage(currentPage - 1);
+    setChosenPage(currentPage - 1);
   };
 
   const handleNextButtonClick = (currentPage: number) => {
     setOffset(currentPage * MAX_CARDS_PER_PAGE);
-    setPage(currentPage + 1);
+    setChosenPage(currentPage + 1);
   };
 
   const handleBuyButtonClick = (camera: Camera) => {
