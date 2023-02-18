@@ -25,8 +25,6 @@ function ProductPage(): JSX.Element {
     return <Spinner />;
   }
 
-  console.log(camera);
-
   return (
     <>
       <main>

@@ -4,7 +4,7 @@ import { Camera } from '../../types/camera';
 
 type Props = {
   isProductPage?: boolean;
-  camera?: Camera
+  camera?: Camera;
 };
 
 function Breadcrumbs({ isProductPage, camera }: Props): JSX.Element {
@@ -30,7 +30,7 @@ function Breadcrumbs({ isProductPage, camera }: Props): JSX.Element {
             </li>
             :
             <li className="breadcrumbs__item">
-              <Link className="breadcrumbs__link" to={AppRoute.Pages}>Каталог
+              <Link className="breadcrumbs__link" to={`${AppRoute.Catalog}`}>Каталог
                 <svg width="5" height="8" aria-hidden="true">
                   <use xlinkHref="#icon-arrow-mini"></use>
                 </svg>

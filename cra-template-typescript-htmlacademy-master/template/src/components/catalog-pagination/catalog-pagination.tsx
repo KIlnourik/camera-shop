@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AppRoute, MAX_CARDS_PER_PAGE } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getCameras } from '../../store/data-process/selector';
@@ -7,15 +7,14 @@ type Props = {
   handlePageButtonClick(currentPage: number, page: number): void;
   handleBackButtonClick(currentPage: number): void;
   handleNextButtonClick(currentPage: number): void;
+  chosenPage: number;
 };
 
-function CatalogPagination({ handlePageButtonClick, handleBackButtonClick, handleNextButtonClick }: Props): JSX.Element {
+function CatalogPagination({ handlePageButtonClick, handleBackButtonClick, handleNextButtonClick, chosenPage }: Props): JSX.Element {
   const cameras = useAppSelector(getCameras);
   const summaryPages = Math.ceil(cameras.length / MAX_CARDS_PER_PAGE);
   const pagesList = Array.from({ length: summaryPages }, (v, k) => k);
-
-  const { page } = useParams();
-  const currentPage = Number(page?.split('_')[1]);
+  const currentPage = chosenPage;
 
   return (
     <div className="pagination">

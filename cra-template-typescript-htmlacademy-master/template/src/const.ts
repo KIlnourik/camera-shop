@@ -1,8 +1,10 @@
 export enum AppRoute {
   Catalog = '/catalog',
-  Pages = '/catalog/:page',
-  Product = '/catalog/cameras/:id',
-  Basket = '/catalog/basket',
+  Pages = ':page?',
+  Product = 'cameras/:id',
+  Parameters = 'parameters',
+  Description = 'desc',
+  Basket = 'basket',
 };
 
 export const BACKEND_URL = 'https://camera-shop.accelerator.pages.academy/';

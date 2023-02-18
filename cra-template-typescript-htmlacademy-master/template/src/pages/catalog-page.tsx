@@ -18,7 +18,7 @@ function CatalogPage(): JSX.Element {
   });
 
   const dispatch = useAppDispatch();
-  const [page, setPage] = useState(1);
+  const [chosenPage, setPage] = useState(1);
   const [offset, setOffset] = useState(0);
   const [isActivePopup, setActivePopup] = useState(false);
   const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
@@ -69,8 +69,8 @@ function CatalogPage(): JSX.Element {
                   handlePageButtonClick={handlePageButtonClick}
                   handleBackButtonClick={handleBackButtonClick}
                   handleNextButtonClick={handleNextButtonClick}
+                  chosenPage={chosenPage}
                 />
-
               </div>
             </div>
           </div>
