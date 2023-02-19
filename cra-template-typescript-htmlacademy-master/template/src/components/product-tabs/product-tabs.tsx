@@ -5,7 +5,6 @@ import { AppRoute, Tabs } from '../../const';
 import { Navigate, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../spinner/spinner';
 
-
 function ProductTabs(): JSX.Element {
 
   const camera = useAppSelector(getCamera);
@@ -13,11 +12,12 @@ function ProductTabs(): JSX.Element {
   const { id } = useParams();
   const { pathname } = useLocation();
   const urlPathname = pathname.split('/');
-  console.log(urlPathname[urlPathname.length - 1]);
-  const [tab, setTab] = useState((urlPathname[urlPathname.length - 1] === id
-    || urlPathname[urlPathname.length - 1] === AppRoute.Parameters)
-    ? Tabs.Parameters
-    : Tabs.Description);
+
+  const [tab, setTab] = useState(
+    (urlPathname[urlPathname.length - 1] === id
+      || urlPathname[urlPathname.length - 1] === AppRoute.Parameters)
+      ? Tabs.Parameters
+      : Tabs.Description);
 
   const handlerParametersTabClick = () => {
     setTab(Tabs.Parameters);

@@ -1,13 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Breadcrumbs from '../components/breadcrumbs/breadcrumbs';
-import ProductInfo from '../components/product-info/product-info';
-import ProductReview from '../components/product-review/product-review';
-import SimilarProducts from '../components/similar-products/similar-products';
-import Spinner from '../components/spinner/spinner';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { fetchCameraAction, fetchSimilarCamerasAction } from '../store/api-actions';
 import { getCameraLoadingStatus, getCamera, getSimilarCameras, getSimilarCamerasLoadingStatus } from '../store/data-process/selector';
+import { Camera } from '../types/camera';
+import Breadcrumbs from '../components/breadcrumbs/breadcrumbs';
+import ProductInfo from '../components/product-info/product-info';
+import ProductReview from '../components/product-review/product-review';
+import SimilarProductsSlider from '../components/similar-products-slider/similar-products-slider';
+import Spinner from '../components/spinner/spinner';
+import AddItemPopup from '../components/add-item-popup/add-item-popup';
 
 function ProductPage(): JSX.Element {
   const { id } = useParams();
@@ -16,7 +18,15 @@ function ProductPage(): JSX.Element {
   const similarCameras = useAppSelector(getSimilarCameras);
   const isCameraLoading = useAppSelector(getCameraLoadingStatus);
   const isSimilarCamerasLoading = useAppSelector(getSimilarCamerasLoadingStatus);
+  const [isActivePopup, setActivePopup] = useState(false);
 
+  const handleBuyButtonClick = (camera: Camera) => {
+    setActivePopup(!isActivePopup);
+  }
+
+  const handleCloseButtonPopup = () => {
+    setActivePopup(!isActivePopup);
+  }
 
   useEffect(() => {
     if (id && !isCameraLoading && !isSimilarCamerasLoading) {
@@ -25,7 +35,6 @@ function ProductPage(): JSX.Element {
     }
   }, [dispatch, id]);
 
-  console.log(similarCameras);
   if (isCameraLoading || isSimilarCamerasLoading || !camera) {
     return <Spinner />;
   }
@@ -36,15 +45,16 @@ function ProductPage(): JSX.Element {
         <div className="page-content">
           <Breadcrumbs isProductPage camera={camera} />
           <div className="page-content__section">
-            <ProductInfo />
+            <ProductInfo handleBuyButtonClick={handleBuyButtonClick}/>
           </div>
           <div className="page-content__section">
-            <SimilarProducts />
+            <SimilarProductsSlider />
           </div>
           <div className="page-content__section">
             <ProductReview />
           </div>
         </div>
+        {isActivePopup && <AddItemPopup camera={camera} handleCloseButtonPopup={handleCloseButtonPopup} />}
       </main>
       <a className="up-btn" href="#header">
         <svg width="12" height="18" aria-hidden="true">

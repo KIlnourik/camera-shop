@@ -1,6 +1,7 @@
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
+import { getCameraTitle } from '../../utils/utils';
 
 type Props = {
   isProductPage?: boolean;

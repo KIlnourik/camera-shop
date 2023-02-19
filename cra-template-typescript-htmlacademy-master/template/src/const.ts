@@ -35,3 +35,5 @@ export enum Tabs {
   Parameters = 'Характеристики',
   Description = 'Описание'
 };
+
+export const MAX_SHOWN_SLIDER_CARDS = 3;
