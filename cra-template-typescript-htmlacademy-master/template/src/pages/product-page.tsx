@@ -15,13 +15,14 @@ function ProductPage(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const camera = useAppSelector(getCamera);
-  const similarCameras = useAppSelector(getSimilarCameras);
+  const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
   const isCameraLoading = useAppSelector(getCameraLoadingStatus);
   const isSimilarCamerasLoading = useAppSelector(getSimilarCamerasLoadingStatus);
   const [isActivePopup, setActivePopup] = useState(false);
 
   const handleBuyButtonClick = (camera: Camera) => {
     setActivePopup(!isActivePopup);
+    setChosenCamera(camera);
   }
 
   const handleCloseButtonPopup = () => {
@@ -48,13 +49,13 @@ function ProductPage(): JSX.Element {
             <ProductInfo handleBuyButtonClick={handleBuyButtonClick}/>
           </div>
           <div className="page-content__section">
-            <SimilarProductsSlider />
+            <SimilarProductsSlider handleBuyButtonClick={handleBuyButtonClick}/>
           </div>
           <div className="page-content__section">
             <ProductReview />
           </div>
         </div>
-        {isActivePopup && <AddItemPopup camera={camera} handleCloseButtonPopup={handleCloseButtonPopup} />}
+        {isActivePopup && <AddItemPopup camera={chosenCamera} handleCloseButtonPopup={handleCloseButtonPopup} />}
       </main>
       <a className="up-btn" href="#header">
         <svg width="12" height="18" aria-hidden="true">

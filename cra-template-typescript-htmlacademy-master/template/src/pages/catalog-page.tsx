@@ -1,16 +1,16 @@
+import { useAppDispatch } from '../hooks';
+import { useEffect, useState } from 'react';
+import { fetchCamerasAction, fetchPromoAction } from '../store/api-actions';
+import { MAX_CARDS_PER_PAGE } from '../const';
+import { Camera } from '../types/camera';
+import { useParams } from 'react-router-dom';
 import Banner from '../components/banner/banner';
 import Breadcrumbs from '../components/breadcrumbs/breadcrumbs';
 import CatalogCards from '../components/catalog-cards/catalog-cards';
 import CatalogFilter from '../components/catalog-filter/catalog-filter';
 import CatalogPagination from '../components/catalog-pagination/catalog-pagination';
 import CatalogSortForm from '../components/catalog-sort-form/catalog-sort-form';
-import { useAppDispatch } from '../hooks';
-import { useEffect, useState } from 'react';
-import { fetchCamerasAction, fetchPromoAction } from '../store/api-actions';
-import { MAX_CARDS_PER_PAGE } from '../const';
-import { Camera } from '../types/camera';
 import AddItemPopup from '../components/add-item-popup/add-item-popup';
-import { useParams } from 'react-router-dom';
 
 function CatalogPage(): JSX.Element {
   useEffect(() => {

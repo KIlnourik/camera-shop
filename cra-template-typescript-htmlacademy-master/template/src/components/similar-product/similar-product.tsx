@@ -7,9 +7,10 @@ import Rating from '../rating/rating';
 
 type Props = {
   similarCamera: Camera,
+  handleBuyButtonClick(camera: Camera): void,
 }
 
-function SimilarProduct({ similarCamera }: Props): JSX.Element {
+function SimilarProduct({ similarCamera, handleBuyButtonClick }: Props): JSX.Element {
   return (
     <div className="product-card is-active">
       <div className="product-card__img">
@@ -29,7 +30,7 @@ function SimilarProduct({ similarCamera }: Props): JSX.Element {
         </p>
       </div>
       <div className="product-card__buttons">
-        <button className="btn btn--purple product-card__btn" type="button">Купить
+        <button className="btn btn--purple product-card__btn" type="button" onClick={() => handleBuyButtonClick(similarCamera)}>Купить
         </button>
         <Link className="btn btn--transparent" to={`${AppRoute.Catalog}/cameras/${similarCamera.id}/${AppRoute.Parameters}`}>Подробнее
         </Link>
