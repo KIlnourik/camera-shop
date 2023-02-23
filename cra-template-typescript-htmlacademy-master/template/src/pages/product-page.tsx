@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { fetchCameraAction, fetchSimilarCamerasAction } from '../store/api-actions';
-import { getCameraLoadingStatus, getCamera, getSimilarCameras, getSimilarCamerasLoadingStatus } from '../store/data-process/selector';
+import { fetchCameraAction, fetchReviewsAction, fetchSimilarCamerasAction } from '../store/api-actions';
+import { getCameraLoadingStatus, getCamera, getSimilarCameras, getSimilarCamerasLoadingStatus, getReviewsLoadingStatus } from '../store/data-process/selector';
 import { Camera } from '../types/camera';
 import Breadcrumbs from '../components/breadcrumbs/breadcrumbs';
 import ProductInfo from '../components/product-info/product-info';
@@ -18,6 +18,7 @@ function ProductPage(): JSX.Element {
   const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
   const isCameraLoading = useAppSelector(getCameraLoadingStatus);
   const isSimilarCamerasLoading = useAppSelector(getSimilarCamerasLoadingStatus);
+  const isReviewsLoading = useAppSelector(getReviewsLoadingStatus);
   const [isActivePopup, setActivePopup] = useState(false);
 
   const handleBuyButtonClick = (camera: Camera) => {
@@ -30,13 +31,14 @@ function ProductPage(): JSX.Element {
   }
 
   useEffect(() => {
-    if (id && !isCameraLoading && !isSimilarCamerasLoading) {
+    if (id && !isCameraLoading && !isSimilarCamerasLoading && !isReviewsLoading) {
       dispatch(fetchCameraAction(id));
       dispatch(fetchSimilarCamerasAction(id));
+      dispatch(fetchReviewsAction(id));
     }
   }, [dispatch, id]);
 
-  if (isCameraLoading || isSimilarCamerasLoading || !camera) {
+  if (isCameraLoading || isSimilarCamerasLoading || isReviewsLoading || !camera) {
     return <Spinner />;
   }
 

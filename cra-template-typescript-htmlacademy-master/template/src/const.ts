@@ -37,3 +37,5 @@ export enum Tabs {
 };
 
 export const MAX_SHOWN_SLIDER_CARDS = 3;
+
+export const MAX_REVIEWS_COUNT = 3;
