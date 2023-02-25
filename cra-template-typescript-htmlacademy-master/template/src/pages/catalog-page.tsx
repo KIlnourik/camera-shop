@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../hooks';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, KeyboardEvent } from 'react';
 import { fetchCamerasAction, fetchPromoAction } from '../store/api-actions';
 import { MAX_CARDS_PER_PAGE } from '../const';
 import { Camera } from '../types/camera';
@@ -19,7 +19,7 @@ function CatalogPage(): JSX.Element {
   });
 
   const dispatch = useAppDispatch();
-  const {page} = useParams();
+  const { page } = useParams();
   const pageNumber = Number(page?.split('_')[1]);
   const [chosenPage, setChosenPage] = useState(page ? pageNumber : 1);
   const [offset, setOffset] = useState(page ? ((pageNumber - 1) * MAX_CARDS_PER_PAGE) : 0);
@@ -50,14 +50,20 @@ function CatalogPage(): JSX.Element {
     setChosenCamera(camera);
   }
 
-  const handleCloseButtonPopup = () => {
+  const handleClosePopup = () => {
     setActivePopup(!isActivePopup);
   }
+
+  const handleEscKeydown = (evt: KeyboardEvent) => {
+    if (evt.key === 'Escape' || evt.key === 'Esc') {
+      setActivePopup(!isActivePopup);
+    }
+  };
 
   return (
     <main>
       <Banner />
-      <div className="page-content">
+      <div className="page-content" onKeyDown={handleEscKeydown}>
         <Breadcrumbs />
         <section className="catalog">
           <div className="container">
@@ -78,7 +84,11 @@ function CatalogPage(): JSX.Element {
           </div>
         </section>
       </div>
-      {isActivePopup && <AddItemPopup camera={chosenCamera} handleCloseButtonPopup={handleCloseButtonPopup} />}
+      {isActivePopup &&
+        <AddItemPopup
+          camera={chosenCamera}
+          handleClosePopup={handleClosePopup}
+          handleEscKeydown={handleEscKeydown} />}
     </main>
   );
 }

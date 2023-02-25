@@ -4,7 +4,11 @@ import { useAppSelector } from '../../hooks';
 import { getReviews } from '../../store/data-process/selector';
 import ProductReviewsList from '../product-reviews-list/product-reviews-list';
 
-function ProductReview(): JSX.Element {
+type Props = {
+  handleLeaveReviewBtnClick(): void;
+}
+
+function ProductReview({handleLeaveReviewBtnClick}: Props): JSX.Element {
 
   const [reviewOffset, setReviewOffset] = useState(MAX_REVIEWS_COUNT);
   const reviews = useAppSelector(getReviews);
@@ -17,7 +21,7 @@ function ProductReview(): JSX.Element {
       <div className="container">
         <div className="page-content__headed">
           <h2 className="title title--h3">Отзывы</h2>
-          <button className="btn" type="button">Оставить свой отзыв</button>
+          <button className="btn" type="button" onClick={handleLeaveReviewBtnClick}>Оставить свой отзыв</button>
         </div>
         <ProductReviewsList reviewOffset={reviewOffset} />
         <div className="review-block__buttons">

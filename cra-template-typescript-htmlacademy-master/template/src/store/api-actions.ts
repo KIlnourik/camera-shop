@@ -5,6 +5,7 @@ import { AppDispatch, State } from '../types/state';
 import { Camera } from '../types/camera';
 import { Promo } from '../types/promo';
 import { Review } from '../types/review';
+import { ReviewPost } from '../types/review-post';
 
 export const fetchCamerasAction = createAsyncThunk<Camera[], undefined, {
   dispatch: AppDispatch;
@@ -65,3 +66,16 @@ export const fetchReviewsAction = createAsyncThunk<Review[], string, {
     return data;
   }
 );
+
+export const sendReviewAction = createAsyncThunk<void, ReviewPost, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/postReview',
+  async ({cameraId, ...data}, {dispatch, extra: api}) => {
+    await api.post<ReviewPost>(`${APIRoute.Reviews}`, {cameraId, ...data});
+    dispatch(fetchReviewsAction(String(cameraId)));
+  }
+);
+
