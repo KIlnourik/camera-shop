@@ -10,3 +10,12 @@ export const getPrice = (price: number): string => {
   const slicedThousandPrice = price.toString().slice(0, -3);
   return `${slicedThousandPrice} ${slicedHundredPrice}`;
 };
+
+export function getRatingValues(maxRating: number): number[] {
+  const ratingArray: number[] = [];
+  for (let i = 1; i <= maxRating; i++) {
+    ratingArray.push(i);
+  }
+  return ratingArray.reverse();
+}
+

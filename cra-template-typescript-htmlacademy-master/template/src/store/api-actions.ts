@@ -4,6 +4,8 @@ import { APIRoute } from '../const';
 import { AppDispatch, State } from '../types/state';
 import { Camera } from '../types/camera';
 import { Promo } from '../types/promo';
+import { Review } from '../types/review';
+import { ReviewPost } from '../types/review-post';
 
 export const fetchCamerasAction = createAsyncThunk<Camera[], undefined, {
   dispatch: AppDispatch;
@@ -27,5 +29,53 @@ export const fetchPromoAction = createAsyncThunk<Promo, undefined, {
     const { data } = await api.get<Promo>(APIRoute.Promo);
     return data;
   },
+);
+
+export const fetchCameraAction = createAsyncThunk<Camera, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchCamera',
+  async (cameraId, { dispatch, extra: api }) => {
+    const { data } = await api.get<Camera>(`${APIRoute.Cameras}/${cameraId}`);
+    return data;
+  }
+);
+
+export const fetchSimilarCamerasAction = createAsyncThunk<Camera[], string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchSimilarCameras',
+  async (cameraId, { dispatch, extra: api }) => {
+    const { data } = await api.get<Camera[]>(`${APIRoute.Cameras}/${cameraId}${APIRoute.Similar}`);
+    return data;
+  }
+);
+
+export const fetchReviewsAction = createAsyncThunk<Review[], string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchReviews',
+  async (cameraId, { dispatch, extra: api }) => {
+    const { data } = await api.get<Review[]>(`${APIRoute.Cameras}/${cameraId}${APIRoute.Reviews}`);
+    return data;
+  }
+);
+
+export const sendReviewAction = createAsyncThunk<void, ReviewPost, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/postReview',
+  async ({cameraId, ...data}, {dispatch, extra: api}) => {
+    await api.post<ReviewPost>(`${APIRoute.Reviews}`, {cameraId, ...data});
+    dispatch(fetchReviewsAction(String(cameraId)));
+  }
 );
 
