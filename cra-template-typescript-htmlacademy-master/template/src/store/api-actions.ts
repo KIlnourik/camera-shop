@@ -1,4 +1,4 @@
-import { AxiosInstance } from 'axios';
+import { AxiosInstance, AxiosResponse } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { APIRoute } from '../const';
 import { AppDispatch, State } from '../types/state';
@@ -6,6 +6,7 @@ import { Camera } from '../types/camera';
 import { Promo } from '../types/promo';
 import { Review } from '../types/review';
 import { ReviewPost } from '../types/review-post';
+import { StatusCodes } from 'http-status-codes';
 
 export const fetchCamerasAction = createAsyncThunk<Camera[], undefined, {
   dispatch: AppDispatch;
@@ -73,10 +74,14 @@ export const sendReviewAction = createAsyncThunk<boolean, ReviewPost, {
   extra: AxiosInstance;
 }>(
   'data/postReview',
-  async ({cameraId, ...data}, {dispatch, extra: api}) => {
-    await api.post<ReviewPost>(`${APIRoute.Reviews}`, {cameraId, ...data});
+  async ({ cameraId, ...data }, { dispatch, extra: api }) => {
+    const response = await api.post<ReviewPost>(`${APIRoute.Reviews}`, { cameraId, ...data });
     dispatch(fetchReviewsAction(String(cameraId)));
-    return true;
+    if (response.status === StatusCodes.CREATED) {
+      return true;
+    } else {
+      return false;
+    }
   }
 );
 

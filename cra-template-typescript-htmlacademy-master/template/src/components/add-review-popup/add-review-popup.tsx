@@ -35,11 +35,13 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
 
   const onSubmit: SubmitHandler<ReviewPost> = data => {
     dispatch(sendReviewAction({ ...data, rating: adoptedRating, cameraId: Number(id) }));
-    if (isReviewSent) {
-      handleClosePopup();
-      handleSuccessPopupOpen();
-    }
   };
+
+  console.log(isReviewSent);
+  if (isReviewSent) {
+    handleClosePopup();
+    handleSuccessPopupOpen();
+  }
 
   return (
     <ReactRemoveScroll >
