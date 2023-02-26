@@ -14,3 +14,4 @@ export const getSimilarCameras = (state: State): Camera[] => state[NameSpace.Dat
 export const getSimilarCamerasLoadingStatus = (state: State): boolean => state[NameSpace.Data].isSimilarCamerasLoading;
 export const getReviews = (state: State): Review[] => state[NameSpace.Data].reviews;
 export const getReviewsLoadingStatus = (state: State): boolean => state[NameSpace.Data].isReviewsLoading;
+export const getReviewSendingStatus = (state: State): boolean => state[NameSpace.Data].isReviewSent;

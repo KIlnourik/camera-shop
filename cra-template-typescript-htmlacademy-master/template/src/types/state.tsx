@@ -17,13 +17,5 @@ export type DataProcess = {
   isCameraLoading: boolean;
   isSimilarCamerasLoading: boolean;
   isReviewsLoading: boolean;
-}
-
-export type UserProcess = {
-  // userReview: UserReview;
-}
-
-export type CatalogProcess = {
-  theme: string;
-  level: string;
+  isReviewSent: boolean;
 }

@@ -7,7 +7,8 @@ import {
   getCameraLoadingStatus,
   getCamera,
   getSimilarCamerasLoadingStatus,
-  getReviewsLoadingStatus
+  getReviewsLoadingStatus,
+  getReviewSendingStatus
 } from '../../store/data-process/selector';
 import { Camera } from '../../types/camera';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
@@ -25,10 +26,11 @@ function ProductPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const camera = useAppSelector(getCamera);
   const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
+  const [activePopup, setActivePopup] = useState<string | undefined>(undefined);
   const isCameraLoading = useAppSelector(getCameraLoadingStatus);
   const isSimilarCamerasLoading = useAppSelector(getSimilarCamerasLoadingStatus);
   const isReviewsLoading = useAppSelector(getReviewsLoadingStatus);
-  const [activePopup, setActivePopup] = useState<string | undefined>(undefined);
+  const isReviewSent = useAppSelector(getReviewSendingStatus);
 
   const handleBuyButtonClick = (camera: Camera) => {
     setActivePopup(Popup.BasketPopup);
@@ -50,7 +52,7 @@ function ProductPage(): JSX.Element {
   };
 
   const handleSuccessPopupOpen = () => {
-    setActivePopup(Popup.ReviewSuccessPopup);
+      setActivePopup(Popup.ReviewSuccessPopup);
   };
 
   useEffect(() => {
