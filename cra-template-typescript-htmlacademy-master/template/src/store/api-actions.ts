@@ -75,7 +75,7 @@ export const sendReviewAction = createAsyncThunk<boolean, ReviewPost, {
 }>(
   'data/postReview',
   async ({ cameraId, ...data }, { dispatch, extra: api }) => {
-    const response = await api.post<ReviewPost>(`${APIRoute.Reviews}`, { cameraId, ...data });
+    const response = await api.post<ReviewPost>(APIRoute.Reviews, { cameraId, ...data });
     dispatch(fetchReviewsAction(String(cameraId)));
     if (response.status === StatusCodes.CREATED) {
       return true;

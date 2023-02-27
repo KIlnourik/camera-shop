@@ -19,7 +19,9 @@ export const makeFakeCameraInfo = (): Camera => ({
   previewImgWebp: image.imageUrl(),
   previewImgWebp2x: image.imageUrl(),
   reviewCount: datatype.number({ min: 0, max: 50 })
-});
+} as Camera);
+
+export const makeFakeCameraList = (): Camera[] => (new Array(35).fill(null).map(() => makeFakeCameraInfo()) as Camera[]);
 
 export const makeFakeReview = (): Review => ({
   id: random.alphaNumeric(),
@@ -30,7 +32,9 @@ export const makeFakeReview = (): Review => ({
   rating: datatype.number({ min: 0, max: 5 }),
   createAt: String(date.past()),
   cameraId: Number(datatype.uuid()),
-});
+} as Review);
+
+export const makeFakeReviewList = (): Review[] => (new Array(9).fill(null).map(() => makeFakeReview()) as Review[]);
 
 export const makeFakeUserReview = (): ReviewPost => ({
   cameraId: Number(datatype.uuid()),
@@ -39,7 +43,7 @@ export const makeFakeUserReview = (): ReviewPost => ({
   disadvantage: random.word(),
   review: random.words(),
   rating: datatype.number({ min: 0, max: 5 }),
-});
+} as ReviewPost);
 
 export const makeFakePromo = (): Promo => ({
   id: Number(datatype.uuid()),
@@ -48,5 +52,5 @@ export const makeFakePromo = (): Promo => ({
   previewImg2x: image.imageUrl(),
   previewImgWebp: image.imageUrl(),
   previewImgWebp2x: image.imageUrl(),
-});
+} as Promo);
 
