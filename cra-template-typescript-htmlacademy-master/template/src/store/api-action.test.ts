@@ -124,7 +124,7 @@ describe('Async actions', () => {
     ]);
   });
 
-  it('should dispatch SendReview POST /reviews', async () => {
+  it('should dispatch SendReview and Load_Reviews when POST /reviews', async () => {
 
     const fakeReview: ReviewPost = {...makeFakeUserReview()};
 
