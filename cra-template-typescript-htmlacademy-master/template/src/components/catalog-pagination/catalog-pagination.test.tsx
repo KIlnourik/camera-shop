@@ -41,4 +41,25 @@ describe('Component: CatalogPagination', () => {
 
     expect(screen.getByText(/Далее/i)).toBeInTheDocument();
   })
+
+  it('should change to next page when user click on next page button', async () => {
+    const handlePageButtonClick = jest.fn()
+    const handleBackButtonClick = jest.fn()
+    const handleNextButtonClick = jest.fn()
+
+    render(
+      <Provider store={store} >
+        <HistoryRouter history={history} >
+          <CatalogPagination
+            handlePageButtonClick={handlePageButtonClick}
+            handleBackButtonClick={handleBackButtonClick}
+            handleNextButtonClick={handleNextButtonClick}
+            chosenPage={8} />
+        </HistoryRouter>
+      </Provider>);
+
+    await userEvent.click(screen.getByText('Далее'));
+
+    expect(handleNextButtonClick).toBeCalled();
+  })
 });

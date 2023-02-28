@@ -8,7 +8,6 @@ import {
   getCamera,
   getSimilarCamerasLoadingStatus,
   getReviewsLoadingStatus,
-  getReviewSendingStatus
 } from '../../store/data-process/selector';
 import { Camera } from '../../types/camera';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
@@ -30,7 +29,6 @@ function ProductPage(): JSX.Element {
   const isCameraLoading = useAppSelector(getCameraLoadingStatus);
   const isSimilarCamerasLoading = useAppSelector(getSimilarCamerasLoadingStatus);
   const isReviewsLoading = useAppSelector(getReviewsLoadingStatus);
-  const isReviewSent = useAppSelector(getReviewSendingStatus);
 
   const handleBuyButtonClick = (camera: Camera) => {
     setActivePopup(Popup.BasketPopup);
@@ -74,7 +72,7 @@ function ProductPage(): JSX.Element {
   return (
     <>
       <main>
-        <div className="page-content" onKeyDown={handleEscKeydown}>
+        <div className="page-content" onKeyDown={handleEscKeydown} data-testid="page-content">
           <Breadcrumbs isProductPage camera={camera} />
           <div className="page-content__section">
             <ProductInfo handleBuyButtonClick={handleBuyButtonClick} />

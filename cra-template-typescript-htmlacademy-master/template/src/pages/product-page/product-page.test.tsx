@@ -1,9 +1,13 @@
-import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { createMemoryHistory } from 'history';
 import { makeFakeCameraInfo, makeFakeCameraList, makeFakePromo, makeFakeReviewList } from '../../utils/mocks';
-import ProductParametersTab from './product-parameters-tab';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import userEvent from '@testing-library/user-event';
+import HistoryRouter from '../../components/history-route/history-route';
+import ProductPage from './product-page';
+import { Provider } from 'react-redux';
 
+const history = createMemoryHistory();
 
 const mockStore = configureMockStore();
 const store = mockStore({
@@ -22,18 +26,17 @@ const store = mockStore({
   }
 });
 
-describe('Component: ProductParametersTab', () => {
-
+describe('Component: ProductPage', () => {
   it('should render correctly', () => {
     render(
       <Provider store={store} >
-        <ProductParametersTab />
-      </Provider>);
+        <HistoryRouter history={history} >
+          <ProductPage />
+        </HistoryRouter>
+      </Provider>
+    );
 
-    expect(screen.getByText(/Артикул:/i)).toBeInTheDocument();
-    expect(screen.getByText(/Категория:/i)).toBeInTheDocument();
-    expect(screen.getByText(/Тип камеры:/i)).toBeInTheDocument();
-    expect(screen.getByText(/Уровень:/i)).toBeInTheDocument();
+    expect(screen.getByTestId('page-content')).toBeInTheDocument();
   })
 
-})
+});

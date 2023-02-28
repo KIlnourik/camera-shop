@@ -1,9 +1,10 @@
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { makeFakeCameraInfo, makeFakeCameraList, makeFakePromo, makeFakeReviewList } from '../../utils/mocks';
-import ProductParametersTab from './product-parameters-tab';
-
+import HistoryRouter from '../../components/history-route/history-route';
+import CatalogPage from './catalog-page';
 
 const mockStore = configureMockStore();
 const store = mockStore({
@@ -22,18 +23,17 @@ const store = mockStore({
   }
 });
 
-describe('Component: ProductParametersTab', () => {
+const history = createMemoryHistory();
 
+describe('Component: CatalogPagination', () => {
   it('should render correctly', () => {
     render(
       <Provider store={store} >
-        <ProductParametersTab />
-      </Provider>);
+        <HistoryRouter history={history} >
+          <CatalogPage/>
+        </HistoryRouter>
+      </Provider>)
 
-    expect(screen.getByText(/Артикул:/i)).toBeInTheDocument();
-    expect(screen.getByText(/Категория:/i)).toBeInTheDocument();
-    expect(screen.getByText(/Тип камеры:/i)).toBeInTheDocument();
-    expect(screen.getByText(/Уровень:/i)).toBeInTheDocument();
+    expect(screen.getByText(/Каталог фото- и видеотехники/i)).toBeInTheDocument();
   })
-
-})
+});

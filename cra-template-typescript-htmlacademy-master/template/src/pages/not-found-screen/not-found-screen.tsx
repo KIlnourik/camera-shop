@@ -4,7 +4,7 @@ import '../not-found-screen/not-found-screen.css';
 
 function NotFoundScreen(): JSX.Element {
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper" data-testid="page-content">
       <img className="" src="/img/content/gif/travolta-gif.gif" alt="Растерянный Траволта" />
       <div className="text-wrapper">
         <h1 className="title title--h1">
