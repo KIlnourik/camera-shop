@@ -21,7 +21,7 @@ const initialState: DataProcess = {
   isCameraLoading: false,
   isSimilarCamerasLoading: false,
   isReviewsLoading: false,
-  isReviewSent: false,
+  isReviewSent: undefined,
 };
 
 export const dataProcess = createSlice({
@@ -67,6 +67,9 @@ export const dataProcess = createSlice({
       })
       .addCase(sendReviewAction.fulfilled, (state, action) => {
         state.isReviewSent = action.payload;
+      })
+      .addCase(sendReviewAction.pending, (state, action) => {
+        state.isReviewSent = false;
       })
       ;
   }

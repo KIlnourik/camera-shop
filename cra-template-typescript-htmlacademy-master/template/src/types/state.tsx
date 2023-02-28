@@ -17,5 +17,5 @@ export type DataProcess = {
   isCameraLoading: boolean;
   isSimilarCamerasLoading: boolean;
   isReviewsLoading: boolean;
-  isReviewSent: boolean;
+  isReviewSent: boolean | undefined;
 }

@@ -1,6 +1,4 @@
-import { useAppDispatch } from '../../hooks';
-import { useEffect, useState, KeyboardEvent } from 'react';
-import { fetchCamerasAction, fetchPromoAction } from '../../store/api-actions';
+import { useState, KeyboardEvent } from 'react';
 import { MAX_CARDS_PER_PAGE } from '../../const';
 import { Camera } from '../../types/camera';
 import { useParams } from 'react-router-dom';
@@ -13,12 +11,6 @@ import CatalogSortForm from '../../components/catalog-sort-form/catalog-sort-for
 import AddItemPopup from '../../components/add-item-popup/add-item-popup';
 
 function CatalogPage(): JSX.Element {
-  useEffect(() => {
-    dispatch(fetchCamerasAction());
-    dispatch(fetchPromoAction());
-  });
-
-  const dispatch = useAppDispatch();
   const { page } = useParams();
   const pageNumber = Number(page?.split('_')[1]);
   const [chosenPage, setChosenPage] = useState(page ? pageNumber : 1);

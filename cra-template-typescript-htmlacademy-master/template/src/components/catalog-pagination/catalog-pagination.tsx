@@ -34,6 +34,7 @@ function CatalogPagination({ handlePageButtonClick, handleBackButtonClick, handl
               onClick={() => handlePageButtonClick(currentPage, page + 1)}
               className={`pagination__link ${(currentPage === (page + 1)) ? 'pagination__link--active' : ''}`}
               to={`${AppRoute.Catalog}/page_${page + 1}`}
+              data-testid="page"
             >{page + 1}
             </Link>
           </li>
