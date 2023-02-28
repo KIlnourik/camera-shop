@@ -4,13 +4,15 @@ import {
   makeFakeCameraList,
   makeFakePromo,
   makeFakeReviewList,
+  makeFakeUserReview,
 } from '../../utils/mocks';
 import {
   fetchCameraAction,
   fetchCamerasAction,
   fetchPromoAction,
   fetchReviewsAction,
-  fetchSimilarCamerasAction
+  fetchSimilarCamerasAction,
+  sendReviewAction,
 } from '../api-actions';
 
 const cameras = [...makeFakeCameraList()];
@@ -18,7 +20,6 @@ const camera = makeFakeCameraInfo();
 const promo = makeFakePromo();
 const reviews = [...makeFakeReviewList()];
 const similarCameras = makeFakeCameraList();
-
 
 describe('Reducer: dataProcess', () => {
   it('without additional parameters should return initial state', () => {
@@ -34,7 +35,7 @@ describe('Reducer: dataProcess', () => {
         isCameraLoading: false,
         isSimilarCamerasLoading: false,
         isReviewsLoading: false,
-        isReviewSent: false,
+        isReviewSent: undefined,
       })
   })
 
@@ -184,6 +185,36 @@ describe('Reducer: dataProcess', () => {
         isSimilarCamerasLoading: false,
         isReviewsLoading: false,
         isReviewSent: false,
+      })
+  })
+
+  it('should send UserReview by upload review from user', () => {
+    const state = {
+      cameras: [],
+      promo: undefined,
+      camera: undefined,
+      similarCameras: [],
+      reviews: [],
+      isCamerasLoading: false,
+      isPromoLoading: false,
+      isCameraLoading: false,
+      isSimilarCamerasLoading: false,
+      isReviewsLoading: false,
+      isReviewSent: false,
+    }
+    expect((dataProcess.reducer(state, { type: sendReviewAction.fulfilled.type, payload: true})))
+      .toEqual({
+        promo: undefined,
+        isPromoLoading: false,
+        cameras: [],
+        camera: undefined,
+        similarCameras: [],
+        reviews: [],
+        isCamerasLoading: false,
+        isCameraLoading: false,
+        isSimilarCamerasLoading: false,
+        isReviewsLoading: false,
+        isReviewSent: true,
       })
   })
 });

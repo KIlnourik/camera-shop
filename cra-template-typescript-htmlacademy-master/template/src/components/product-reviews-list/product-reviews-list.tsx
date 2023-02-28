@@ -35,7 +35,7 @@ function ProductReviewsList({ reviewOffset }: Props): JSX.Element {
   const sortedReviews = [...reviews].sort(sortByDate);
 
   return (
-    <ul className="review-block__list">
+    <ul className="review-block__list" data-testid="review-list">
       {sortedReviews.slice(0, reviewOffset).map((review) => (
         <ProductReviewCard review={review} key={review.id} />
       ))}

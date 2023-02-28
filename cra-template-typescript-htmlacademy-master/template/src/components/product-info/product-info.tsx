@@ -35,7 +35,7 @@ function ProductInfo({handleBuyButtonClick}: Props): JSX.Element {
             <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{camera.reviewCount}</p>
           </div>
           <p className="product__price"><span className="visually-hidden">Цена:</span>{getPrice(camera.price)} ₽</p>
-          <button className="btn btn--purple" type="button" onClick={() => handleBuyButtonClick(camera)}>
+          <button className="btn btn--purple" type="button" data-testid="add-to-cart"onClick={() => handleBuyButtonClick(camera)}>
             <svg width="24" height="16" aria-hidden="true">
               <use xlinkHref="#icon-add-basket"></use>
             </svg>Добавить в корзину

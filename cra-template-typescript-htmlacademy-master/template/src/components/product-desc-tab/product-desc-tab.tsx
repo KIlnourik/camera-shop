@@ -10,7 +10,7 @@ function ProductDescTab(): JSX.Element {
   }
 
   return (
-    <div className="product__tabs-text">
+    <div className="product__tabs-text" data-testid="tabs-text">
       <p>{camera.description}</p>
     </div>
   );

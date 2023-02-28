@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Camera } from '../../types/camera';
-import Rating from '../rating/rating';
 import { getCameraTitle, getPrice } from '../../utils/utils';
 import { AppRoute } from '../../const';
+import Rating from '../rating/rating';
 
 type Props = {
   camera: Camera,

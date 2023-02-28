@@ -37,7 +37,6 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
     dispatch(sendReviewAction({ ...data, rating: adoptedRating, cameraId: Number(id) }));
   };
 
-  console.log(isReviewSent);
   if (isReviewSent) {
     handleClosePopup();
     handleSuccessPopupOpen();
@@ -102,7 +101,8 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
                               message: 'Минимум 1 символ',
                             },
                           })}
-                          placeholder="Введите ваше имя" />
+                          placeholder="Введите ваше имя"
+                          data-testid="userName"/>
                       </label>
                       {errors.userName && <p className="custom-input__error">{errors.userName.message}</p>}
                     </div>
@@ -113,6 +113,7 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
                         </svg></span>
                         <input type="text"
                           placeholder="Основные преимущества товара"
+                          data-testid="advantage"
                           {...register('advantage', {
                             required: 'Нужно указать достоинства',
                             minLength: {
@@ -131,6 +132,7 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
                         </svg></span>
                         <input type="text"
                           placeholder="Главные недостатки товара"
+                          data-testid="disadvantage"
                           {...register('disadvantage', {
                             required: 'Нужно указать недостатки',
                             minLength: {
@@ -148,6 +150,7 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
                         </svg></span>
                         <textarea
                           placeholder="Поделитесь своим опытом покупки"
+                          data-testid="review"
                           {...register('review', {
                             required: 'Нужно добавить комментарий',
                             minLength: {
