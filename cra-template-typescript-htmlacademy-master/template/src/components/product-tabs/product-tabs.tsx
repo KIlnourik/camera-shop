@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import { getCamera } from '../../store/data-process/selector';
 import { AppRoute, Tabs } from '../../const';
-import { Navigate, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../spinner/spinner';
 
 function ProductTabs(): JSX.Element {

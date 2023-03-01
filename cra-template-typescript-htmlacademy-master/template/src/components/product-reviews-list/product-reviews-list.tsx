@@ -1,6 +1,5 @@
 import { useAppSelector } from '../../hooks';
-import { getReviews, getReviewsLoadingStatus } from '../../store/data-process/selector';
-import { MAX_REVIEWS_COUNT } from '../../const';
+import { getReviews } from '../../store/data-process/selector';
 import dayjs from 'dayjs';
 import ProductReviewCard from '../product-review-card/product-review-card';
 import { Review } from '../../types/review';

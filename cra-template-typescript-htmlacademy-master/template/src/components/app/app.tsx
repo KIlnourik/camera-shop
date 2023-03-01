@@ -7,7 +7,7 @@ import ProductPage from '../../pages/product-page/product-page';
 import Layout from '../layout/layout';
 import ProductParametersTab from '../product-parameters-tab/product-parameters-tab';
 import ProductDescTab from '../product-desc-tab/product-desc-tab';
-import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
+import NotFoundScreen from '../../pages/not-found-page/not-found-page';
 
 function App(): JSX.Element {
   return (

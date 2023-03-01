@@ -1,7 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
-
 function NavList(): JSX.Element {
   return (
     <ul className="main-nav__list">
@@ -19,7 +18,6 @@ function NavList(): JSX.Element {
       </li>
     </ul>
   );
-
 }
 
 export default NavList;

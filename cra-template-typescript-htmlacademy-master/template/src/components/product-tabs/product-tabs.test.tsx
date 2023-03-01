@@ -38,7 +38,7 @@ describe('Component: ProductTabs', () => {
 
     expect(screen.getByText(/Характеристики/i)).toBeInTheDocument();
     expect(screen.getByText(/Описание/i)).toBeInTheDocument();
-  })
+  });
 
 })
 

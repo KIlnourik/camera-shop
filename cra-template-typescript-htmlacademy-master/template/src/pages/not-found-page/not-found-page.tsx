@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import '../not-found-screen/not-found-screen.css';
+import './not-found-page.css';
 
-function NotFoundScreen(): JSX.Element {
+function NotFoundPage(): JSX.Element {
   return (
     <div className="page-wrapper" data-testid="page-content">
       <img className="" src="/img/content/gif/travolta-gif.gif" alt="Растерянный Траволта" />
@@ -17,4 +17,4 @@ function NotFoundScreen(): JSX.Element {
   );
 }
 
-export default NotFoundScreen;
+export default NotFoundPage;

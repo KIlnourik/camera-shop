@@ -18,7 +18,7 @@ import Spinner from '../../components/spinner/spinner';
 import AddItemPopup from '../../components/add-item-popup/add-item-popup';
 import AddReviewPopup from '../../components/add-review-popup/add-review-popup';
 import AddReviewSuccessPopup from '../../components/add-review-success-popup/add-review-success-popup';
-import NotFoundScreen from '../not-found-screen/not-found-screen';
+import NotFoundPage from '../not-found-page/not-found-page';
 
 function ProductPage(): JSX.Element {
   const { id } = useParams();
@@ -50,7 +50,7 @@ function ProductPage(): JSX.Element {
   };
 
   const handleSuccessPopupOpen = () => {
-      setActivePopup(Popup.ReviewSuccessPopup);
+    setActivePopup(Popup.ReviewSuccessPopup);
   };
 
   useEffect(() => {
@@ -66,7 +66,7 @@ function ProductPage(): JSX.Element {
   }
 
   if (!id) {
-    return <NotFoundScreen />
+    return <NotFoundPage />
   };
 
   return (

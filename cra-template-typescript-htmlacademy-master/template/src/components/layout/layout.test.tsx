@@ -1,18 +1,18 @@
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import HistoryRouter from '../history-route/history-route';
-import Logo from './logo';
+import Layout from './layout';
 
 const history = createMemoryHistory();
 
-describe('Component: Logo', () => {
+describe('Component: Layout', () => {
   it('should render correctly', () => {
     render(
       <HistoryRouter history={history} >
-        <Logo />
+        <Layout/>
       </HistoryRouter>
     );
 
-    expect(screen.getByLabelText(/Переход на главную/i)).toBeInTheDocument();
+    expect(screen.getByText(/Интернет-магазин фото- и видеотехники/i)).toBeInTheDocument();
   })
-})
+});

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 
 type Props = {
   isFooter?: boolean;
@@ -5,11 +6,11 @@ type Props = {
 
 function Logo({isFooter}: Props): JSX.Element {
   return (
-    <a className="header__logo" href="index.html" aria-label="Переход на главную">
+    <Link className="header__logo" to="" aria-label="Переход на главную">
       <svg width="100" height="36" aria-hidden="true">
         <use xlinkHref={isFooter ? '#icon-logo-mono' : '#icon-logo'}></use>
       </svg>
-    </a>
+    </Link>
   );
 }
 
