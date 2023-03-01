@@ -1,5 +1,5 @@
 export enum AppRoute {
-  Catalog = '/catalog',
+  Catalog = '/',
   Pages = ':page?',
   Product = 'cameras/:id',
   Parameters = 'parameters',

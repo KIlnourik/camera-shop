@@ -24,7 +24,7 @@ function CatalogPagination({ handlePageButtonClick, handleBackButtonClick, handl
             <Link
               onClick={() => handleBackButtonClick(currentPage)}
               className="pagination__link pagination__link--text"
-              to={`${AppRoute.Catalog}/page_${currentPage - 1}`}
+              to={`/page_${currentPage - 1}`}
             >Назад
             </Link>
           </li>}
@@ -33,7 +33,7 @@ function CatalogPagination({ handlePageButtonClick, handleBackButtonClick, handl
             <Link
               onClick={() => handlePageButtonClick(currentPage, page + 1)}
               className={`pagination__link ${(currentPage === (page + 1)) ? 'pagination__link--active' : ''}`}
-              to={`${AppRoute.Catalog}/page_${page + 1}`}
+              to={`/page_${page + 1}`}
               data-testid="page"
             >{page + 1}
             </Link>
@@ -44,7 +44,7 @@ function CatalogPagination({ handlePageButtonClick, handleBackButtonClick, handl
             <Link
               onClick={() => handleNextButtonClick(currentPage)}
               className="pagination__link pagination__link--text"
-              to={`${AppRoute.Catalog}/page_${currentPage + 1}`}
+              to={`/page_${currentPage + 1}`}
             >Далее
             </Link>
           </li>

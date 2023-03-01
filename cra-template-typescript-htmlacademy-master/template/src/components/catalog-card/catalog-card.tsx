@@ -32,7 +32,7 @@ function CatalogCard({ camera, handleBuyButtonClick }: Props): JSX.Element {
       <div className="product-card__buttons">
         <button className="btn btn--purple product-card__btn" type="button" onClick={() => handleBuyButtonClick(camera)}>Купить
         </button>
-        <Link className="btn btn--transparent" to={`${AppRoute.Catalog}/cameras/${camera.id}/${AppRoute.Parameters}`}>Подробнее
+        <Link className="btn btn--transparent" to={`/cameras/${camera.id}/${AppRoute.Parameters}`}>Подробнее
         </Link>
       </div>
     </div >

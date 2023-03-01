@@ -32,7 +32,7 @@ function SimilarProduct({ similarCamera, handleBuyButtonClick }: Props): JSX.Ele
       <div className="product-card__buttons">
         <button className="btn btn--purple product-card__btn" type="button" onClick={() => handleBuyButtonClick(similarCamera)}>Купить
         </button>
-        <Link className="btn btn--transparent" to={`${AppRoute.Catalog}/cameras/${similarCamera.id}/${AppRoute.Parameters}`}>Подробнее
+        <Link className="btn btn--transparent" to={`/cameras/${similarCamera.id}/${AppRoute.Parameters}`}>Подробнее
         </Link>
       </div>
     </div>

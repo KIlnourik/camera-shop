@@ -21,12 +21,12 @@ function ProductTabs(): JSX.Element {
 
   const handlerParametersTabClick = () => {
     setTab(Tabs.Parameters);
-    navigate(`${AppRoute.Catalog}/cameras/${id}/${AppRoute.Parameters}`);
+    navigate(`/cameras/${id}/${AppRoute.Parameters}`);
   };
 
   const handlerDescTabClick = () => {
     setTab(Tabs.Description);
-    navigate(`${AppRoute.Catalog}/cameras/${id}/${AppRoute.Description}`);
+    navigate(`/cameras/${id}/${AppRoute.Description}`);
   };
 
   if (!camera) {
