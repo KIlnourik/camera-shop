@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { makeFakeCameraInfo, makeFakeCameraList, makeFakePromo, makeFakeReviewList } from '../../utils/mocks';
 import ProductDescTab from './product-desc-tab';
 
-
 const mockStore = configureMockStore();
 const store = mockStore({
   Data: {
