@@ -5,12 +5,12 @@ export enum AppRoute {
   Parameters = 'parameters',
   Description = 'desc',
   Basket = 'basket',
-};
+}
 
 export enum NameSpace {
   Data = 'Data',
   Catalog = 'Catalog',
-};
+}
 
 export enum APIRoute {
   Cameras = '/cameras',
@@ -19,18 +19,18 @@ export enum APIRoute {
   Promo = '/promo',
   Coupons = '/coupons',
   Orders = '/orders'
-};
+}
 
 export enum Tabs {
   Parameters = 'Характеристики',
   Description = 'Описание'
-};
+}
 
 export enum Popup {
   BasketPopup = 'basketPopup',
   ReviewPopup = 'reviewPopup',
   ReviewSuccessPopup = 'reviewSuccessPopup',
-};
+}
 
 type RatingValuesType = {
   [index: number]: string;

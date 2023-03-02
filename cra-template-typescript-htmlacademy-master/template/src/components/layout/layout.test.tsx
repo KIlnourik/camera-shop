@@ -14,5 +14,5 @@ describe('Component: Layout', () => {
     );
 
     expect(screen.getByText(/Интернет-магазин фото- и видеотехники/i)).toBeInTheDocument();
-  })
+  });
 });

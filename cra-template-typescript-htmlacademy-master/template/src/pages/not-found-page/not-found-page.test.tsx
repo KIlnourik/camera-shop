@@ -15,5 +15,5 @@ describe('Component: NotFoundScreen', () => {
 
     expect(screen.getByText(/Ошибка 404!/i)).toBeInTheDocument();
     expect(screen.getByText(/Вернуться к Каталог/i)).toBeInTheDocument();
-  })
-})
+  });
+});

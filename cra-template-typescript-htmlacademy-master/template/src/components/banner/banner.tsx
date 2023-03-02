@@ -23,7 +23,8 @@ function Banner(): JSX.Element {
       <p className="banner__info"><span className="banner__message">Новинка!</span>
         <span className="title title--h1">{promo.name}</span>
         <span className="banner__text">Профессиональная камера от&nbsp;известного производителя</span>
-        <Link className="btn" to={`/cameras/${promo.id}/${AppRoute.Parameters}`}>Подробнее</Link></p>
+        <Link className="btn" to={`/cameras/${promo.id}/${AppRoute.Parameters}`}>Подробнее</Link>
+      </p>
     </div>
   );
 }

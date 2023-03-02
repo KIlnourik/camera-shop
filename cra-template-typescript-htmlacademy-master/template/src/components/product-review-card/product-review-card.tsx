@@ -17,7 +17,7 @@ function ProductReviewCard({ review }: Props): JSX.Element {
       </div>
       <div className="rate review-card__rate">
         <Rating rating={review.rating} />
-          <p className="visually-hidden">Оценка: {review.rating}</p>
+        <p className="visually-hidden">Оценка: {review.rating}</p>
       </div>
       <ul className="review-card__list">
         <li className="item-list"><span className="item-list__title">Достоинства:</span>

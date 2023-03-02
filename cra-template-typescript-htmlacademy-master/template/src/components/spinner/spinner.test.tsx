@@ -6,5 +6,5 @@ describe('Component: Spinner', () => {
     render(<Spinner/>);
 
     expect(screen.getByText(/loading/i)).toBeInTheDocument();
-  })
-})
+  });
+});

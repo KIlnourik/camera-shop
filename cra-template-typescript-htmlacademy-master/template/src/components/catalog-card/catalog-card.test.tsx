@@ -13,14 +13,15 @@ describe('Component: CatalogCard', () => {
       <HistoryRouter history={history} >
         <CatalogCard
           camera={makeFakeCameraInfo()}
-          handleBuyButtonClick={jest.fn()} />
+          handleBuyButtonClick={jest.fn()}
+        />
       </HistoryRouter>
     );
 
     expect(screen.getByText(/Подробнее/i)).toBeInTheDocument();
     expect(screen.getByText(/Всего оценок:/i)).toBeInTheDocument();
     expect(screen.getByText(/Цена:/i)).toBeInTheDocument();
-  })
+  });
 
   it('should open popup when user click on "Купить" button', async () => {
     const camera = makeFakeCameraInfo();
@@ -29,13 +30,14 @@ describe('Component: CatalogCard', () => {
       <HistoryRouter history={history} >
         <CatalogCard
           camera={camera}
-          handleBuyButtonClick={handleBuyButtonClick} />
+          handleBuyButtonClick={handleBuyButtonClick}
+        />
       </HistoryRouter>
     );
 
     await userEvent.click(screen.getByText('Купить'));
 
     expect(handleBuyButtonClick).toBeCalled();
-  })
+  });
 
 });

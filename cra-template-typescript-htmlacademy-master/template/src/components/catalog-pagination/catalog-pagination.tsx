@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, MAX_CARDS_PER_PAGE } from '../../const';
+import { MAX_CARDS_PER_PAGE } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getCameras } from '../../store/data-process/selector';
 
@@ -47,8 +47,7 @@ function CatalogPagination({ handlePageButtonClick, handleBackButtonClick, handl
               to={`/page_${currentPage + 1}`}
             >Далее
             </Link>
-          </li>
-        }
+          </li>}
       </ul>
     </div >
   );

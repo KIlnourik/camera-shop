@@ -38,5 +38,5 @@ describe('Component: SimilarProductsSlider', () => {
       </Provider>);
 
     expect(screen.getByText(/Похожие товары/i)).toBeInTheDocument();
-  })
-})
+  });
+});

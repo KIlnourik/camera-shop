@@ -8,5 +8,5 @@ describe('Component: CatalogFilter', () => {
     expect(screen.getByText(/Категория/i)).toBeInTheDocument();
     expect(screen.getByText(/Категория/i)).toBeInTheDocument();
     expect(screen.getByText(/Тип камеры/i)).toBeInTheDocument();
-  })
-})
+  });
+});

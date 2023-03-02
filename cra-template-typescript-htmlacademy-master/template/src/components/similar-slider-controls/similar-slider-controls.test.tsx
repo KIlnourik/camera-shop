@@ -42,7 +42,7 @@ describe('Component: SimilarSliderControls', () => {
 
     expect(screen.getByLabelText('Предыдущий слайд')).toBeInTheDocument();
     expect(screen.getByLabelText('Следующий слайд')).toBeInTheDocument();
-  })
+  });
 
   it('should switch sliders when user click on "Предыдущий слайд" button', async () => {
     const handlePrevButtonClick = jest.fn();
@@ -61,7 +61,7 @@ describe('Component: SimilarSliderControls', () => {
     await userEvent.click(screen.getByLabelText('Предыдущий слайд'));
 
     expect(handlePrevButtonClick).toBeCalled();
-  })
+  });
 
   it('should switch sliders when user click on "Следующий слайд" button', async () => {
     const handlePrevButtonClick = jest.fn();
@@ -80,5 +80,5 @@ describe('Component: SimilarSliderControls', () => {
     await userEvent.click(screen.getByLabelText('Следующий слайд'));
 
     expect(handleNextButtonClick).toBeCalled();
-  })
-})
+  });
+});

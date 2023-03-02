@@ -35,8 +35,12 @@ function AddItemPopup({ camera, handleClosePopup, handleEscKeydown }: Props): JS
                 <div className="basket-item__description">
                   <p className="basket-item__title">{getCameraTitle(camera)}</p>
                   <ul className="basket-item__list">
-                    <li className="basket-item__list-item"><span className="basket-item__article">Артикул:</span> <span
-                      className="basket-item__number">{camera.vendorCode}</span>
+                    <li className="basket-item__list-item">
+                      <span className="basket-item__article">Артикул:</span>
+                      <span
+                        className="basket-item__number"
+                      >{camera.vendorCode}
+                      </span>
                     </li>
                     <li className="basket-item__list-item">{camera.type}</li>
                     <li className="basket-item__list-item">{camera.level}</li>

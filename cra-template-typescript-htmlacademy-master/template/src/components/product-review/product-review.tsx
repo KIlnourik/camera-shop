@@ -8,7 +8,7 @@ type Props = {
   handleLeaveReviewBtnClick(): void;
 }
 
-function ProductReview({handleLeaveReviewBtnClick}: Props): JSX.Element {
+function ProductReview({ handleLeaveReviewBtnClick }: Props): JSX.Element {
 
   const [reviewOffset, setReviewOffset] = useState(MAX_REVIEWS_COUNT);
   const reviews = useAppSelector(getReviews);
@@ -25,8 +25,10 @@ function ProductReview({handleLeaveReviewBtnClick}: Props): JSX.Element {
         </div>
         <ProductReviewsList reviewOffset={reviewOffset} />
         <div className="review-block__buttons">
-          {(reviewOffset < reviews.length) && <button className="btn btn--purple" type="button" onClick={handleMoreReviewsButtonClick}>Показать больше отзывов
-          </button>}
+          {(reviewOffset < reviews.length) &&
+            <button className="btn btn--purple" type="button" onClick={handleMoreReviewsButtonClick}>
+              Показать больше отзывов
+            </button>}
         </div>
       </div>
     </section>

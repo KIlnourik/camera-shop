@@ -12,7 +12,7 @@ describe('Component: AddItemPopup', () => {
 
     expect(screen.getByText(/Спасибо за отзыв/i)).toBeInTheDocument();
     expect(screen.getByText(/Вернуться к покупкам/i)).toBeInTheDocument();
-  })
+  });
 
   it('should close popup when user click on Close button', async () => {
     const handleClosePopup = jest.fn();
@@ -27,7 +27,7 @@ describe('Component: AddItemPopup', () => {
     await userEvent.click(screen.getByLabelText('Закрыть попап'));
 
     expect(handleClosePopup).toBeCalled();
-  })
+  });
 
   it('should close popup when user click on "Вернуться к покупкам" button', async () => {
     const handleClosePopup = jest.fn();
@@ -42,5 +42,5 @@ describe('Component: AddItemPopup', () => {
     await userEvent.click(screen.getByText('Вернуться к покупкам'));
 
     expect(handleClosePopup).toBeCalled();
-  })
-})
+  });
+});

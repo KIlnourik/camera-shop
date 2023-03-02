@@ -32,8 +32,8 @@ describe('Component: CatalogPagination', () => {
         <HistoryRouter history={history} >
           <CatalogPage/>
         </HistoryRouter>
-      </Provider>)
+      </Provider>);
 
     expect(screen.getByText(/Каталог фото- и видеотехники/i)).toBeInTheDocument();
-  })
+  });
 });

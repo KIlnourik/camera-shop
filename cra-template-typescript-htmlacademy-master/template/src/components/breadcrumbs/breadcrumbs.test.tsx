@@ -11,12 +11,12 @@ describe('Component: CatalogCard', () => {
     render(
       <HistoryRouter history={history} >
         <Breadcrumbs
-          isProductPage={true}
+          isProductPage
           camera={makeFakeCameraInfo()}
         />
       </HistoryRouter>
     );
 
     expect(screen.getByText(/Каталог/i)).toBeInTheDocument();
-  })
+  });
 });

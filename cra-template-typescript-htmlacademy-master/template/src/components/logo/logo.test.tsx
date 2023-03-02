@@ -14,5 +14,5 @@ describe('Component: Logo', () => {
     );
 
     expect(screen.getByLabelText(/Переход на главную/i)).toBeInTheDocument();
-  })
-})
+  });
+});

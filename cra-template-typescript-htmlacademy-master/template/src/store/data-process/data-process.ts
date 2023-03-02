@@ -70,7 +70,6 @@ export const dataProcess = createSlice({
       })
       .addCase(sendReviewAction.pending, (state, action) => {
         state.isReviewSent = false;
-      })
-      ;
+      });
   }
 });

@@ -6,8 +6,8 @@ import Rating from '../rating/rating';
 
 
 type Props = {
-  similarCamera: Camera,
-  handleBuyButtonClick(camera: Camera): void,
+  similarCamera: Camera;
+  handleBuyButtonClick(camera: Camera): void;
 }
 
 function SimilarProduct({ similarCamera, handleBuyButtonClick }: Props): JSX.Element {

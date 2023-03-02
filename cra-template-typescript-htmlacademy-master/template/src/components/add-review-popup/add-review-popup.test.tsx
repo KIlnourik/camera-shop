@@ -36,7 +36,7 @@ describe('Component: AddReviewPopup', () => {
 
     expect(screen.getByText(/Оставить отзыв/i)).toBeInTheDocument();
     expect(screen.getByText(/Отправить отзыв/i)).toBeInTheDocument();
-  })
+  });
 
   it('should close popup when user click on Close button', async () => {
     const handleClosePopup = jest.fn();
@@ -55,7 +55,7 @@ describe('Component: AddReviewPopup', () => {
     await userEvent.click(screen.getByLabelText('Закрыть попап'));
 
     expect(handleClosePopup).toBeCalled();
-  })
+  });
 
   it('should render popup', async () => {
     const handleClosePopup = jest.fn();

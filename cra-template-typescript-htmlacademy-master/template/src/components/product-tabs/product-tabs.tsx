@@ -4,6 +4,7 @@ import { getCamera } from '../../store/data-process/selector';
 import { AppRoute, Tabs } from '../../const';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../spinner/spinner';
+import NotFoundPage from '../../pages/not-found-page/not-found-page';
 
 function ProductTabs(): JSX.Element {
 
@@ -18,6 +19,10 @@ function ProductTabs(): JSX.Element {
       || urlPathname[urlPathname.length - 1] === AppRoute.Parameters)
       ? Tabs.Parameters
       : Tabs.Description);
+
+  if (!id) {
+    return <NotFoundPage />;
+  }
 
   const handlerParametersTabClick = () => {
     setTab(Tabs.Parameters);
@@ -35,7 +40,7 @@ function ProductTabs(): JSX.Element {
 
   return (
     <div className="tabs product__tabs">
-      <div className="tabs__controls product__tabs-controls">
+      <div className="tabs__controls product__tabs-controls" data-testid="controls">
         <button className={`tabs__control ${tab === Tabs.Parameters ? 'is-active' : ''}`} type="button" onClick={handlerParametersTabClick}>Характеристики</button>
         <button className={`tabs__control ${tab === Tabs.Description ? 'is-active' : ''}`} type="button" onClick={handlerDescTabClick}>Описание</button>
       </div>

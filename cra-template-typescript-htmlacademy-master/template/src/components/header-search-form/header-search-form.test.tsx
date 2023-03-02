@@ -7,5 +7,5 @@ describe('Component: HeaderSearchForm', () => {
 
     expect(screen.getByPlaceholderText(/Поиск по сайту/i)).toBeInTheDocument();
     expect(screen.getByText(/Cannonball Pro MX 6i/i)).toBeInTheDocument();
-  })
-})
+  });
+});

@@ -16,5 +16,5 @@ describe('Component: FooterNavList', () => {
     expect(screen.getByText(/Навигация/i)).toBeInTheDocument();
     expect(screen.getByText(/Ресурсы/i)).toBeInTheDocument();
     expect(screen.getByText(/Поддержка/i)).toBeInTheDocument();
-  })
-})
+  });
+});

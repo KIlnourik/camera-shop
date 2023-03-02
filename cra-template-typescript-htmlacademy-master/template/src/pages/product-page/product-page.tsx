@@ -30,9 +30,9 @@ function ProductPage(): JSX.Element {
   const isSimilarCamerasLoading = useAppSelector(getSimilarCamerasLoadingStatus);
   const isReviewsLoading = useAppSelector(getReviewsLoadingStatus);
 
-  const handleBuyButtonClick = (camera: Camera) => {
+  const handleBuyButtonClick = (selectedCamera: Camera) => {
     setActivePopup(Popup.BasketPopup);
-    setChosenCamera(camera);
+    setChosenCamera(selectedCamera);
   };
 
   const handleLeaveReviewBtnClick = () => {
@@ -66,8 +66,8 @@ function ProductPage(): JSX.Element {
   }
 
   if (!id) {
-    return <NotFoundPage />
-  };
+    return <NotFoundPage />;
+  }
 
   return (
     <>
@@ -88,16 +88,19 @@ function ProductPage(): JSX.Element {
           <AddItemPopup
             camera={chosenCamera}
             handleClosePopup={handleClosePopup}
-            handleEscKeydown={handleEscKeydown} />}
+            handleEscKeydown={handleEscKeydown}
+          />}
         {activePopup === Popup.ReviewPopup &&
           <AddReviewPopup
             handleClosePopup={handleClosePopup}
             handleSuccessPopupOpen={handleSuccessPopupOpen}
-            handleEscKeydown={handleEscKeydown} />}
+            handleEscKeydown={handleEscKeydown}
+          />}
         {activePopup === Popup.ReviewSuccessPopup &&
           <AddReviewSuccessPopup
             handleClosePopup={handleClosePopup}
-            handleEscKeydown={handleEscKeydown} />}
+            handleEscKeydown={handleEscKeydown}
+          />}
       </main>
       <a className="up-btn" href="#header">
         <svg width="12" height="18" aria-hidden="true">

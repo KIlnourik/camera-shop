@@ -37,5 +37,5 @@ describe('Component: AddItemPopup', () => {
 
     expect(screen.getByText(/Новинка!/i)).toBeInTheDocument();
     expect(screen.getByText(/Подробнее/i)).toBeInTheDocument();
-  })
+  });
 });

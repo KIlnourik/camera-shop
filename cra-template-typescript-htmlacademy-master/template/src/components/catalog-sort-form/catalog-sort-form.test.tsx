@@ -8,5 +8,5 @@ describe('Component: CatalogSortForm', () => {
     expect(screen.getByText(/Сортировать:/i)).toBeInTheDocument();
     expect(screen.getByText(/по цене/i)).toBeInTheDocument();
     expect(screen.getByText(/по популярности/i)).toBeInTheDocument();
-  })
-})
+  });
+});

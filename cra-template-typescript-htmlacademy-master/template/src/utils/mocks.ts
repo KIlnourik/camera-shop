@@ -21,7 +21,7 @@ export const makeFakeCameraInfo = (): Camera => ({
   reviewCount: datatype.number({ min: 0, max: 50 })
 } as Camera);
 
-export const makeFakeCameraList = (): Camera[] => (new Array(35).fill(null).map(() => makeFakeCameraInfo()) as Camera[]);
+export const makeFakeCameraList = (): Camera[] => (new Array(35).fill(null).map(() => makeFakeCameraInfo()) );
 
 export const makeFakeReview = (): Review => ({
   id: random.alphaNumeric(),
@@ -34,7 +34,7 @@ export const makeFakeReview = (): Review => ({
   cameraId: Number(datatype.uuid()),
 } as Review);
 
-export const makeFakeReviewList = (): Review[] => (new Array(9).fill(null).map(() => makeFakeReview()) as Review[]);
+export const makeFakeReviewList = (): Review[] => (new Array(9).fill(null).map(() => makeFakeReview()) );
 
 export const makeFakeUserReview = (): ReviewPost => ({
   cameraId: Number(datatype.uuid()),

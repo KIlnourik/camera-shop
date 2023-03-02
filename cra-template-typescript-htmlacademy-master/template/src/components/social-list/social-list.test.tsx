@@ -16,5 +16,5 @@ describe('Component: SocialList', () => {
     expect(screen.getByLabelText('Переход на страницу вконтакте')).toBeInTheDocument();
     expect(screen.getByLabelText('Переход на страницу pinterest')).toBeInTheDocument();
     expect(screen.getByLabelText('Переход на страницу reddit')).toBeInTheDocument();
-  })
-})
+  });
+});

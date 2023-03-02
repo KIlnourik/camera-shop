@@ -18,10 +18,10 @@ function CatalogPage(): JSX.Element {
   const [isActivePopup, setActivePopup] = useState(false);
   const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
 
-  const handlePageButtonClick = (currentPage: number, chosenPage: number) => {
-    if (currentPage !== chosenPage) {
-      setOffset((chosenPage - 1) * MAX_CARDS_PER_PAGE);
-      setChosenPage(chosenPage)
+  const handlePageButtonClick = (currentPage: number, selectedPage: number) => {
+    if (currentPage !== selectedPage) {
+      setOffset((selectedPage - 1) * MAX_CARDS_PER_PAGE);
+      setChosenPage(selectedPage);
     } else {
       setOffset(offset);
     }
@@ -40,11 +40,11 @@ function CatalogPage(): JSX.Element {
   const handleBuyButtonClick = (camera: Camera) => {
     setActivePopup(!isActivePopup);
     setChosenCamera(camera);
-  }
+  };
 
   const handleClosePopup = () => {
     setActivePopup(!isActivePopup);
-  }
+  };
 
   const handleEscKeydown = (evt: KeyboardEvent) => {
     if (evt.key === 'Escape' || evt.key === 'Esc') {
@@ -80,7 +80,8 @@ function CatalogPage(): JSX.Element {
         <AddItemPopup
           camera={chosenCamera}
           handleClosePopup={handleClosePopup}
-          handleEscKeydown={handleEscKeydown} />}
+          handleEscKeydown={handleEscKeydown}
+        />}
     </main>
   );
 }

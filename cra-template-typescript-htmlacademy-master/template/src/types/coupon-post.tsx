@@ -1,4 +1,4 @@
 export type CouponPost = {
-  coupon: string
+  coupon: string;
 }
 

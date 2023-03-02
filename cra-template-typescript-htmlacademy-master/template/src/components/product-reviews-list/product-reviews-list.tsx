@@ -24,10 +24,8 @@ const getWeightForNullDate = (dateA: string, dateB: string) => {
   return null;
 };
 
-const sortByDate = (reviewA: Review, reviewB: Review) => {
-  return getWeightForNullDate(reviewA.createAt, reviewB.createAt)
+const sortByDate = (reviewA: Review, reviewB: Review) => getWeightForNullDate(reviewA.createAt, reviewB.createAt)
     ?? dayjs(reviewB.createAt).diff(dayjs(reviewA.createAt));
-};
 
 function ProductReviewsList({ reviewOffset }: Props): JSX.Element {
   const reviews = useAppSelector(getReviews);

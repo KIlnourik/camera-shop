@@ -5,7 +5,7 @@ import { AppRoute } from '../../const';
 import Rating from '../rating/rating';
 
 type Props = {
-  camera: Camera,
+  camera: Camera;
   handleBuyButtonClick(camera: Camera): void;
 }
 

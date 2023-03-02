@@ -1,6 +1,6 @@
-import { MAX_SHOWN_SLIDER_CARDS } from "../../const";
-import { useAppSelector } from "../../hooks";
-import { getSimilarCameras } from "../../store/data-process/selector";
+import { MAX_SHOWN_SLIDER_CARDS } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { getSimilarCameras } from '../../store/data-process/selector';
 
 type Props = {
   sliderOffset: number;
@@ -19,7 +19,8 @@ function SimilarSliderControls({ sliderOffset, handlePrevButtonClick, handleNext
         </svg>
       </button>
       <button className="slider-controls slider-controls--next" type="button" aria-label="Следующий слайд"
-        onClick={handleNextButtonClick} disabled={sliderOffset + MAX_SHOWN_SLIDER_CARDS === similarCameras.length}>
+        onClick={handleNextButtonClick} disabled={sliderOffset + MAX_SHOWN_SLIDER_CARDS === similarCameras.length}
+      >
         <svg width="7" height="12" aria-hidden="true">
           <use xlinkHref="#icon-arrow"></use>
         </svg>

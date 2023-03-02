@@ -12,7 +12,7 @@ function SimilarProductsSlider({handleBuyButtonClick}: Props): JSX.Element {
 
   const handlePrevButtonClick = () => {
     setSliderOffset(sliderOffset - 1);
-  }
+  };
 
   const handleNextButtonClick = () => {
     setSliderOffset(sliderOffset + 1);
@@ -24,13 +24,15 @@ function SimilarProductsSlider({handleBuyButtonClick}: Props): JSX.Element {
         <h2 className="title title--h3">Похожие товары</h2>
         <div className="product-similar__slider">
           <SimilarProductsList
-          sliderOffset={sliderOffset}
-          handleBuyButtonClick={handleBuyButtonClick} />
+            sliderOffset={sliderOffset}
+            handleBuyButtonClick={handleBuyButtonClick}
+          />
 
           <SimilarSliderControls
-          sliderOffset={sliderOffset}
-          handlePrevButtonClick={handlePrevButtonClick}
-          handleNextButtonClick={handleNextButtonClick} />
+            sliderOffset={sliderOffset}
+            handlePrevButtonClick={handlePrevButtonClick}
+            handleNextButtonClick={handleNextButtonClick}
+          />
         </div>
       </div>
     </section>

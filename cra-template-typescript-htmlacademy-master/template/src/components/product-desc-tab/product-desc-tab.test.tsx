@@ -30,7 +30,7 @@ describe('Component: ProductDescTab', () => {
       </Provider>);
 
     expect(screen.getByTestId('tabs-text')).toBeInTheDocument();
-  })
+  });
 
-})
+});
 

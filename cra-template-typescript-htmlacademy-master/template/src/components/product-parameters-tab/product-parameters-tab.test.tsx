@@ -34,6 +34,6 @@ describe('Component: ProductParametersTab', () => {
     expect(screen.getByText(/Категория:/i)).toBeInTheDocument();
     expect(screen.getByText(/Тип камеры:/i)).toBeInTheDocument();
     expect(screen.getByText(/Уровень:/i)).toBeInTheDocument();
-  })
+  });
 
-})
+});

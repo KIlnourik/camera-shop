@@ -31,9 +31,9 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
     } else {
       setAdoptedRating(adoptedRating);
     }
-  }
+  };
 
-  const onSubmit: SubmitHandler<ReviewPost> = data => {
+  const onSubmit: SubmitHandler<ReviewPost> = (data) => {
     dispatch(sendReviewAction({ ...data, rating: adoptedRating, cameraId: Number(id) }));
   };
 
@@ -51,7 +51,7 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
             <div className="modal__content">
               <p className="title title--h4">Оставить отзыв</p>
               <div className="form-review">
-                <form method="post" onSubmit={handleSubmit(onSubmit)}>
+                <form method="post" onSubmit={() => handleSubmit(onSubmit)}>
                   <div className="form-review__rate">
                     <fieldset className={`rate form-review__item ${errors.rating ? 'is-invalid' : ''}`}>
                       <legend className="rate__caption">Рейтинг
@@ -75,7 +75,9 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
                                 />
                                 <label className="rate__label"
                                   htmlFor={`star-${ratingValue}`}
-                                  title={Object.hasOwn(RatingValues, ratingValue) ? RatingValues[ratingValue] : ''}></label>
+                                  title={Object.hasOwn(RatingValues, ratingValue) ? RatingValues[ratingValue] : ''}
+                                >
+                                </label>
                               </Fragment>
                             ))
                           }
@@ -89,10 +91,12 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
                       {errors.rating && <p className="rate__message">{errors.rating?.message}</p>}
                     </fieldset>
                     <div className={`custom-input form-review__item ${errors.userName ? 'is-invalid' : ''}`}>
-                      <label><span className="custom-input__label">Ваше имя
-                        <svg width="9" height="9" aria-hidden="true">
-                          <use xlinkHref="#icon-snowflake"></use>
-                        </svg></span>
+                      <label>
+                        <span className="custom-input__label">Ваше имя
+                          <svg width="9" height="9" aria-hidden="true">
+                            <use xlinkHref="#icon-snowflake"></use>
+                          </svg>
+                        </span>
                         <input type="text"
                           {...register('userName', {
                             required: 'Нужно указать имя',
@@ -102,15 +106,18 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
                             },
                           })}
                           placeholder="Введите ваше имя"
-                          data-testid="userName"/>
+                          data-testid="userName"
+                        />
                       </label>
                       {errors.userName && <p className="custom-input__error">{errors.userName.message}</p>}
                     </div>
                     <div className={`custom-input form-review__item ${errors.userName ? 'is-invalid' : ''}`}>
-                      <label><span className="custom-input__label">Достоинства
-                        <svg width="9" height="9" aria-hidden="true">
-                          <use xlinkHref="#icon-snowflake"></use>
-                        </svg></span>
+                      <label>
+                        <span className="custom-input__label">Достоинства
+                          <svg width="9" height="9" aria-hidden="true">
+                            <use xlinkHref="#icon-snowflake"></use>
+                          </svg>
+                        </span>
                         <input type="text"
                           placeholder="Основные преимущества товара"
                           data-testid="advantage"
@@ -126,10 +133,12 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
                       {errors.advantage && <p className="custom-input__error">{errors.advantage.message}</p>}
                     </div>
                     <div className={`custom-input form-review__item ${errors.userName ? 'is-invalid' : ''}`}>
-                      <label><span className="custom-input__label">Недостатки
-                        <svg width="9" height="9" aria-hidden="true">
-                          <use xlinkHref="#icon-snowflake"></use>
-                        </svg></span>
+                      <label>
+                        <span className="custom-input__label">Недостатки
+                          <svg width="9" height="9" aria-hidden="true">
+                            <use xlinkHref="#icon-snowflake"></use>
+                          </svg>
+                        </span>
                         <input type="text"
                           placeholder="Главные недостатки товара"
                           data-testid="disadvantage"
@@ -139,15 +148,18 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
                               value: 1,
                               message: 'Минимум 1 символ',
                             },
-                          })} />
+                          })}
+                        />
                       </label>
                       {errors.disadvantage && <p className="custom-input__error">{errors.disadvantage.message}</p>}
                     </div>
                     <div className={`custom-textarea form-review__item ${errors.review ? 'is-invalid' : ''}`}>
-                      <label><span className="custom-textarea__label">Комментарий
-                        <svg width="9" height="9" aria-hidden="true">
-                          <use xlinkHref="#icon-snowflake"></use>
-                        </svg></span>
+                      <label>
+                        <span className="custom-textarea__label">Комментарий
+                          <svg width="9" height="9" aria-hidden="true">
+                            <use xlinkHref="#icon-snowflake"></use>
+                          </svg>
+                        </span>
                         <textarea
                           placeholder="Поделитесь своим опытом покупки"
                           data-testid="review"
@@ -157,7 +169,9 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
                               value: 5,
                               message: 'Минимум 5 символов',
                             },
-                          })}></textarea>
+                          })}
+                        >
+                        </textarea>
                       </label>
                       {errors.review && <div className="custom-textarea__error">{errors.review.message}</div>}
                     </div>

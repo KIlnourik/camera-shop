@@ -35,17 +35,18 @@ describe('Component: CatalogPagination', () => {
             handlePageButtonClick={jest.fn()}
             handleBackButtonClick={jest.fn()}
             handleNextButtonClick={jest.fn()}
-            chosenPage={8} />
+            chosenPage={8}
+          />
         </HistoryRouter>
-      </Provider>)
+      </Provider>);
 
     expect(screen.getByText(/Далее/i)).toBeInTheDocument();
-  })
+  });
 
   it('should change to next page when user click on next page button', async () => {
-    const handlePageButtonClick = jest.fn()
-    const handleBackButtonClick = jest.fn()
-    const handleNextButtonClick = jest.fn()
+    const handlePageButtonClick = jest.fn();
+    const handleBackButtonClick = jest.fn();
+    const handleNextButtonClick = jest.fn();
 
     render(
       <Provider store={store} >
@@ -54,12 +55,13 @@ describe('Component: CatalogPagination', () => {
             handlePageButtonClick={handlePageButtonClick}
             handleBackButtonClick={handleBackButtonClick}
             handleNextButtonClick={handleNextButtonClick}
-            chosenPage={8} />
+            chosenPage={8}
+          />
         </HistoryRouter>
       </Provider>);
 
     await userEvent.click(screen.getByText('Далее'));
 
     expect(handleNextButtonClick).toBeCalled();
-  })
+  });
 });

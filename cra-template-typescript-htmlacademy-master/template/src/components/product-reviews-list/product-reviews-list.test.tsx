@@ -26,10 +26,11 @@ describe('Component: ProductReviewsListd', () => {
     render(
       <Provider store={store} >
         <ProductReviewsList
-        reviewOffset={6}/>
+          reviewOffset={6}
+        />
       </Provider>
     );
 
     expect(screen.getByTestId('review-list')).toBeInTheDocument();
-  })
-})
+  });
+});

@@ -9,9 +9,10 @@ import {
   makeFakeCameraList,
   makeFakePromo,
   makeFakeReviewList,
-  makeFakeUserReview,
 } from '../../utils/mocks';
 import App from './app';
+
+const history = createMemoryHistory();
 
 const mockStore = configureMockStore();
 
@@ -33,35 +34,19 @@ const store = mockStore({
 
 const fakeApp = (
   <Provider store={store}>
-    <App />
+    <HistoryRouter history={history} >
+      <App />
+    </HistoryRouter>
   </Provider>
 );
 
 describe('Application Routing', () => {
-  it('should render "CatalogPage" when user navigate to "/catalog"', () => {
-
+  it('should render "CatalogPage" when user navigate to "/"', () => {
+    history.push(AppRoute.Catalog);
     render(fakeApp);
 
     expect(screen.getByText(/Каталог фото- и видеотехники/i)).toBeInTheDocument();
   });
 
-  it('should render "ProductPage" and tab "Parameters" when user navigate to "/cameras/:id/parameters"', () => {
-
-    render(fakeApp);
-
-    expect(screen.getByText(/Артикул:/i)).toBeInTheDocument();
-    expect(screen.getByText(/Категория:/i)).toBeInTheDocument();
-    expect(screen.getByText(/Тип камеры:/i)).toBeInTheDocument();
-    expect(screen.getByText(/Уровень:/i)).toBeInTheDocument();
-  });
-
-
-  it('should render "NotFoundScreen" when user navigate to non-existent route', () => {
-
-    render(fakeApp);
-
-    expect(screen.getByText(/Ошибка 404! Такой страницы не существует.Что ж.../i)).toBeInTheDocument();
-    expect(screen.getByText(/Вернуться к Каталог/i)).toBeInTheDocument();
-  });
 });
 

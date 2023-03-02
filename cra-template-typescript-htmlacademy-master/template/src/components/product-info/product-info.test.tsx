@@ -40,7 +40,7 @@ describe('Component: ProductInfo', () => {
 
     expect(screen.getByText(/Всего оценок:/i)).toBeInTheDocument();
     expect(screen.getByText(/Цена:/i)).toBeInTheDocument();
-  })
+  });
 
   it('should close popup when user click on "Добавить в корзину" button', async () => {
     const handleBuyButtonClick = jest.fn();
@@ -57,6 +57,6 @@ describe('Component: ProductInfo', () => {
     await userEvent.click(screen.getByTestId('add-to-cart'));
 
     expect(handleBuyButtonClick).toBeCalled();
-  })
+  });
 
-})
+});

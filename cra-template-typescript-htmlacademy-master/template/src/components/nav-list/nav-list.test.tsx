@@ -17,5 +17,5 @@ describe('Component: NavList', () => {
     expect(screen.getByText(/Гарантии/i)).toBeInTheDocument();
     expect(screen.getByText(/Доставка/i)).toBeInTheDocument();
     expect(screen.getByText(/О компании/i)).toBeInTheDocument();
-  })
-})
+  });
+});

@@ -4,7 +4,6 @@ import {
   makeFakeCameraList,
   makeFakePromo,
   makeFakeReviewList,
-  makeFakeUserReview,
 } from '../../utils/mocks';
 import {
   fetchCameraAction,
@@ -36,8 +35,8 @@ describe('Reducer: dataProcess', () => {
         isSimilarCamerasLoading: false,
         isReviewsLoading: false,
         isReviewSent: undefined,
-      })
-  })
+      });
+  });
 
   it('should update Cameras by load cameras list', () => {
     const state = {
@@ -52,7 +51,7 @@ describe('Reducer: dataProcess', () => {
       isSimilarCamerasLoading: false,
       isReviewsLoading: false,
       isReviewSent: false,
-    }
+    };
     expect((dataProcess.reducer(state, { type: fetchCamerasAction.fulfilled.type, payload: cameras })))
       .toEqual({
         cameras, isCamerasLoading: false,
@@ -65,8 +64,8 @@ describe('Reducer: dataProcess', () => {
         isSimilarCamerasLoading: false,
         isReviewsLoading: false,
         isReviewSent: false,
-      })
-  })
+      });
+  });
 
   it('should update Camera by load camera', () => {
     const state = {
@@ -81,7 +80,7 @@ describe('Reducer: dataProcess', () => {
       isSimilarCamerasLoading: false,
       isReviewsLoading: false,
       isReviewSent: false,
-    }
+    };
     expect((dataProcess.reducer(state, { type: fetchCameraAction.fulfilled.type, payload: camera })))
       .toEqual({
         camera, isCameraLoading: false,
@@ -94,8 +93,8 @@ describe('Reducer: dataProcess', () => {
         isSimilarCamerasLoading: false,
         isReviewsLoading: false,
         isReviewSent: false,
-      })
-  })
+      });
+  });
 
 
   it('should update Reviews by load reviews', () => {
@@ -111,7 +110,7 @@ describe('Reducer: dataProcess', () => {
       isSimilarCamerasLoading: false,
       isReviewsLoading: false,
       isReviewSent: false,
-    }
+    };
     expect((dataProcess.reducer(state, { type: fetchReviewsAction.fulfilled.type, payload: reviews })))
       .toEqual({
         reviews,
@@ -125,8 +124,8 @@ describe('Reducer: dataProcess', () => {
         isCameraLoading: false,
         isSimilarCamerasLoading: false,
         isReviewSent: false,
-      })
-  })
+      });
+  });
 
   it('should update Similar cameras by load similar camera', () => {
     const state = {
@@ -141,7 +140,7 @@ describe('Reducer: dataProcess', () => {
       isSimilarCamerasLoading: false,
       isReviewsLoading: false,
       isReviewSent: false,
-    }
+    };
     expect((dataProcess.reducer(state, { type: fetchSimilarCamerasAction.fulfilled.type, payload: similarCameras })))
       .toEqual({
         similarCameras,
@@ -155,8 +154,8 @@ describe('Reducer: dataProcess', () => {
         isCameraLoading: false,
         isReviewsLoading: false,
         isReviewSent: false,
-      })
-  })
+      });
+  });
 
   it('should update Promo by load promo', () => {
     const state = {
@@ -171,7 +170,7 @@ describe('Reducer: dataProcess', () => {
       isSimilarCamerasLoading: false,
       isReviewsLoading: false,
       isReviewSent: false,
-    }
+    };
     expect((dataProcess.reducer(state, { type: fetchPromoAction.fulfilled.type, payload: promo })))
       .toEqual({
         promo,
@@ -185,8 +184,8 @@ describe('Reducer: dataProcess', () => {
         isSimilarCamerasLoading: false,
         isReviewsLoading: false,
         isReviewSent: false,
-      })
-  })
+      });
+  });
 
   it('should send UserReview by upload review from user', () => {
     const state = {
@@ -201,7 +200,7 @@ describe('Reducer: dataProcess', () => {
       isSimilarCamerasLoading: false,
       isReviewsLoading: false,
       isReviewSent: false,
-    }
+    };
     expect((dataProcess.reducer(state, { type: sendReviewAction.fulfilled.type, payload: true})))
       .toEqual({
         promo: undefined,
@@ -215,6 +214,6 @@ describe('Reducer: dataProcess', () => {
         isSimilarCamerasLoading: false,
         isReviewsLoading: false,
         isReviewSent: true,
-      })
-  })
+      });
+  });
 });

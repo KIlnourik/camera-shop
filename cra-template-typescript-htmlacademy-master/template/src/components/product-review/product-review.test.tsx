@@ -34,6 +34,6 @@ describe('Component: ProductReview', () => {
 
     expect(screen.getByText(/Отзывы/i)).toBeInTheDocument();
     expect(screen.getByText(/Оставить свой отзыв/i)).toBeInTheDocument();
-  })
+  });
 
-})
+});
