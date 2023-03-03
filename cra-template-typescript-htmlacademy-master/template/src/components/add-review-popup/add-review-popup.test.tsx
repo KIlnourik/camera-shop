@@ -52,6 +52,7 @@ describe('Component: AddReviewPopup', () => {
         />
       </Provider>);
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     await userEvent.click(screen.getByLabelText('Закрыть попап'));
 
     expect(handleClosePopup).toBeCalled();
@@ -69,10 +70,13 @@ describe('Component: AddReviewPopup', () => {
           handleEscKeydown={handleEscKeydown}
         />
       </Provider>);
-
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     await userEvent.type(screen.getByTestId('userName'), 'name');
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     await userEvent.type(screen.getByTestId('advantage'), 'good');
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     await userEvent.type(screen.getByTestId('disadvantage'), 'bad');
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     await userEvent.type(screen.getByTestId('review'), 'something');
 
     expect(screen.getByDisplayValue(/name/i)).toBeInTheDocument();

@@ -57,7 +57,7 @@ describe('Component: SimilarSliderControls', () => {
           />
         </HistoryRouter>
       </Provider>);
-
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     await userEvent.click(screen.getByLabelText('Предыдущий слайд'));
 
     expect(handlePrevButtonClick).toBeCalled();
@@ -76,7 +76,7 @@ describe('Component: SimilarSliderControls', () => {
           />
         </HistoryRouter>
       </Provider>);
-
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     await userEvent.click(screen.getByLabelText('Следующий слайд'));
 
     expect(handleNextButtonClick).toBeCalled();

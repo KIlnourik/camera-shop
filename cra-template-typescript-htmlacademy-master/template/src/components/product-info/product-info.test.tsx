@@ -53,7 +53,7 @@ describe('Component: ProductInfo', () => {
           />
         </HistoryRouter>
       </Provider >);
-
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     await userEvent.click(screen.getByTestId('add-to-cart'));
 
     expect(handleBuyButtonClick).toBeCalled();

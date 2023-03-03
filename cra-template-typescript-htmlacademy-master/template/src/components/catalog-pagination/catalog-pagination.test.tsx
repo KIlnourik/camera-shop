@@ -59,7 +59,7 @@ describe('Component: CatalogPagination', () => {
           />
         </HistoryRouter>
       </Provider>);
-
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     await userEvent.click(screen.getByText('Далее'));
 
     expect(handleNextButtonClick).toBeCalled();

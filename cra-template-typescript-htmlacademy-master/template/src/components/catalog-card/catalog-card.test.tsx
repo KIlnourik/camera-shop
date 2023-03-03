@@ -34,7 +34,7 @@ describe('Component: CatalogCard', () => {
         />
       </HistoryRouter>
     );
-
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     await userEvent.click(screen.getByText('Купить'));
 
     expect(handleBuyButtonClick).toBeCalled();

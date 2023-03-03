@@ -59,6 +59,7 @@ function ProductPage(): JSX.Element {
       dispatch(fetchSimilarCamerasAction(id));
       dispatch(fetchReviewsAction(id));
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, id]);
 
   if (isCameraLoading || isSimilarCamerasLoading || isReviewsLoading || !camera) {

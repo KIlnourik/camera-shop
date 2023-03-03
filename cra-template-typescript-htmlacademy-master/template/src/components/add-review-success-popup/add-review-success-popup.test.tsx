@@ -23,7 +23,7 @@ describe('Component: AddItemPopup', () => {
         handleClosePopup={handleClosePopup}
         handleEscKeydown={handleEscKeydown}
       />);
-
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     await userEvent.click(screen.getByLabelText('Закрыть попап'));
 
     expect(handleClosePopup).toBeCalled();
@@ -38,7 +38,7 @@ describe('Component: AddItemPopup', () => {
         handleClosePopup={handleClosePopup}
         handleEscKeydown={handleEscKeydown}
       />);
-
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
     await userEvent.click(screen.getByText('Вернуться к покупкам'));
 
     expect(handleClosePopup).toBeCalled();
