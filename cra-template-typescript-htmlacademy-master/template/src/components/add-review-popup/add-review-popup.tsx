@@ -5,9 +5,8 @@ import { MAX_RATING_COUNT, RatingValues } from '../../const';
 import { ReviewPost } from '../../types/review-post';
 import { Fragment, SyntheticEvent, useState, KeyboardEvent } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch} from '../../hooks';
 import { sendReviewAction } from '../../store/api-actions';
-import { getReviewSendingStatus } from '../../store/review-process/selector';
 import { RemoveScroll } from 'react-remove-scroll';
 import ReactFocusLock from 'react-focus-lock';
 
@@ -20,7 +19,6 @@ type Props = {
 function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKeydown }: Props): JSX.Element {
   const ratingList = getRatingValues(MAX_RATING_COUNT);
   const dispatch = useAppDispatch();
-  const isReviewSent = useAppSelector(getReviewSendingStatus);
   const [adoptedRating, setAdoptedRating] = useState(0);
   const { id } = useParams();
   const { register, handleSubmit, formState: { errors } } = useForm<ReviewPost>();
@@ -37,12 +35,10 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
   const onSubmit: SubmitHandler<ReviewPost> = (data) => {
     if (id) {
       dispatch(sendReviewAction({ ...data, rating: adoptedRating, cameraId: Number(id) }));
-    }
-    if (isReviewSent) {
       handleClosePopup();
+      handleSuccessPopupOpen();
     }
   };
-
 
   return (
     <RemoveScroll >

@@ -28,7 +28,6 @@ function ProductPage(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const camera = useAppSelector(getCamera);
-  const isReviewSent = useAppSelector(getReviewsLoadingStatus);
   const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
   const [activePopup, setActivePopup] = useState<string | undefined>(undefined);
   const isCameraLoading = useAppSelector(getCameraLoadingStatus);
@@ -41,8 +40,8 @@ function ProductPage(): JSX.Element {
   };
 
   const handleLeaveReviewBtnClick = () => {
-    setActivePopup(undefined);
     setActivePopup(Popup.ReviewPopup);
+
   };
 
   const handleEscKeydown = (evt: KeyboardEvent<HTMLElement>) => {
@@ -56,9 +55,7 @@ function ProductPage(): JSX.Element {
   };
 
   const handleSuccessPopupOpen = () => {
-    if (isReviewSent) {
-      setActivePopup(Popup.ReviewSuccessPopup);
-    }
+    setActivePopup(Popup.ReviewSuccessPopup);
   };
 
   useEffect(() => {

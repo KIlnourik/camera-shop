@@ -25,10 +25,10 @@ export const reviewProcess = createSlice({
         state.reviews = action.payload;
         state.isReviewsLoading = false;
       })
-      .addCase(sendReviewAction.fulfilled, (state, action) => {
+      .addCase(sendReviewAction.fulfilled, (state) => {
         state.isReviewSent = true;
       })
-      .addCase(sendReviewAction.pending, (state, action) => {
+      .addCase(sendReviewAction.pending, (state) => {
         state.isReviewSent = false;
       });
   }

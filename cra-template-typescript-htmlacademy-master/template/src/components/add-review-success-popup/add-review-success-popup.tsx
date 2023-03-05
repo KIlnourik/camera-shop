@@ -8,6 +8,7 @@ type Props = {
 }
 
 function AddReviewSuccessPopup({ handleClosePopup, handleEscKeydown }: Props): JSX.Element {
+
   return (
     <RemoveScroll>
       <ReactFocusLock >
