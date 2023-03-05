@@ -1,6 +1,5 @@
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import { Camera } from '../../types/camera';
 
 type Props = {
@@ -13,10 +12,6 @@ function Breadcrumbs({ isProductPage, camera }: Props): JSX.Element {
   const location = useLocation();
   const { page } = useParams();
 
-  if (!page) {
-    return <NotFoundPage />;
-  }
-
   return (
     <div className="breadcrumbs">
       <div className="container">
@@ -28,7 +23,7 @@ function Breadcrumbs({ isProductPage, camera }: Props): JSX.Element {
               </svg>
             </a>
           </li>
-          {(location.pathname === AppRoute.Catalog || location.pathname === `${AppRoute.Catalog}/${page}`)
+          {((!page && location.pathname === AppRoute.Catalog) || (page && location.pathname === `/${page}`))
             ?
             <li className="breadcrumbs__item">
               <span className="breadcrumbs__link breadcrumbs__link--active">Каталог</span>

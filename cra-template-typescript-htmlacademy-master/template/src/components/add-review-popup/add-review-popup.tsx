@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { getRatingValues } from '../../utils/utils';
 import { MAX_RATING_COUNT, RatingValues } from '../../const';
@@ -6,8 +7,8 @@ import { Fragment, SyntheticEvent, useState, KeyboardEvent } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { sendReviewAction } from '../../store/api-actions';
-import { getReviewSendingStatus } from '../../store/data-process/selector';
-import ReactRemoveScroll from 'react-remove-scroll/dist/es5/Combination';
+import { getReviewSendingStatus } from '../../store/review-process/selector';
+import { RemoveScroll } from 'react-remove-scroll';
 import ReactFocusLock from 'react-focus-lock';
 
 type Props = {
@@ -34,16 +35,17 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
   };
 
   const onSubmit: SubmitHandler<ReviewPost> = (data) => {
-    dispatch(sendReviewAction({ ...data, rating: adoptedRating, cameraId: Number(id) }));
+    if (id) {
+      dispatch(sendReviewAction({ ...data, rating: adoptedRating, cameraId: Number(id) }));
+    }
+    if (isReviewSent) {
+      handleClosePopup();
+    }
   };
 
-  if (isReviewSent) {
-    handleClosePopup();
-    handleSuccessPopupOpen();
-  }
 
   return (
-    <ReactRemoveScroll >
+    <RemoveScroll >
       <ReactFocusLock >
         <div className="modal is-active" onKeyDown={handleEscKeydown}>
           <div className="modal__wrapper">
@@ -51,7 +53,7 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
             <div className="modal__content">
               <p className="title title--h4">Оставить отзыв</p>
               <div className="form-review">
-                <form method="post" onSubmit={() => handleSubmit(onSubmit)}>
+                <form method="post" onSubmit={handleSubmit(onSubmit)}>
                   <div className="form-review__rate">
                     <fieldset className={`rate form-review__item ${errors.rating ? 'is-invalid' : ''}`}>
                       <legend className="rate__caption">Рейтинг
@@ -189,7 +191,7 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
         </div >
 
       </ReactFocusLock>
-    </ReactRemoveScroll>
+    </RemoveScroll>
   );
 }
 

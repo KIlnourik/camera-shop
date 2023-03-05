@@ -3,10 +3,10 @@ import { getCameraTitle, getPrice } from '../../utils/utils';
 import { KeyboardEvent } from 'react';
 import Spinner from '../spinner/spinner';
 import ReactFocusLock from 'react-focus-lock';
-import ReactRemoveScroll from 'react-remove-scroll/dist/es5/Combination';
+import { RemoveScroll } from 'react-remove-scroll';
 
 type Props = {
-  camera: Camera | undefined;
+  camera?: Camera;
   handleClosePopup(): void;
   handleEscKeydown(evt: KeyboardEvent): void;
 };
@@ -18,7 +18,7 @@ function AddItemPopup({ camera, handleClosePopup, handleEscKeydown }: Props): JS
   }
 
   return (
-    <ReactRemoveScroll>
+    <RemoveScroll>
       <ReactFocusLock>
         <div className="modal is-active" onKeyDown={handleEscKeydown}>
           <div className="modal__wrapper">
@@ -64,7 +64,7 @@ function AddItemPopup({ camera, handleClosePopup, handleEscKeydown }: Props): JS
           </div>
         </div>
       </ReactFocusLock>
-    </ReactRemoveScroll>
+    </RemoveScroll>
   );
 }
 

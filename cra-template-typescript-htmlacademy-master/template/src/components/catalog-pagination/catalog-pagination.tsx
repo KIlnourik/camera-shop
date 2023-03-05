@@ -1,18 +1,15 @@
 import { Link } from 'react-router-dom';
-import { MAX_CARDS_PER_PAGE } from '../../const';
-import { useAppSelector } from '../../hooks';
-import { getCameras } from '../../store/data-process/selector';
 
 type Props = {
   handlePageButtonClick(currentPage: number, page: number): void;
   handleBackButtonClick(currentPage: number): void;
   handleNextButtonClick(currentPage: number): void;
   chosenPage: number;
+  summaryPages: number;
 };
 
-function CatalogPagination({ handlePageButtonClick, handleBackButtonClick, handleNextButtonClick, chosenPage }: Props): JSX.Element {
-  const cameras = useAppSelector(getCameras);
-  const summaryPages = Math.ceil(cameras.length / MAX_CARDS_PER_PAGE);
+function CatalogPagination({ handlePageButtonClick, handleBackButtonClick, handleNextButtonClick, summaryPages, chosenPage }: Props): JSX.Element {
+
   const pagesList = Array.from({ length: summaryPages }, (v, k) => k);
   const currentPage = chosenPage;
 

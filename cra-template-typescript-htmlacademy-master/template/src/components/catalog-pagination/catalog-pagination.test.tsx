@@ -35,6 +35,7 @@ describe('Component: CatalogPagination', () => {
             handlePageButtonClick={jest.fn()}
             handleBackButtonClick={jest.fn()}
             handleNextButtonClick={jest.fn()}
+            summaryPages={20}
             chosenPage={8}
           />
         </HistoryRouter>
@@ -55,6 +56,7 @@ describe('Component: CatalogPagination', () => {
             handlePageButtonClick={handlePageButtonClick}
             handleBackButtonClick={handleBackButtonClick}
             handleNextButtonClick={handleNextButtonClick}
+            summaryPages={20}
             chosenPage={8}
           />
         </HistoryRouter>

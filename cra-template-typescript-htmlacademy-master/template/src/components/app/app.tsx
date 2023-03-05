@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
-
 import CatalogPage from '../../pages/catalog-page/catalog-page';
 import ProductPage from '../../pages/product-page/product-page';
 import Layout from '../layout/layout';

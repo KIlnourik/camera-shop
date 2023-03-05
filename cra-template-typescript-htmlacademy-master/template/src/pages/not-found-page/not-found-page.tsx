@@ -3,6 +3,7 @@ import { AppRoute } from '../../const';
 import './not-found-page.css';
 
 function NotFoundPage(): JSX.Element {
+
   return (
     <div className="page-wrapper" data-testid="page-content">
       <img className="" src="/img/content/gif/travolta-gif.gif" alt="Растерянный Траволта" />

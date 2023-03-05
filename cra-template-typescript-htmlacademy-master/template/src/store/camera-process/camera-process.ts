@@ -1,31 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
-import { DataProcess } from '../../types/state';
+import { CameraProcess } from '../../types/state';
 import {
   fetchCameraAction,
   fetchCamerasAction,
   fetchPromoAction,
   fetchSimilarCamerasAction,
-  fetchReviewsAction,
-  sendReviewAction
 } from '../api-actions';
 
-const initialState: DataProcess = {
+const initialState: CameraProcess = {
   cameras: [],
   promo: undefined,
   camera: undefined,
   similarCameras: [],
-  reviews: [],
   isCamerasLoading: false,
   isPromoLoading: false,
   isCameraLoading: false,
   isSimilarCamerasLoading: false,
-  isReviewsLoading: false,
-  isReviewSent: undefined,
 };
 
-export const dataProcess = createSlice({
-  name: NameSpace.Data,
+export const cameraProcess = createSlice({
+  name: NameSpace.Camera,
   initialState,
   reducers: {},
   extraReducers(builder) {
@@ -57,19 +52,6 @@ export const dataProcess = createSlice({
       .addCase(fetchSimilarCamerasAction.fulfilled, (state, action) => {
         state.similarCameras = action.payload;
         state.isSimilarCamerasLoading = false;
-      })
-      .addCase(fetchReviewsAction.pending, (state) => {
-        state.isReviewsLoading = true;
-      })
-      .addCase(fetchReviewsAction.fulfilled, (state, action) => {
-        state.reviews = action.payload;
-        state.isReviewsLoading = false;
-      })
-      .addCase(sendReviewAction.fulfilled, (state, action) => {
-        state.isReviewSent = action.payload;
-      })
-      .addCase(sendReviewAction.pending, (state, action) => {
-        state.isReviewSent = false;
       });
   }
 });

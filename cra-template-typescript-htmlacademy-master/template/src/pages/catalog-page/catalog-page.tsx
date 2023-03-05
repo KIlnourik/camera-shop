@@ -1,7 +1,9 @@
-import { useState, KeyboardEvent } from 'react';
+import { useState, KeyboardEvent, useEffect } from 'react';
 import { MAX_CARDS_PER_PAGE } from '../../const';
 import { Camera } from '../../types/camera';
 import { useParams } from 'react-router-dom';
+import { getCameras } from '../../store/camera-process/selector';
+import { useAppSelector } from '../../hooks';
 import Banner from '../../components/banner/banner';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogCards from '../../components/catalog-cards/catalog-cards';
@@ -9,14 +11,20 @@ import CatalogFilter from '../../components/catalog-filter/catalog-filter';
 import CatalogPagination from '../../components/catalog-pagination/catalog-pagination';
 import CatalogSortForm from '../../components/catalog-sort-form/catalog-sort-form';
 import AddItemPopup from '../../components/add-item-popup/add-item-popup';
+import NotFoundPage from '../not-found-page/not-found-page';
 
 function CatalogPage(): JSX.Element {
+  const cameras = useAppSelector(getCameras);
   const { page } = useParams();
-  const pageNumber = Number(page?.split('_')[1]);
-  const [chosenPage, setChosenPage] = useState(page ? pageNumber : 1);
-  const [offset, setOffset] = useState(page ? ((pageNumber - 1) * MAX_CARDS_PER_PAGE) : 0);
+  const [summaryPages, setSummaryPages] = useState(0);
+  const [chosenPage, setChosenPage] = useState((page && Number(page?.split('_')[1]) <= summaryPages) ? Number(page?.split('_')[1]) : 1);
+  const [offset, setOffset] = useState((page && Number(page?.split('_')[1]) <= summaryPages) ? ((Number(page?.split('_')[1]) - 1) * MAX_CARDS_PER_PAGE) : 0);
   const [isActivePopup, setActivePopup] = useState(false);
   const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
+
+  useEffect(() => {
+    setSummaryPages(Math.ceil(cameras.length / MAX_CARDS_PER_PAGE));
+  }, [cameras.length]);
 
   const handlePageButtonClick = (currentPage: number, selectedPage: number) => {
     if (currentPage !== selectedPage) {
@@ -52,6 +60,10 @@ function CatalogPage(): JSX.Element {
     }
   };
 
+  if (Number(page?.split('_')[1]) > summaryPages) {
+    return <NotFoundPage />;
+  }
+
   return (
     <main>
       <Banner />
@@ -69,6 +81,7 @@ function CatalogPage(): JSX.Element {
                   handlePageButtonClick={handlePageButtonClick}
                   handleBackButtonClick={handleBackButtonClick}
                   handleNextButtonClick={handleNextButtonClick}
+                  summaryPages={summaryPages}
                   chosenPage={chosenPage}
                 />
               </div>

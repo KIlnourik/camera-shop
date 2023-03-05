@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../hooks';
-import { getCamera } from '../../store/data-process/selector';
+import { getCamera } from '../../store/camera-process/selector';
 import Spinner from '../spinner/spinner';
 
 function ProductDescTab(): JSX.Element {

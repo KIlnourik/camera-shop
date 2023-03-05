@@ -1,7 +1,9 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { NameSpace } from '../const';
-import { dataProcess } from './data-process/data-process';
+import { cameraProcess } from './camera-process/camera-process';
+import { reviewProcess } from './review-process/review-process';
 
 export const rootReducer = combineReducers({
-  [NameSpace.Data]: dataProcess.reducer,
+  [NameSpace.Camera]: cameraProcess.reducer,
+  [NameSpace.Review]: reviewProcess.reducer
 });

@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../hooks';
-import { getReviews } from '../../store/data-process/selector';
+import { getReviews } from '../../store/review-process/selector';
 import dayjs from 'dayjs';
 import ProductReviewCard from '../product-review-card/product-review-card';
 import { Review } from '../../types/review';
@@ -25,7 +25,7 @@ const getWeightForNullDate = (dateA: string, dateB: string) => {
 };
 
 const sortByDate = (reviewA: Review, reviewB: Review) => getWeightForNullDate(reviewA.createAt, reviewB.createAt)
-    ?? dayjs(reviewB.createAt).diff(dayjs(reviewA.createAt));
+  ?? dayjs(reviewB.createAt).diff(dayjs(reviewA.createAt));
 
 function ProductReviewsList({ reviewOffset }: Props): JSX.Element {
   const reviews = useAppSelector(getReviews);

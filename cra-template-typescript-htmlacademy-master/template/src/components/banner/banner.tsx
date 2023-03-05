@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { getPromo, getPromoLoadingStatus } from '../../store/data-process/selector';
+import { getPromo, getPromoLoadingStatus } from '../../store/camera-process/selector';
 import Spinner from '../spinner/spinner';
 
 

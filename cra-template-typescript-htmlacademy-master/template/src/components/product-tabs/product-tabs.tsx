@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
-import { getCamera } from '../../store/data-process/selector';
+import { getCamera } from '../../store/camera-process/selector';
 import { AppRoute, Tabs } from '../../const';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../spinner/spinner';

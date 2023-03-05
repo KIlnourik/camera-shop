@@ -1,6 +1,6 @@
 import { KeyboardEvent } from 'react';
+import { RemoveScroll } from 'react-remove-scroll';
 import ReactFocusLock from 'react-focus-lock';
-import ReactRemoveScroll from 'react-remove-scroll/dist/es5/Combination';
 
 type Props = {
   handleClosePopup(): void;
@@ -9,7 +9,7 @@ type Props = {
 
 function AddReviewSuccessPopup({ handleClosePopup, handleEscKeydown }: Props): JSX.Element {
   return (
-    <ReactRemoveScroll>
+    <RemoveScroll>
       <ReactFocusLock >
         <div className="modal is-active modal--narrow" onKeyDown={handleEscKeydown}>
           <div className="modal__wrapper">
@@ -32,7 +32,7 @@ function AddReviewSuccessPopup({ handleClosePopup, handleEscKeydown }: Props): J
           </div>
         </div>
       </ReactFocusLock>
-    </ReactRemoveScroll>
+    </RemoveScroll>
   );
 }
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { MAX_REVIEWS_COUNT } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { getReviews } from '../../store/data-process/selector';
+import { getReviews } from '../../store/review-process/selector';
 import ProductReviewsList from '../product-reviews-list/product-reviews-list';
 
 type Props = {

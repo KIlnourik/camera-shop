@@ -2,13 +2,17 @@ import { useEffect, useState, KeyboardEvent } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Popup } from '../../const';
-import { fetchCameraAction, fetchReviewsAction, fetchSimilarCamerasAction } from '../../store/api-actions';
+import {
+  fetchCameraAction,
+  fetchReviewsAction,
+  fetchSimilarCamerasAction
+} from '../../store/api-actions';
 import {
   getCameraLoadingStatus,
   getCamera,
   getSimilarCamerasLoadingStatus,
-  getReviewsLoadingStatus,
-} from '../../store/data-process/selector';
+} from '../../store/camera-process/selector';
+import { getReviewsLoadingStatus } from '../../store/review-process/selector';
 import { Camera } from '../../types/camera';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import ProductInfo from '../../components/product-info/product-info';
@@ -24,6 +28,7 @@ function ProductPage(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const camera = useAppSelector(getCamera);
+  const isReviewSent = useAppSelector(getReviewsLoadingStatus);
   const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
   const [activePopup, setActivePopup] = useState<string | undefined>(undefined);
   const isCameraLoading = useAppSelector(getCameraLoadingStatus);
@@ -36,6 +41,7 @@ function ProductPage(): JSX.Element {
   };
 
   const handleLeaveReviewBtnClick = () => {
+    setActivePopup(undefined);
     setActivePopup(Popup.ReviewPopup);
   };
 
@@ -50,7 +56,9 @@ function ProductPage(): JSX.Element {
   };
 
   const handleSuccessPopupOpen = () => {
-    setActivePopup(Popup.ReviewSuccessPopup);
+    if (isReviewSent) {
+      setActivePopup(Popup.ReviewSuccessPopup);
+    }
   };
 
   useEffect(() => {
@@ -59,7 +67,7 @@ function ProductPage(): JSX.Element {
       dispatch(fetchSimilarCamerasAction(id));
       dispatch(fetchReviewsAction(id));
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, id]);
 
   if (isCameraLoading || isSimilarCamerasLoading || isReviewsLoading || !camera) {

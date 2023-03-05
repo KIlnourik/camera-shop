@@ -6,7 +6,7 @@ import { Camera } from '../types/camera';
 import { Promo } from '../types/promo';
 import { Review } from '../types/review';
 import { ReviewPost } from '../types/review-post';
-import { StatusCodes } from 'http-status-codes';
+// import { StatusCodes } from 'http-status-codes';
 
 export const fetchCamerasAction = createAsyncThunk<Camera[], undefined, {
   dispatch: AppDispatch;
@@ -68,20 +68,15 @@ export const fetchReviewsAction = createAsyncThunk<Review[], string, {
   }
 );
 
-export const sendReviewAction = createAsyncThunk<boolean, ReviewPost, {
+export const sendReviewAction = createAsyncThunk<void, ReviewPost, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/postReview',
   async ({ cameraId, ...data }, { dispatch, extra: api }) => {
-    const response = await api.post<ReviewPost>(APIRoute.Reviews, { cameraId, ...data });
+    await api.post<ReviewPost>(APIRoute.Reviews, { cameraId, ...data });
     dispatch(fetchReviewsAction(String(cameraId)));
-    if (response.status === StatusCodes.CREATED) {
-      return true;
-    } else {
-      return false;
-    }
   }
 );
 

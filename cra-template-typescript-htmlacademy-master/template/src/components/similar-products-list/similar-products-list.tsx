@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../hooks';
-import { getSimilarCameras } from '../../store/data-process/selector';
+import { getSimilarCameras } from '../../store/camera-process/selector';
 import { MAX_SHOWN_SLIDER_CARDS } from '../../const';
 import { Camera } from '../../types/camera';
 import SimilarProduct from '../similar-product/similar-product';

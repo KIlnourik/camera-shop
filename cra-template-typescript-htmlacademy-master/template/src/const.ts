@@ -8,8 +8,8 @@ export enum AppRoute {
 }
 
 export enum NameSpace {
-  Data = 'Data',
-  Catalog = 'Catalog',
+  Camera = 'Camera',
+  Review = 'Review',
 }
 
 export enum APIRoute {

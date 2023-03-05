@@ -1,6 +1,6 @@
 import { MAX_SHOWN_SLIDER_CARDS } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { getSimilarCameras } from '../../store/data-process/selector';
+import { getSimilarCameras } from '../../store/camera-process/selector';
 
 type Props = {
   sliderOffset: number;

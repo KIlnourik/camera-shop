@@ -1,28 +1,24 @@
-import { dataProcess } from './data-process';
+import { cameraProcess } from './camera-process';
 import {
   makeFakeCameraInfo,
   makeFakeCameraList,
   makeFakePromo,
-  makeFakeReviewList,
 } from '../../utils/mocks';
 import {
   fetchCameraAction,
   fetchCamerasAction,
   fetchPromoAction,
-  fetchReviewsAction,
   fetchSimilarCamerasAction,
-  sendReviewAction,
 } from '../api-actions';
 
 const cameras = [...makeFakeCameraList()];
 const camera = makeFakeCameraInfo();
 const promo = makeFakePromo();
-const reviews = [...makeFakeReviewList()];
 const similarCameras = makeFakeCameraList();
 
-describe('Reducer: dataProcess', () => {
+describe('Reducer: cameraProcess', () => {
   it('without additional parameters should return initial state', () => {
-    expect(dataProcess.reducer(undefined, { type: 'UNKNOWN_ACTION' }))
+    expect(cameraProcess.reducer(undefined, { type: 'UNKNOWN_ACTION' }))
       .toEqual({
         cameras: [],
         promo: undefined,
@@ -52,7 +48,7 @@ describe('Reducer: dataProcess', () => {
       isReviewsLoading: false,
       isReviewSent: false,
     };
-    expect((dataProcess.reducer(state, { type: fetchCamerasAction.fulfilled.type, payload: cameras })))
+    expect((cameraProcess.reducer(state, { type: fetchCamerasAction.fulfilled.type, payload: cameras })))
       .toEqual({
         cameras, isCamerasLoading: false,
         promo: undefined,
@@ -81,7 +77,7 @@ describe('Reducer: dataProcess', () => {
       isReviewsLoading: false,
       isReviewSent: false,
     };
-    expect((dataProcess.reducer(state, { type: fetchCameraAction.fulfilled.type, payload: camera })))
+    expect((cameraProcess.reducer(state, { type: fetchCameraAction.fulfilled.type, payload: camera })))
       .toEqual({
         camera, isCameraLoading: false,
         cameras: [],
@@ -92,37 +88,6 @@ describe('Reducer: dataProcess', () => {
         isPromoLoading: false,
         isSimilarCamerasLoading: false,
         isReviewsLoading: false,
-        isReviewSent: false,
-      });
-  });
-
-
-  it('should update Reviews by load reviews', () => {
-    const state = {
-      cameras: [],
-      promo: undefined,
-      camera: undefined,
-      similarCameras: [],
-      reviews: [],
-      isCamerasLoading: false,
-      isPromoLoading: false,
-      isCameraLoading: false,
-      isSimilarCamerasLoading: false,
-      isReviewsLoading: false,
-      isReviewSent: false,
-    };
-    expect((dataProcess.reducer(state, { type: fetchReviewsAction.fulfilled.type, payload: reviews })))
-      .toEqual({
-        reviews,
-        isReviewsLoading: false,
-        cameras: [],
-        promo: undefined,
-        camera: undefined,
-        similarCameras: [],
-        isCamerasLoading: false,
-        isPromoLoading: false,
-        isCameraLoading: false,
-        isSimilarCamerasLoading: false,
         isReviewSent: false,
       });
   });
@@ -141,7 +106,7 @@ describe('Reducer: dataProcess', () => {
       isReviewsLoading: false,
       isReviewSent: false,
     };
-    expect((dataProcess.reducer(state, { type: fetchSimilarCamerasAction.fulfilled.type, payload: similarCameras })))
+    expect((cameraProcess.reducer(state, { type: fetchSimilarCamerasAction.fulfilled.type, payload: similarCameras })))
       .toEqual({
         similarCameras,
         isSimilarCamerasLoading: false,
@@ -171,7 +136,7 @@ describe('Reducer: dataProcess', () => {
       isReviewsLoading: false,
       isReviewSent: false,
     };
-    expect((dataProcess.reducer(state, { type: fetchPromoAction.fulfilled.type, payload: promo })))
+    expect((cameraProcess.reducer(state, { type: fetchPromoAction.fulfilled.type, payload: promo })))
       .toEqual({
         promo,
         isPromoLoading: false,
@@ -187,33 +152,4 @@ describe('Reducer: dataProcess', () => {
       });
   });
 
-  it('should send UserReview by upload review from user', () => {
-    const state = {
-      cameras: [],
-      promo: undefined,
-      camera: undefined,
-      similarCameras: [],
-      reviews: [],
-      isCamerasLoading: false,
-      isPromoLoading: false,
-      isCameraLoading: false,
-      isSimilarCamerasLoading: false,
-      isReviewsLoading: false,
-      isReviewSent: false,
-    };
-    expect((dataProcess.reducer(state, { type: sendReviewAction.fulfilled.type, payload: true})))
-      .toEqual({
-        promo: undefined,
-        isPromoLoading: false,
-        cameras: [],
-        camera: undefined,
-        similarCameras: [],
-        reviews: [],
-        isCamerasLoading: false,
-        isCameraLoading: false,
-        isSimilarCamerasLoading: false,
-        isReviewsLoading: false,
-        isReviewSent: true,
-      });
-  });
 });
