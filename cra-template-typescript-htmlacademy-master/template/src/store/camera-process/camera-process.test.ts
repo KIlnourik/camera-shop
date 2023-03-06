@@ -24,13 +24,10 @@ describe('Reducer: cameraProcess', () => {
         promo: undefined,
         camera: undefined,
         similarCameras: [],
-        reviews: [],
         isCamerasLoading: false,
         isPromoLoading: false,
         isCameraLoading: false,
         isSimilarCamerasLoading: false,
-        isReviewsLoading: false,
-        isReviewSent: undefined,
       });
   });
 
@@ -40,13 +37,10 @@ describe('Reducer: cameraProcess', () => {
       promo: undefined,
       camera: undefined,
       similarCameras: [],
-      reviews: [],
       isCamerasLoading: false,
       isPromoLoading: false,
       isCameraLoading: false,
       isSimilarCamerasLoading: false,
-      isReviewsLoading: false,
-      isReviewSent: false,
     };
     expect((cameraProcess.reducer(state, { type: fetchCamerasAction.fulfilled.type, payload: cameras })))
       .toEqual({
@@ -54,12 +48,9 @@ describe('Reducer: cameraProcess', () => {
         promo: undefined,
         camera: undefined,
         similarCameras: [],
-        reviews: [],
         isPromoLoading: false,
         isCameraLoading: false,
         isSimilarCamerasLoading: false,
-        isReviewsLoading: false,
-        isReviewSent: false,
       });
   });
 
@@ -69,13 +60,10 @@ describe('Reducer: cameraProcess', () => {
       promo: undefined,
       camera: undefined,
       similarCameras: [],
-      reviews: [],
       isCamerasLoading: false,
       isPromoLoading: false,
       isCameraLoading: false,
       isSimilarCamerasLoading: false,
-      isReviewsLoading: false,
-      isReviewSent: false,
     };
     expect((cameraProcess.reducer(state, { type: fetchCameraAction.fulfilled.type, payload: camera })))
       .toEqual({
@@ -83,12 +71,9 @@ describe('Reducer: cameraProcess', () => {
         cameras: [],
         promo: undefined,
         similarCameras: [],
-        reviews: [],
         isCamerasLoading: false,
         isPromoLoading: false,
         isSimilarCamerasLoading: false,
-        isReviewsLoading: false,
-        isReviewSent: false,
       });
   });
 
@@ -98,13 +83,10 @@ describe('Reducer: cameraProcess', () => {
       promo: undefined,
       camera: undefined,
       similarCameras: [],
-      reviews: [],
       isCamerasLoading: false,
       isPromoLoading: false,
       isCameraLoading: false,
       isSimilarCamerasLoading: false,
-      isReviewsLoading: false,
-      isReviewSent: false,
     };
     expect((cameraProcess.reducer(state, { type: fetchSimilarCamerasAction.fulfilled.type, payload: similarCameras })))
       .toEqual({
@@ -113,12 +95,9 @@ describe('Reducer: cameraProcess', () => {
         cameras: [],
         promo: undefined,
         camera: undefined,
-        reviews: [],
         isCamerasLoading: false,
         isPromoLoading: false,
         isCameraLoading: false,
-        isReviewsLoading: false,
-        isReviewSent: false,
       });
   });
 
@@ -128,13 +107,10 @@ describe('Reducer: cameraProcess', () => {
       promo: undefined,
       camera: undefined,
       similarCameras: [],
-      reviews: [],
       isCamerasLoading: false,
       isPromoLoading: false,
       isCameraLoading: false,
       isSimilarCamerasLoading: false,
-      isReviewsLoading: false,
-      isReviewSent: false,
     };
     expect((cameraProcess.reducer(state, { type: fetchPromoAction.fulfilled.type, payload: promo })))
       .toEqual({
@@ -143,12 +119,9 @@ describe('Reducer: cameraProcess', () => {
         cameras: [],
         camera: undefined,
         similarCameras: [],
-        reviews: [],
         isCamerasLoading: false,
         isCameraLoading: false,
         isSimilarCamerasLoading: false,
-        isReviewsLoading: false,
-        isReviewSent: false,
       });
   });
 

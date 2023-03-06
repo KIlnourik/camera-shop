@@ -144,10 +144,8 @@ describe('Async actions', () => {
 
     expect(actions).toEqual([
       sendReviewAction.pending.type,
-      fetchReviewsAction.pending.type,
       sendReviewAction.fulfilled.type,
       fetchReviewsAction.pending.type,
-      fetchReviewsAction.rejected.type,
       fetchReviewsAction.fulfilled.type
     ]);
   });

@@ -58,6 +58,13 @@ function ProductPage(): JSX.Element {
     setActivePopup(Popup.ReviewSuccessPopup);
   };
 
+  const handleSuccessClosePopup = () => {
+    if (id) {
+      setActivePopup(undefined);
+      dispatch(fetchReviewsAction(id));
+    }
+  };
+
   useEffect(() => {
     if (id && !isCameraLoading && !isSimilarCamerasLoading && !isReviewsLoading) {
       dispatch(fetchCameraAction(id));
@@ -104,7 +111,7 @@ function ProductPage(): JSX.Element {
           />}
         {activePopup === Popup.ReviewSuccessPopup &&
           <AddReviewSuccessPopup
-            handleClosePopup={handleClosePopup}
+            handleClosePopup={handleSuccessClosePopup}
             handleEscKeydown={handleEscKeydown}
           />}
       </main>

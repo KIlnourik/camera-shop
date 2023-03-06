@@ -8,16 +8,18 @@ import CatalogPage from './catalog-page';
 
 const mockStore = configureMockStore();
 const store = mockStore({
-  Data: {
+  Camera: {
     cameras: [...makeFakeCameraList()],
     promo: makeFakePromo(),
     camera: makeFakeCameraInfo(),
     similarCameras: [...makeFakeCameraList()],
-    reviews: [...makeFakeReviewList()],
     isCamerasLoading: false,
     isPromoLoading: false,
     isCameraLoading: false,
     isSimilarCamerasLoading: false,
+  },
+  Review: {
+    reviews: [...makeFakeReviewList()],
     isReviewsLoading: false,
     isReviewSent: true,
   }
