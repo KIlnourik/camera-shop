@@ -17,7 +17,7 @@ function App(): JSX.Element {
           <Route path={AppRoute.Parameters} element={<ProductParametersTab />} />
           <Route path={AppRoute.Description} element={<ProductDescTab />} />
         </Route>
-        <Route path={'*'} element={<NotFoundScreen />} />
+        <Route path={AppRoute.NotFound} element={<NotFoundScreen />} />
       </Route>
     </Routes>
 

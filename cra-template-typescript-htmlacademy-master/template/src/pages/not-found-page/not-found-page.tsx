@@ -6,7 +6,7 @@ function NotFoundPage(): JSX.Element {
 
   return (
     <div className="page-wrapper" data-testid="page-content">
-      <img className="" src="/img/content/gif/travolta-gif.gif" alt="Растерянный Траволта" />
+      <img className="page-img" src="/img/content/travolta.png" alt="Растерянный Траволта" />
       <div className="text-wrapper">
         <h1 className="title title--h1">
           <b style={{ fontSize: '1.5em' }}>Ошибка&nbsp;404!</b ><br />

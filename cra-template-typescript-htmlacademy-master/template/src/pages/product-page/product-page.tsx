@@ -1,7 +1,7 @@
 import { useEffect, useState, KeyboardEvent } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { Popup } from '../../const';
+import { CAMERAS_URL, Popup } from '../../const';
 import {
   fetchCameraAction,
   fetchReviewsAction,
@@ -25,14 +25,17 @@ import AddReviewSuccessPopup from '../../components/add-review-success-popup/add
 import NotFoundPage from '../not-found-page/not-found-page';
 
 function ProductPage(): JSX.Element {
+  const location = useLocation();
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const camera = useAppSelector(getCamera);
+  const [camerasUrl, ] = useState(location.pathname.split('/')[1]);
   const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
   const [activePopup, setActivePopup] = useState<string | undefined>(undefined);
   const isCameraLoading = useAppSelector(getCameraLoadingStatus);
   const isSimilarCamerasLoading = useAppSelector(getSimilarCamerasLoadingStatus);
   const isReviewsLoading = useAppSelector(getReviewsLoadingStatus);
+
 
   const handleBuyButtonClick = (selectedCamera: Camera) => {
     setActivePopup(Popup.BasketPopup);
@@ -41,7 +44,6 @@ function ProductPage(): JSX.Element {
 
   const handleLeaveReviewBtnClick = () => {
     setActivePopup(Popup.ReviewPopup);
-
   };
 
   const handleEscKeydown = (evt: KeyboardEvent<HTMLElement>) => {
@@ -70,15 +72,21 @@ function ProductPage(): JSX.Element {
       dispatch(fetchCameraAction(id));
       dispatch(fetchSimilarCamerasAction(id));
       dispatch(fetchReviewsAction(id));
+    } else {
+      <NotFoundPage />;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, id]);
 
-  if (isCameraLoading || isSimilarCamerasLoading || isReviewsLoading || !camera) {
+
+  // eslint-disable-next-line no-console
+  console.log(location.pathname.split('/'));
+
+  if (isCameraLoading || isSimilarCamerasLoading || isReviewsLoading) {
     return <Spinner />;
   }
 
-  if (!id) {
+  if (!id || !camera || (camerasUrl !== CAMERAS_URL)) {
     return <NotFoundPage />;
   }
 

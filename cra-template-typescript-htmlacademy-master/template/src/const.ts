@@ -1,10 +1,11 @@
 export enum AppRoute {
   Catalog = '/',
   Pages = ':page?',
-  Product = 'cameras/:id',
+  Product = '/cameras/:id',
   Parameters = 'parameters',
   Description = 'desc',
   Basket = 'basket',
+  NotFound = '*',
 }
 
 export enum NameSpace {
@@ -59,3 +60,5 @@ export const MAX_SHOWN_SLIDER_CARDS = 3;
 export const MAX_REVIEWS_COUNT = 3;
 
 export const MAX_RATING_VALUE = 5;
+
+export const CAMERAS_URL = 'cameras';
