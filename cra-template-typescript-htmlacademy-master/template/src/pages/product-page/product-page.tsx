@@ -78,10 +78,6 @@ function ProductPage(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, id]);
 
-
-  // eslint-disable-next-line no-console
-  console.log(location.pathname.split('/'));
-
   if (isCameraLoading || isSimilarCamerasLoading || isReviewsLoading) {
     return <Spinner />;
   }
