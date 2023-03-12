@@ -3,16 +3,12 @@ import { useLocation, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { CAMERAS_URL, Popup } from '../../const';
 import {
-  fetchCameraAction,
-  fetchReviewsAction,
-  fetchSimilarCamerasAction
+  fetchCameraAction
 } from '../../store/api-actions';
 import {
   getCameraLoadingStatus,
   getCamera,
-  getSimilarCamerasLoadingStatus,
 } from '../../store/camera-process/selector';
-import { getReviewsLoadingStatus } from '../../store/review-process/selector';
 import { Camera } from '../../types/camera';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import ProductInfo from '../../components/product-info/product-info';
@@ -29,13 +25,10 @@ function ProductPage(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const camera = useAppSelector(getCamera);
-  const [camerasUrl, ] = useState(location.pathname.split('/')[1]);
+  const [camerasUrl,] = useState(location.pathname.split('/')[1]);
   const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
   const [activePopup, setActivePopup] = useState<string | undefined>(undefined);
   const isCameraLoading = useAppSelector(getCameraLoadingStatus);
-  const isSimilarCamerasLoading = useAppSelector(getSimilarCamerasLoadingStatus);
-  const isReviewsLoading = useAppSelector(getReviewsLoadingStatus);
-
 
   const handleBuyButtonClick = (selectedCamera: Camera) => {
     setActivePopup(Popup.BasketPopup);
@@ -63,22 +56,19 @@ function ProductPage(): JSX.Element {
   const handleSuccessClosePopup = () => {
     if (id) {
       setActivePopup(undefined);
-      dispatch(fetchReviewsAction(id));
     }
   };
 
   useEffect(() => {
-    if (id && !isCameraLoading && !isSimilarCamerasLoading && !isReviewsLoading) {
+    if (id && !isCameraLoading) {
       dispatch(fetchCameraAction(id));
-      dispatch(fetchSimilarCamerasAction(id));
-      dispatch(fetchReviewsAction(id));
     } else {
       <NotFoundPage />;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, id]);
 
-  if (isCameraLoading || isSimilarCamerasLoading || isReviewsLoading) {
+  if (isCameraLoading) {
     return <Spinner />;
   }
 
