@@ -1,23 +1,82 @@
+import { useState, KeyboardEvent, useRef, useEffect } from 'react';
+import HeaderSearchFormList from '../header-search-from-list/header-search-form-list';
+import { useAppSelector } from '../../hooks';
+import { getCameras } from '../../store/camera-process/selector';
+import { Camera } from '../../types/camera';
+
+const filterCameras = (inputValue: string | undefined, cameras: Camera[]) => {
+  if (inputValue && cameras) {
+    return cameras.filter((camera) => camera.name.toLowerCase().includes(inputValue.toLowerCase()));
+  }
+};
 
 function HeaderSearchForm(): JSX.Element {
+
+  const cameras = useAppSelector(getCameras);
+  const [isFormActive, setFormActive] = useState(false);
+  const [filteredCameras, setFilteredCameras] = useState<Camera[] | undefined>(cameras);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleFormClick = () => {
+    setFormActive(true);
+  };
+  const handleFormFocus = () => {
+    setFormActive(true);
+  };
+  // const handleFormBlur = () => {
+  //   setFormActive(false);
+  // };
+  const handleEscKeydown = (evt: KeyboardEvent) => {
+    if (evt.key === 'Escape' || evt.key === 'Esc') {
+      setFormActive(false);
+    }
+  };
+
+  useEffect(() => {
+    if (inputRef.current?.value) {
+      setFilteredCameras(filterCameras(inputRef.current?.value, cameras));
+    } else {
+      setFilteredCameras(cameras);
+    }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cameras, inputRef.current?.value]);
+
+  // const handleClearButtonClick = () => {
+  //   if (inputRef.current?.value) {
+  //     inputRef.value = null;
+  //   }
+  // };
+
+  const handleInputChange = () => {
+    if (inputRef) {
+      setFilteredCameras(filterCameras(inputRef.current?.value, cameras));
+    }
+  };
+
   return (
-    <div className="form-search">
+    <div className={`form-search ${isFormActive ? 'list-opened' : ''}`}
+      onClick={handleFormClick}
+      onFocusCapture={handleFormFocus}
+      onKeyDown={handleEscKeydown}
+    >
       <form>
         <label>
           <svg className="form-search__icon" width="16" height="16" aria-hidden="true">
             <use xlinkHref="#icon-lens"></use>
           </svg>
-          <input className="form-search__input" type="text" autoComplete="off" placeholder="Поиск по сайту" />
+          <input
+            ref={inputRef}
+            onChange={handleInputChange}
+            className="form-search__input"
+            type="text"
+            autoComplete="off"
+            placeholder="Поиск по сайту"
+          />
         </label>
-        <ul className="form-search__select-list">
-          <li className="form-search__select-item" tabIndex={0}>Cannonball Pro MX 8i</li>
-          <li className="form-search__select-item" tabIndex={0}>Cannonball Pro MX 7i</li>
-          <li className="form-search__select-item" tabIndex={0}>Cannonball Pro MX 6i</li>
-          <li className="form-search__select-item" tabIndex={0}>Cannonball Pro MX 5i</li>
-          <li className="form-search__select-item" tabIndex={0}>Cannonball Pro MX 4i</li>
-        </ul>
+        <HeaderSearchFormList filteredCameras={filteredCameras} />
       </form>
-      <button className="form-search__reset" type="reset">
+      <button className="form-search__reset" type="reset" >
         <svg width="10" height="10" aria-hidden="true">
           <use xlinkHref="#icon-close"></use>
         </svg><span className="visually-hidden">Сбросить поиск</span>

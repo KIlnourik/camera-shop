@@ -7,6 +7,8 @@ import NavList from '../nav-list/nav-list';
 import SocialList from '../social-list/social-list';
 
 function Layout(): JSX.Element {
+
+
   return (
     <>
       <header className="header" id="header">
