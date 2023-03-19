@@ -1,8 +1,8 @@
-import { useState, KeyboardEvent, useRef, useEffect } from 'react';
-import HeaderSearchFormList from '../header-search-from-list/header-search-form-list';
+import { useState, KeyboardEvent, useRef, useEffect, SyntheticEvent } from 'react';
 import { useAppSelector } from '../../hooks';
 import { getCameras } from '../../store/camera-process/selector';
 import { Camera } from '../../types/camera';
+import HeaderSearchFormList from '../header-search-from-list/header-search-form-list';
 
 const filterCameras = (inputValue: string | undefined, cameras: Camera[]) => {
   if (inputValue && cameras) {
@@ -23,12 +23,33 @@ function HeaderSearchForm(): JSX.Element {
   const handleFormFocus = () => {
     setFormActive(true);
   };
-  // const handleFormBlur = () => {
-  //   setFormActive(false);
-  // };
+
+  const handleFormBlur = (evt: SyntheticEvent) => {
+    evt.preventDefault();
+    setFormActive(false);
+    // eslint-disable-next-line no-console
+    console.log('Input lost focus');
+  };
+  const handleDropDownBlur = (evt: SyntheticEvent) => {
+    evt.preventDefault();
+    handleFormBlur(evt);
+    // setFormActive(false);
+    // eslint-disable-next-line no-console
+    console.log('DropDown lost focus');
+  };
+
+  const handleDropDownFocused = () => {
+    setFormActive(true);
+    // eslint-disable-next-line no-console
+    console.log('Dropdown focused');
+  };
+
   const handleEscKeydown = (evt: KeyboardEvent) => {
     if (evt.key === 'Escape' || evt.key === 'Esc') {
       setFormActive(false);
+      if (inputRef.current?.value) {
+        inputRef.current.value = '';
+      }
     }
   };
 
@@ -38,15 +59,16 @@ function HeaderSearchForm(): JSX.Element {
     } else {
       setFilteredCameras(cameras);
     }
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cameras, inputRef.current?.value]);
 
-  // const handleClearButtonClick = () => {
-  //   if (inputRef.current?.value) {
-  //     inputRef.value = null;
-  //   }
-  // };
+  const handleClearButtonClick = (evt: SyntheticEvent) => {
+    evt.preventDefault();
+    if (inputRef.current?.value) {
+      inputRef.current.value = '';
+      setFilteredCameras(cameras);
+    }
+  };
 
   const handleInputChange = () => {
     if (inputRef) {
@@ -57,7 +79,7 @@ function HeaderSearchForm(): JSX.Element {
   return (
     <div className={`form-search ${isFormActive ? 'list-opened' : ''}`}
       onClick={handleFormClick}
-      onFocusCapture={handleFormFocus}
+      onFocus={handleFormFocus}
       onKeyDown={handleEscKeydown}
     >
       <form>
@@ -74,9 +96,13 @@ function HeaderSearchForm(): JSX.Element {
             placeholder="Поиск по сайту"
           />
         </label>
-        <HeaderSearchFormList filteredCameras={filteredCameras} />
+        <HeaderSearchFormList
+          filteredCameras={filteredCameras}
+          handleBlurCapture={handleDropDownBlur}
+          handleFormActive={handleDropDownFocused}
+        />
       </form>
-      <button className="form-search__reset" type="reset" >
+      <button className="form-search__reset" type="reset" onClick={handleClearButtonClick}>
         <svg width="10" height="10" aria-hidden="true">
           <use xlinkHref="#icon-close"></use>
         </svg><span className="visually-hidden">Сбросить поиск</span>
