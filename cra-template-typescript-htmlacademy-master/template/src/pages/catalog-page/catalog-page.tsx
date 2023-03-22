@@ -1,9 +1,9 @@
 import { useState, KeyboardEvent, useEffect } from 'react';
 import { MAX_CARDS_PER_PAGE } from '../../const';
 import { Camera } from '../../types/camera';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { getCameras } from '../../store/camera-process/selector';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import Banner from '../../components/banner/banner';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogCards from '../../components/catalog-cards/catalog-cards';
@@ -12,19 +12,36 @@ import CatalogPagination from '../../components/catalog-pagination/catalog-pagin
 import CatalogSortForm from '../../components/catalog-sort-form/catalog-sort-form';
 import AddItemPopup from '../../components/add-item-popup/add-item-popup';
 import NotFoundPage from '../not-found-page/not-found-page';
+import { fetchCamerasAction } from '../../store/api-actions';
 
 function CatalogPage(): JSX.Element {
+  const dispatch = useAppDispatch();
   const cameras = useAppSelector(getCameras);
   const { page } = useParams();
   const [summaryPages, setSummaryPages] = useState(0);
-  const [chosenPage, setChosenPage] = useState((page && Number(page?.split('_')[1]) <= summaryPages) ? Number(page?.split('_')[1]) : 1);
-  const [offset, setOffset] = useState((page && Number(page?.split('_')[1]) <= summaryPages) ? ((Number(page?.split('_')[1]) - 1) * MAX_CARDS_PER_PAGE) : 0);
+  const [chosenPage, setChosenPage] = useState(1);
+  const [offset, setOffset] = useState(0);
   const [isActivePopup, setActivePopup] = useState(false);
   const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const sortQuery = searchParams.get('sort') || '';
+  const orderQuery = searchParams.get('order') || '';
+
+  // eslint-disable-next-line no-console
+  console.log(sortQuery, orderQuery);
 
   useEffect(() => {
+    dispatch(fetchCamerasAction({ sort: sortQuery, order: orderQuery }));
+
     setSummaryPages(Math.ceil(cameras.length / MAX_CARDS_PER_PAGE));
-  }, [cameras.length]);
+    if (page && Number(page?.split('_')[1]) <= summaryPages) {
+      setChosenPage(Number(page?.split('_')[1]));
+      setOffset((Number(page?.split('_')[1]) - 1) * MAX_CARDS_PER_PAGE);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, page, cameras.length, sortQuery, orderQuery, summaryPages]);
 
   const handlePageButtonClick = (currentPage: number, selectedPage: number) => {
     if (currentPage !== selectedPage) {
@@ -75,7 +92,7 @@ function CatalogPage(): JSX.Element {
             <div className="page-content__columns">
               <CatalogFilter />
               <div className="catalog__content">
-                <CatalogSortForm />
+                <CatalogSortForm sortQuery={sortQuery} orderQuery={orderQuery} setSearchParams={setSearchParams} />
                 <CatalogCards offset={offset} handleBuyButtonClick={handleBuyButtonClick} />
                 <CatalogPagination
                   handlePageButtonClick={handlePageButtonClick}

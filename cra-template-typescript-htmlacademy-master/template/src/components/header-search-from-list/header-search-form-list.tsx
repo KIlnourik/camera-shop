@@ -3,24 +3,23 @@ import { useAppSelector } from '../../hooks';
 import { getCameras } from '../../store/camera-process/selector';
 import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
-import { KeyboardEvent, SyntheticEvent, useState } from 'react';
+import { KeyboardEvent, useRef, useState } from 'react';
 
 type Props = {
   filteredCameras: Camera[] | undefined;
-  handleBlurCapture(evt: SyntheticEvent): void;
-  handleFormActive(): void;
 };
 
-function HeaderSearchFormList({ filteredCameras, handleBlurCapture, handleFormActive }: Props): JSX.Element {
+function HeaderSearchFormList({ filteredCameras }: Props): JSX.Element {
   const cameras = useAppSelector(getCameras);
   const [activeCamera, setActiveCamera] = useState(0);
   const navigate = useNavigate();
+  const localListRef = useRef<HTMLUListElement>(null);
 
   const handleItemClick = (id: number) => {
     navigate(`cameras/${id}/${AppRoute.Parameters}`);
   };
 
-  const handleArrowsKeydown = (evt: KeyboardEvent) => {
+  const handleKeydown = (evt: KeyboardEvent) => {
     if (evt.key === 'ArrowUp') {
       // eslint-disable-next-line no-console
       console.log('Arrow Clicked - 1');
@@ -36,22 +35,23 @@ function HeaderSearchFormList({ filteredCameras, handleBlurCapture, handleFormAc
   };
 
   return (
-    <ul className="form-search__select-list "
-      onFocusCapture={handleFormActive}
-    >
+    <ul className="form-search__select-list " ref={localListRef}>
       {filteredCameras ? (filteredCameras.map((camera) => (
         <li className="form-search__select-item"
           key={camera.id}
           tabIndex={0}
           onClick={() => handleItemClick(camera.id)}
-          onKeyDown={handleArrowsKeydown}
-          onFocusCapture={handleFormActive}
+          onKeyDown={handleKeydown}
         >
           {camera.name}
         </li >
       )))
         : cameras.map((camera) => (
-          <li className="form-search__select-item" tabIndex={1} key={camera.id} onClick={() => handleItemClick(camera.id)}>
+          <li className="form-search__select-item"
+            tabIndex={1} key={camera.id}
+            onClick={() => handleItemClick(camera.id)}
+            onKeyDown={handleKeydown}
+          >
             {camera.name}
           </li>
         ))}

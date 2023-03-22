@@ -12,7 +12,7 @@ function App(): JSX.Element {
 
     <Routes>
       <Route path={AppRoute.Catalog} element={<Layout />}>
-        <Route path={AppRoute.Pages} element={<CatalogPage />} />
+        <Route path={`${AppRoute.Pages}`} element={<CatalogPage />} />
         <Route path={AppRoute.Product} element={<ProductPage />} >
           <Route path={AppRoute.Parameters} element={<ProductParametersTab />} />
           <Route path={AppRoute.Description} element={<ProductDescTab />} />

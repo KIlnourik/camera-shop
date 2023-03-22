@@ -24,24 +24,24 @@ function HeaderSearchForm(): JSX.Element {
     setFormActive(true);
   };
 
-  const handleFormBlur = (evt: SyntheticEvent) => {
+  const handleFormBlur = () => {
+    if (inputRef.current?.onblur) {
+      setFormActive(true);
+      // eslint-disable-next-line no-console
+      console.log('List on focus');
+    } else {
+      setFormActive(false);
+      // eslint-disable-next-line no-console
+      console.log('Form lost focus');
+    }
+  };
+
+  const handleInputBlur = (evt: SyntheticEvent<HTMLInputElement>) => {
     evt.preventDefault();
+    // listRef.current?.focus();
     setFormActive(false);
     // eslint-disable-next-line no-console
     console.log('Input lost focus');
-  };
-  const handleDropDownBlur = (evt: SyntheticEvent) => {
-    evt.preventDefault();
-    handleFormBlur(evt);
-    // setFormActive(false);
-    // eslint-disable-next-line no-console
-    console.log('DropDown lost focus');
-  };
-
-  const handleDropDownFocused = () => {
-    setFormActive(true);
-    // eslint-disable-next-line no-console
-    console.log('Dropdown focused');
   };
 
   const handleEscKeydown = (evt: KeyboardEvent) => {
@@ -81,8 +81,9 @@ function HeaderSearchForm(): JSX.Element {
       onClick={handleFormClick}
       onFocus={handleFormFocus}
       onKeyDown={handleEscKeydown}
+    // onBlur={handleFormBlur}
     >
-      <form>
+      <form onBlur={handleFormBlur} onFocus={handleFormFocus}>
         <label>
           <svg className="form-search__icon" width="16" height="16" aria-hidden="true">
             <use xlinkHref="#icon-lens"></use>
@@ -90,6 +91,7 @@ function HeaderSearchForm(): JSX.Element {
           <input
             ref={inputRef}
             onChange={handleInputChange}
+            onBlur={handleInputBlur}
             className="form-search__input"
             type="text"
             autoComplete="off"
@@ -98,8 +100,6 @@ function HeaderSearchForm(): JSX.Element {
         </label>
         <HeaderSearchFormList
           filteredCameras={filteredCameras}
-          handleBlurCapture={handleDropDownBlur}
-          handleFormActive={handleDropDownFocused}
         />
       </form>
       <button className="form-search__reset" type="reset" onClick={handleClearButtonClick}>

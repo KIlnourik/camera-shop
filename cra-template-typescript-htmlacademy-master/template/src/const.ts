@@ -33,6 +33,13 @@ export enum Popup {
   ReviewSuccessPopup = 'reviewSuccessPopup',
 }
 
+export enum Sorts {
+  Price = 'price',
+  Rating = 'rating',
+  ASC = 'asc',
+  DESC = 'desc'
+}
+
 type RatingValuesType = {
   [index: number]: string;
 }
