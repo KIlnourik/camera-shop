@@ -27,12 +27,18 @@ function CatalogPage(): JSX.Element {
 
   const sortQuery = searchParams.get('sort') || '';
   const orderQuery = searchParams.get('order') || '';
-
-  // eslint-disable-next-line no-console
-  console.log(sortQuery, orderQuery);
+  const categoryQuery = searchParams.get('category') || '';
+  const typeQuery = searchParams.get('type') || '';
+  const levelQuery = searchParams.get('level') || '';
 
   useEffect(() => {
-    dispatch(fetchCamerasAction({ sort: sortQuery, order: orderQuery }));
+    dispatch(fetchCamerasAction({
+      sort: sortQuery,
+      order: orderQuery,
+      category: categoryQuery,
+      type: typeQuery,
+      level: levelQuery
+    }));
 
     setSummaryPages(Math.ceil(cameras.length / MAX_CARDS_PER_PAGE));
     if (page && Number(page?.split('_')[1]) <= summaryPages) {
@@ -90,7 +96,12 @@ function CatalogPage(): JSX.Element {
           <div className="container">
             <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
             <div className="page-content__columns">
-              <CatalogFilter />
+              <CatalogFilter
+                categoryQuery={categoryQuery}
+                typeQuery={typeQuery}
+                levelQuery={levelQuery}
+                setSearchParams={setSearchParams}
+              />
               <div className="catalog__content">
                 <CatalogSortForm sortQuery={sortQuery} orderQuery={orderQuery} setSearchParams={setSearchParams} />
                 <CatalogCards offset={offset} handleBuyButtonClick={handleBuyButtonClick} />

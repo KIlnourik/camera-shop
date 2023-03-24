@@ -42,7 +42,15 @@ describe('Async actions', () => {
 
     const store = mockStore();
 
-    await store.dispatch(fetchCamerasAction({sort: 'sort', order: 'order'}));
+    const sortAndFilterParams = {
+      sort: 'sort',
+      order: 'order',
+      category: 'categoryQuery',
+      type: 'typeQuery',
+      level: 'levelQuery'
+    };
+
+    await store.dispatch(fetchCamerasAction(sortAndFilterParams));
 
     const actions = store.getActions().map(({ type }) => type);
 

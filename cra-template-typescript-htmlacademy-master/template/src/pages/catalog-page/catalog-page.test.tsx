@@ -32,7 +32,7 @@ describe('Component: CatalogPagination', () => {
     render(
       <Provider store={store} >
         <HistoryRouter history={history} >
-          <CatalogPage/>
+          <CatalogPage />
         </HistoryRouter>
       </Provider>);
 

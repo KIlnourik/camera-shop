@@ -6,16 +6,16 @@ import { Camera } from '../types/camera';
 import { Promo } from '../types/promo';
 import { Review } from '../types/review';
 import { ReviewPost } from '../types/review-post';
-import { Sort } from '../types/sort';
+import { Filters } from '../types/filters';
 
-export const fetchCamerasAction = createAsyncThunk<Camera[], Sort, {
+export const fetchCamerasAction = createAsyncThunk<Camera[], Filters, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchCameras',
-  async ({ sort, order }, { rejectWithValue, extra: api }) => {
-    const { data } = await api.get<Camera[]>(`${APIRoute.Cameras}?_sort=${sort}&_order=${order}`);
+  async ({ sort, order, category, type, level }, { rejectWithValue, extra: api }) => {
+    const { data } = await api.get<Camera[]>(`${APIRoute.Cameras}?_sort=${sort}&_order=${order}&category=${category}&type=${type}&level=${level}`);
     return data;
   },
 );

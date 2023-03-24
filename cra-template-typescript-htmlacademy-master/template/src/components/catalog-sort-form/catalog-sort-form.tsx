@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Sorts } from '../../const';
-import { useAppDispatch } from '../../hooks';
-import { fetchCamerasAction } from '../../store/api-actions';
+// import { useAppDispatch } from '../../hooks';
+// import { fetchCamerasAction } from '../../store/api-actions';
 
 type Props = {
   sortQuery: string;
@@ -13,13 +13,13 @@ type Props = {
 };
 
 function CatalogSortForm({ sortQuery, orderQuery, setSearchParams }: Props): JSX.Element {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const [currentSort, setCurrentSort] = useState(sortQuery);
   const [currentOrder, setCurrentOrder] = useState(orderQuery);
 
   const handleSortChange = (sort: string) => {
     setCurrentSort(sort);
-    dispatch(fetchCamerasAction({ sort: currentSort, order: currentOrder }));
+    // dispatch(fetchCamerasAction({ sort: currentSort, order: currentOrder }));
   };
 
   const handleOrderChange = (order: string) => {
@@ -27,7 +27,7 @@ function CatalogSortForm({ sortQuery, orderQuery, setSearchParams }: Props): JSX
       setCurrentSort('price');
     }
     setCurrentOrder(order);
-    dispatch(fetchCamerasAction({ sort: currentSort, order: currentOrder }));
+    // dispatch(fetchCamerasAction({ sort: currentSort, order: currentOrder }));
   };
 
   useEffect(() => {

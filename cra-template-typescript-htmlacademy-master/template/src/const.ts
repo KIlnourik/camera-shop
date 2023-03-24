@@ -40,6 +40,18 @@ export enum Sorts {
   DESC = 'desc'
 }
 
+export enum Filters {
+  photocamera = 'Фотоаппарат',
+  videocamera = 'Видеокамера',
+  digital = 'Цифровая',
+  film = 'Плёночная',
+  snapshot = 'Моментальная',
+  collection = 'Коллекционная',
+  zero = 'Нулевой',
+  nonProfessional = 'Любительский',
+  professional = 'Профессиональный',
+}
+
 type RatingValuesType = {
   [index: number]: string;
 }
