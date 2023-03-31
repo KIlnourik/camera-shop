@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { CameraProcess } from '../../types/state';
 import {
+  fetchAllCamerasAction,
   fetchCameraAction,
   fetchCamerasAction,
   fetchPromoAction,
@@ -10,10 +11,12 @@ import {
 
 const initialState: CameraProcess = {
   cameras: [],
+  allCameras: [],
   promo: undefined,
   camera: undefined,
   similarCameras: [],
   isCamerasLoading: false,
+  isAllCamerasLoading: false,
   isPromoLoading: false,
   isCameraLoading: false,
   isSimilarCamerasLoading: false,
@@ -52,6 +55,13 @@ export const cameraProcess = createSlice({
       .addCase(fetchSimilarCamerasAction.fulfilled, (state, action) => {
         state.similarCameras = action.payload;
         state.isSimilarCamerasLoading = false;
+      })
+      .addCase(fetchAllCamerasAction.pending, (state) => {
+        state.isAllCamerasLoading = true;
+      })
+      .addCase(fetchAllCamerasAction.fulfilled, (state, action) => {
+        state.allCameras = action.payload;
+        state.isAllCamerasLoading = false;
       });
   }
 });

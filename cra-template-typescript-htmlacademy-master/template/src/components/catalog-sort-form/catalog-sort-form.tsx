@@ -1,40 +1,13 @@
-import { useState, useEffect } from 'react';
 import { Sorts } from '../../const';
-// import { useAppDispatch } from '../../hooks';
-// import { fetchCamerasAction } from '../../store/api-actions';
 
 type Props = {
-  sortQuery: string;
-  orderQuery: string;
-  setSearchParams(params: {
-    sort?: string;
-    order: string;
-  }): void;
+  sort: string;
+  order: string;
+  handleSortChange(sort: string): void;
+  handleOrderChange(order: string): void;
 };
 
-function CatalogSortForm({ sortQuery, orderQuery, setSearchParams }: Props): JSX.Element {
-  // const dispatch = useAppDispatch();
-  const [currentSort, setCurrentSort] = useState(sortQuery);
-  const [currentOrder, setCurrentOrder] = useState(orderQuery);
-
-  const handleSortChange = (sort: string) => {
-    setCurrentSort(sort);
-    // dispatch(fetchCamerasAction({ sort: currentSort, order: currentOrder }));
-  };
-
-  const handleOrderChange = (order: string) => {
-    if (!currentSort.length) {
-      setCurrentSort('price');
-    }
-    setCurrentOrder(order);
-    // dispatch(fetchCamerasAction({ sort: currentSort, order: currentOrder }));
-  };
-
-  useEffect(() => {
-    if (currentSort.length && currentOrder.length) {
-      setSearchParams({ sort: currentSort, order: currentOrder });
-    }
-  }, [setSearchParams, currentOrder, currentSort]);
+function CatalogSortForm({ sort, order, handleSortChange, handleOrderChange }: Props): JSX.Element {
 
   return (
     <div className="catalog-sort">
@@ -46,8 +19,8 @@ function CatalogSortForm({ sortQuery, orderQuery, setSearchParams }: Props): JSX
               <input type="radio"
                 id="sortPrice"
                 name="sort"
-                checked={currentSort === Sorts.Price}
-                onChange={() => handleSortChange('price')}
+                checked={sort === Sorts.Price}
+                onChange={() => handleSortChange(Sorts.Price)}
               />
               <label htmlFor="sortPrice">по цене</label>
             </div>
@@ -55,8 +28,8 @@ function CatalogSortForm({ sortQuery, orderQuery, setSearchParams }: Props): JSX
               <input type="radio"
                 id="sortPopular"
                 name="sort"
-                checked={currentSort === Sorts.Rating}
-                onChange={() => handleSortChange('rating')}
+                checked={sort === Sorts.Rating}
+                onChange={() => handleSortChange(Sorts.Rating)}
               />
               <label htmlFor="sortPopular">по популярности</label>
             </div>
@@ -67,8 +40,8 @@ function CatalogSortForm({ sortQuery, orderQuery, setSearchParams }: Props): JSX
                 id="up"
                 name="sort-icon"
                 aria-label="По возрастанию"
-                checked={currentOrder === Sorts.ASC}
-                onChange={() => handleOrderChange('asc')}
+                checked={order === Sorts.ASC}
+                onChange={() => handleOrderChange(Sorts.ASC)}
               />
               <label htmlFor="up">
                 <svg width="16" height="14" aria-hidden="true">
@@ -81,8 +54,8 @@ function CatalogSortForm({ sortQuery, orderQuery, setSearchParams }: Props): JSX
                 id="down"
                 name="sort-icon"
                 aria-label="По убыванию"
-                checked={currentOrder === Sorts.DESC}
-                onChange={() => handleOrderChange('desc')}
+                checked={order === Sorts.DESC}
+                onChange={() => handleOrderChange(Sorts.DESC)}
               />
               <label htmlFor="down">
                 <svg width="16" height="14" aria-hidden="true">

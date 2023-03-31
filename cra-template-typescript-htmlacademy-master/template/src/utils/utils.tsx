@@ -19,3 +19,38 @@ export function getRatingValues(maxRating: number): number[] {
   return ratingArray.reverse();
 }
 
+export const getFilterItems = (item: string, filters: string[]) => {
+  let items: string[] = [...filters];
+
+  items.includes(item) ?
+    items = items.filter((value) => value !== item) :
+    items.push(item);
+  return items;
+};
+
+const getPricesList = (cameras: Camera[]) => {
+  const prices: number[] = [];
+  if (cameras.length) {
+    cameras.forEach((camera) => {
+      if (!prices.includes(camera.price)) {
+        prices.push(camera.price);
+      }
+    });
+  }
+  return prices;
+};
+
+export const getMinPrice = (cameras: Camera[]) => {
+  const pricesList = getPricesList(cameras);
+  if (pricesList.length) {
+    return Math.min(...pricesList);
+  }
+  return 0;
+};
+export const getMaxPrice = (cameras: Camera[]) => {
+  const pricesList = getPricesList(cameras);
+  if (pricesList.length) {
+    return Math.max(...pricesList);
+  }
+  return 0;
+};

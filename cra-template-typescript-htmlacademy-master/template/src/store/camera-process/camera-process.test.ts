@@ -21,6 +21,8 @@ describe('Reducer: cameraProcess', () => {
     expect(cameraProcess.reducer(undefined, { type: 'UNKNOWN_ACTION' }))
       .toEqual({
         cameras: [],
+        allCameras: [],
+        isAllCamerasLoading: false,
         promo: undefined,
         camera: undefined,
         similarCameras: [],
@@ -34,6 +36,8 @@ describe('Reducer: cameraProcess', () => {
   it('should update Cameras by load cameras list', () => {
     const state = {
       cameras: [],
+      allCameras: [],
+      isAllCamerasLoading: false,
       promo: undefined,
       camera: undefined,
       similarCameras: [],
@@ -45,6 +49,8 @@ describe('Reducer: cameraProcess', () => {
     expect((cameraProcess.reducer(state, { type: fetchCamerasAction.fulfilled.type, payload: cameras })))
       .toEqual({
         cameras, isCamerasLoading: false,
+        allCameras: [],
+        isAllCamerasLoading: false,
         promo: undefined,
         camera: undefined,
         similarCameras: [],
@@ -57,6 +63,8 @@ describe('Reducer: cameraProcess', () => {
   it('should update Camera by load camera', () => {
     const state = {
       cameras: [],
+      allCameras: [],
+      isAllCamerasLoading: false,
       promo: undefined,
       camera: undefined,
       similarCameras: [],
@@ -68,6 +76,8 @@ describe('Reducer: cameraProcess', () => {
     expect((cameraProcess.reducer(state, { type: fetchCameraAction.fulfilled.type, payload: camera })))
       .toEqual({
         camera, isCameraLoading: false,
+        allCameras: [],
+        isAllCamerasLoading: false,
         cameras: [],
         promo: undefined,
         similarCameras: [],
@@ -80,6 +90,8 @@ describe('Reducer: cameraProcess', () => {
   it('should update Similar cameras by load similar camera', () => {
     const state = {
       cameras: [],
+      allCameras: [],
+      isAllCamerasLoading: false,
       promo: undefined,
       camera: undefined,
       similarCameras: [],
@@ -92,6 +104,8 @@ describe('Reducer: cameraProcess', () => {
       .toEqual({
         similarCameras,
         isSimilarCamerasLoading: false,
+        allCameras: [],
+        isAllCamerasLoading: false,
         cameras: [],
         promo: undefined,
         camera: undefined,
@@ -106,6 +120,8 @@ describe('Reducer: cameraProcess', () => {
       cameras: [],
       promo: undefined,
       camera: undefined,
+      allCameras: [],
+      isAllCamerasLoading: false,
       similarCameras: [],
       isCamerasLoading: false,
       isPromoLoading: false,
@@ -116,6 +132,8 @@ describe('Reducer: cameraProcess', () => {
       .toEqual({
         promo,
         isPromoLoading: false,
+        allCameras: [],
+        isAllCamerasLoading: false,
         cameras: [],
         camera: undefined,
         similarCameras: [],

@@ -81,3 +81,5 @@ export const MAX_REVIEWS_COUNT = 3;
 export const MAX_RATING_VALUE = 5;
 
 export const CAMERAS_URL = 'cameras';
+
+export const DEBOUNCE_TIMEOUT = 500;

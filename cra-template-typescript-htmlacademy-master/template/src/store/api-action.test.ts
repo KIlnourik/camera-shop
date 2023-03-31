@@ -9,7 +9,8 @@ import {
   makeFakeCameraList,
   makeFakePromo,
   makeFakeReviewList,
-  makeFakeUserReview
+  makeFakeUserReview,
+  makeFakeQueryParams
 } from '../utils/mocks';
 import { APIRoute } from '../const';
 import {
@@ -34,23 +35,18 @@ describe('Async actions', () => {
     ThunkDispatch<State, typeof api, Action>
   >(middlewares);
 
+
   it('should dispatch Load_Cameras when GET /cameras', async () => {
     const mockCameras = makeFakeCameraList();
+    const queryParams = makeFakeQueryParams();
+
     mockAPI
       .onGet(APIRoute.Cameras)
       .reply(200, mockCameras);
 
     const store = mockStore();
 
-    const sortAndFilterParams = {
-      sort: 'sort',
-      order: 'order',
-      category: 'categoryQuery',
-      type: 'typeQuery',
-      level: 'levelQuery'
-    };
-
-    await store.dispatch(fetchCamerasAction(sortAndFilterParams));
+    await store.dispatch(fetchCamerasAction(queryParams));
 
     const actions = store.getActions().map(({ type }) => type);
 
@@ -134,7 +130,7 @@ describe('Async actions', () => {
 
   it('should dispatch SendReview and Load_Reviews when POST /reviews', async () => {
 
-    const fakeReview: ReviewPost = {...makeFakeUserReview()};
+    const fakeReview: ReviewPost = { ...makeFakeUserReview() };
 
     mockAPI
       .onPost(APIRoute.Reviews)

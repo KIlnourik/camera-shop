@@ -6,19 +6,34 @@ import { Camera } from '../types/camera';
 import { Promo } from '../types/promo';
 import { Review } from '../types/review';
 import { ReviewPost } from '../types/review-post';
-import { Filters } from '../types/filters';
+import { URLSearchParams } from 'url';
 
-export const fetchCamerasAction = createAsyncThunk<Camera[], Filters, {
+export const fetchCamerasAction = createAsyncThunk<Camera[], URLSearchParams, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchCameras',
-  async ({ sort, order, category, type, level }, { rejectWithValue, extra: api }) => {
-    const { data } = await api.get<Camera[]>(`${APIRoute.Cameras}?_sort=${sort}&_order=${order}&category=${category}&type=${type}&level=${level}`);
+  async (params, { rejectWithValue, extra: api }) => {
+    const { data } = await api.get<Camera[]>(`${APIRoute.Cameras}?`, { params: params });
+    // // eslint-disable-next-line no-console
+    // console.log(data);
     return data;
   },
 );
+
+export const fetchAllCamerasAction = createAsyncThunk<Camera[], void, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchAllCameras',
+  async (_args, { rejectWithValue, extra: api }) => {
+    const { data } = await api.get<Camera[]>(APIRoute.Cameras);
+    return data;
+  },
+);
+
 
 export const fetchPromoAction = createAsyncThunk<Promo, undefined, {
   dispatch: AppDispatch;

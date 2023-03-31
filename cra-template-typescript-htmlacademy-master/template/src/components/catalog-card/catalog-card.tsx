@@ -21,7 +21,7 @@ function CatalogCard({ camera, handleBuyButtonClick }: Props): JSX.Element {
       </div>
       <div className="product-card__info">
         <div className="rate product-card__rate">
-          <Rating rating={camera.rating} />
+          {camera.rating && <Rating rating={camera.rating} />}
           <p className="visually-hidden">Рейтинг: {camera.rating}</p>
           <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{camera.reviewCount}</p>
         </div>

@@ -1,9 +1,12 @@
 import { useState, KeyboardEvent, useEffect } from 'react';
-import { MAX_CARDS_PER_PAGE } from '../../const';
+// import { useState, KeyboardEvent, useEffect, SyntheticEvent } from 'react';
+import { DEBOUNCE_TIMEOUT, MAX_CARDS_PER_PAGE, Sorts } from '../../const';
 import { Camera } from '../../types/camera';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { getCameras } from '../../store/camera-process/selector';
+import { getCameras, getAllCameras } from '../../store/camera-process/selector';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchCamerasAction } from '../../store/api-actions';
+import { getMinPrice, getMaxPrice, getFilterItems } from '../../utils/utils';
 import Banner from '../../components/banner/banner';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CatalogCards from '../../components/catalog-cards/catalog-cards';
@@ -12,7 +15,6 @@ import CatalogPagination from '../../components/catalog-pagination/catalog-pagin
 import CatalogSortForm from '../../components/catalog-sort-form/catalog-sort-form';
 import AddItemPopup from '../../components/add-item-popup/add-item-popup';
 import NotFoundPage from '../not-found-page/not-found-page';
-import { fetchCamerasAction } from '../../store/api-actions';
 
 function CatalogPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -23,31 +25,60 @@ function CatalogPage(): JSX.Element {
   const [offset, setOffset] = useState(0);
   const [isActivePopup, setActivePopup] = useState(false);
   const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
-  const [searchParams, setSearchParams] = useSearchParams();
 
-  const sortQuery = searchParams.get('sort') || '';
-  const orderQuery = searchParams.get('order') || '';
-  const categoryQuery = searchParams.get('category') || '';
-  const typeQuery = searchParams.get('type') || '';
-  const levelQuery = searchParams.get('level') || '';
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [category, setCategory] = useState(searchParams.get('category') || '');
+  const [price, setPrice] = useState(searchParams.get('price_gte') || '');
+  const [priceUp, setPriceUp] = useState(searchParams.get('price_lte') || '');
+  const allCameras = useAppSelector(getAllCameras);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(0);
+  const [types, setTypes] = useState(searchParams.getAll('type') || []);
+  const [levels, setLevels] = useState(searchParams.getAll('level') || []);
+  const [sort, setSort] = useState(searchParams.get('sort') || '');
+  const [order, setOrder] = useState(searchParams.get('order') || '');
 
   useEffect(() => {
-    dispatch(fetchCamerasAction({
-      sort: sortQuery,
-      order: orderQuery,
-      category: categoryQuery,
-      type: typeQuery,
-      level: levelQuery
-    }));
+    const queryParams = new URLSearchParams({});
+    setMinPrice(getMinPrice(allCameras));
+    setMaxPrice(getMaxPrice(allCameras));
+
+    if (sort.length && order.length) {
+      queryParams.set('_sort', sort);
+      queryParams.set('_order', order);
+    }
+
+    if (price.length) {
+      queryParams.append('price_gte', price);
+    }
+
+    if (priceUp.length) {
+      queryParams.append('price_lte', priceUp);
+    }
+    if (category.length) {
+      queryParams.append('category', category);
+    }
+
+    if (types.length) {
+      types.map((type) => queryParams.append('type', type));
+    }
+
+    if (levels.length) {
+      levels.map((level) => queryParams.append('level', level));
+    }
+
+    setSearchParams(queryParams);
+
+    dispatch(fetchCamerasAction(queryParams));
 
     setSummaryPages(Math.ceil(cameras.length / MAX_CARDS_PER_PAGE));
+
     if (page && Number(page?.split('_')[1]) <= summaryPages) {
       setChosenPage(Number(page?.split('_')[1]));
       setOffset((Number(page?.split('_')[1]) - 1) * MAX_CARDS_PER_PAGE);
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, page, cameras.length, sortQuery, orderQuery, summaryPages]);
+  }, [dispatch, page, cameras.length, summaryPages, setSearchParams, category, allCameras, price, priceUp, types, levels, sort, order]);
 
   const handlePageButtonClick = (currentPage: number, selectedPage: number) => {
     if (currentPage !== selectedPage) {
@@ -87,31 +118,114 @@ function CatalogPage(): JSX.Element {
     return <NotFoundPage />;
   }
 
+  const handleSortChange = (chosenSort: string) => {
+    setSort(chosenSort);
+  };
+
+  const handleOrderChange = (chosenOrder: string) => {
+    if (!sort.length) {
+      setSort(Sorts.Price);
+    }
+    setOrder(chosenOrder);
+  };
+
+  const handlePriceChange = (value: string | undefined) => {
+    setTimeout(() => {
+      value ?
+        setPrice(value) :
+        setPrice('');
+
+      if (value && Number(value) < minPrice) {
+        setPrice(minPrice.toString());
+      }
+    }, DEBOUNCE_TIMEOUT);
+  };
+
+  const handlePriceUpChange = (value: string | undefined) => {
+    setTimeout(() => {
+      value ?
+        setPriceUp(value) :
+        setPriceUp('');
+
+      if (value && Number(value) > maxPrice) {
+        setPriceUp(maxPrice.toString());
+      }
+
+      if (value && Number(value) < minPrice) {
+        setPriceUp(minPrice.toString());
+      }
+
+      if (value && Number(value) < Number(price)) {
+        setPriceUp(price);
+      }
+
+    }, DEBOUNCE_TIMEOUT);
+  };
+
+  const handleCategoryChange = (chosenCategory: string) => {
+    chosenCategory !== category ?
+      setCategory(chosenCategory) :
+      setCategory('');
+  };
+
+  const handleTypesChange = (type: string) => {
+    setTypes(getFilterItems(type, types));
+  };
+
+  const handleLevelsChange = (level: string) => {
+    setLevels(getFilterItems(level, levels));
+  };
+
+  const handleResetClick = () => {
+    setCategory('');
+    setTypes([]);
+    setLevels([]);
+    setPrice('');
+    setPriceUp('');
+  };
+
   return (
     <main>
       <Banner />
       <div className="page-content" onKeyDown={handleEscKeydown}>
-        <Breadcrumbs />
+        {<Breadcrumbs />}
         <section className="catalog">
           <div className="container">
             <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
             <div className="page-content__columns">
               <CatalogFilter
-                categoryQuery={categoryQuery}
-                typeQuery={typeQuery}
-                levelQuery={levelQuery}
-                setSearchParams={setSearchParams}
+                category={category}
+                minPrice={minPrice.toString()}
+                maxPrice={maxPrice.toString()}
+                types={types}
+                levels={levels}
+                handleCategoryChange={handleCategoryChange}
+                handlePriceChange={handlePriceChange}
+                handlePriceUpChange={handlePriceUpChange}
+                handleTypesChange={handleTypesChange}
+                handleLevelsChange={handleLevelsChange}
+                handleResetClick={handleResetClick}
               />
               <div className="catalog__content">
-                <CatalogSortForm sortQuery={sortQuery} orderQuery={orderQuery} setSearchParams={setSearchParams} />
-                <CatalogCards offset={offset} handleBuyButtonClick={handleBuyButtonClick} />
-                <CatalogPagination
-                  handlePageButtonClick={handlePageButtonClick}
-                  handleBackButtonClick={handleBackButtonClick}
-                  handleNextButtonClick={handleNextButtonClick}
-                  summaryPages={summaryPages}
-                  chosenPage={chosenPage}
+                <CatalogSortForm
+                  sort={sort}
+                  order={order}
+                  handleSortChange={handleSortChange}
+                  handleOrderChange={handleOrderChange}
                 />
+                {cameras.length ?
+                  <CatalogCards offset={offset} handleBuyButtonClick={handleBuyButtonClick} /> :
+                  <>
+                    <br /><h3 className="title title--h3">По Вашему запросу ничего не найдено</h3>
+                  </>}
+                {summaryPages > 1 &&
+                  <CatalogPagination
+                    handlePageButtonClick={handlePageButtonClick}
+                    handleBackButtonClick={handleBackButtonClick}
+                    handleNextButtonClick={handleNextButtonClick}
+                    summaryPages={summaryPages}
+                    chosenPage={chosenPage}
+                  />}
               </div>
             </div>
           </div>

@@ -3,6 +3,7 @@ import { Camera } from '../types/camera';
 import { Review } from '../types/review';
 import { ReviewPost } from '../types/review-post';
 import {Promo} from '../types/promo';
+import { URLSearchParams } from 'url';
 
 export const makeFakeCameraInfo = (): Camera => ({
   id: Number(datatype.uuid()),
@@ -53,4 +54,12 @@ export const makeFakePromo = (): Promo => ({
   previewImgWebp: image.imageUrl(),
   previewImgWebp2x: image.imageUrl(),
 } as Promo);
+
+export const makeFakeQueryParams = (): URLSearchParams => new URLSearchParams({
+  _sort: 'sort',
+  _order: 'order',
+  category: 'category',
+  type: 'type',
+  level: 'level',
+});
 
