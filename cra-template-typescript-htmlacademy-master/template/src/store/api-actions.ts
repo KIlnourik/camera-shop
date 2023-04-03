@@ -14,13 +14,10 @@ export const fetchCamerasAction = createAsyncThunk<Camera[], URLSearchParams, {
   extra: AxiosInstance;
 }>(
   'data/fetchCameras',
-  async (params, { rejectWithValue, extra: api }) => {
+  async (params, { extra: api }) => {
     const { data } = await api.get<Camera[]>(`${APIRoute.Cameras}?`, { params: params });
-    // // eslint-disable-next-line no-console
-    // console.log(data);
     return data;
-  },
-);
+  });
 
 export const fetchAllCamerasAction = createAsyncThunk<Camera[], void, {
   dispatch: AppDispatch;
@@ -28,7 +25,7 @@ export const fetchAllCamerasAction = createAsyncThunk<Camera[], void, {
   extra: AxiosInstance;
 }>(
   'data/fetchAllCameras',
-  async (_args, { rejectWithValue, extra: api }) => {
+  async (_args, { extra: api }) => {
     const { data } = await api.get<Camera[]>(APIRoute.Cameras);
     return data;
   },
@@ -89,7 +86,7 @@ export const sendReviewAction = createAsyncThunk<void, ReviewPost, {
   extra: AxiosInstance;
 }>(
   'data/postReview',
-  async ({ cameraId, ...data }, { dispatch, rejectWithValue, extra: api }) => {
+  async ({ cameraId, ...data }, { dispatch, extra: api }) => {
     await api.post<ReviewPost>(APIRoute.Reviews, { cameraId, ...data });
     dispatch(fetchReviewsAction(String(cameraId)));
   }

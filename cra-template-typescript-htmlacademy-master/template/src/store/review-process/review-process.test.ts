@@ -15,7 +15,8 @@ describe('Reducer: reviewProcess', () => {
       .toEqual({
         reviews: [],
         isReviewsLoading: false,
-        isReviewSent: undefined,
+        isReviewSent: false,
+        isReviewSending: false,
       });
   });
 
@@ -24,12 +25,14 @@ describe('Reducer: reviewProcess', () => {
       reviews: [],
       isReviewsLoading: false,
       isReviewSent: false,
+      isReviewSending: false,
     };
     expect((reviewProcess.reducer(state, { type: fetchReviewsAction.fulfilled.type, payload: reviews })))
       .toEqual({
         reviews,
         isReviewsLoading: false,
         isReviewSent: false,
+        isReviewSending: false,
       });
   });
 
@@ -38,12 +41,14 @@ describe('Reducer: reviewProcess', () => {
       reviews: [],
       isReviewsLoading: false,
       isReviewSent: false,
+      isReviewSending: false,
     };
     expect((reviewProcess.reducer(state, { type: sendReviewAction.fulfilled.type, payload: true })))
       .toEqual({
         reviews: [],
         isReviewsLoading: false,
         isReviewSent: true,
+        isReviewSending: false,
       });
   });
 });

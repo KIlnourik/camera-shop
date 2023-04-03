@@ -56,7 +56,7 @@ function CatalogFilterPrice({
     } else {
       setIsValidPriceUp(undefined);
     }
-  }, [priceRef.current?.value, priceUpRef.current?.value, minPrice]);
+  }, [priceRef.current?.value, priceUpRef.current?.value, minPrice, maxPrice]);
 
   const handlePriceInputBlur = () => {
     if (priceRef.current?.value) {

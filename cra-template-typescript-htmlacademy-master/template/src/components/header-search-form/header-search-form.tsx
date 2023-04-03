@@ -1,6 +1,6 @@
 import { useState, KeyboardEvent, useRef, useEffect, SyntheticEvent } from 'react';
 import { useAppSelector } from '../../hooks';
-import { getCameras } from '../../store/camera-process/selector';
+import { getAllCameras } from '../../store/camera-process/selector';
 import { Camera } from '../../types/camera';
 import HeaderSearchFormList from '../header-search-from-list/header-search-form-list';
 
@@ -12,7 +12,7 @@ const filterCameras = (inputValue: string | undefined, cameras: Camera[]) => {
 
 function HeaderSearchForm(): JSX.Element {
 
-  const cameras = useAppSelector(getCameras);
+  const cameras = useAppSelector(getAllCameras);
   const [isFormActive, setFormActive] = useState(false);
   const [filteredCameras, setFilteredCameras] = useState<Camera[] | undefined>(cameras);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -24,25 +24,18 @@ function HeaderSearchForm(): JSX.Element {
     setFormActive(true);
   };
 
-  const handleFormBlur = () => {
-    if (inputRef.current?.onblur) {
-      setFormActive(true);
-      // eslint-disable-next-line no-console
-      console.log('List on focus');
-    } else {
-      setFormActive(false);
-      // eslint-disable-next-line no-console
-      console.log('Form lost focus');
-    }
-  };
+  // const handleFormBlur = () => {
+  //   if (inputRef.current?.onblur) {
+  //     setFormActive(true);
+  //   } else {
+  //     setFormActive(false);
+  //   }
+  // };
 
-  const handleInputBlur = (evt: SyntheticEvent<HTMLInputElement>) => {
-    evt.preventDefault();
-    // listRef.current?.focus();
-    setFormActive(false);
-    // eslint-disable-next-line no-console
-    console.log('Input lost focus');
-  };
+  // const handleInputBlur = (evt: SyntheticEvent<HTMLInputElement>) => {
+  //   evt.preventDefault();
+  //   setFormActive(false);
+  // };
 
   const handleEscKeydown = (evt: KeyboardEvent) => {
     if (evt.key === 'Escape' || evt.key === 'Esc') {
@@ -83,7 +76,10 @@ function HeaderSearchForm(): JSX.Element {
       onKeyDown={handleEscKeydown}
     // onBlur={handleFormBlur}
     >
-      <form onBlur={handleFormBlur} onFocus={handleFormFocus}>
+      <form
+        // onBlur={handleFormBlur}
+        onFocus={handleFormFocus}
+      >
         <label>
           <svg className="form-search__icon" width="16" height="16" aria-hidden="true">
             <use xlinkHref="#icon-lens"></use>
@@ -91,7 +87,6 @@ function HeaderSearchForm(): JSX.Element {
           <input
             ref={inputRef}
             onChange={handleInputChange}
-            onBlur={handleInputBlur}
             className="form-search__input"
             type="text"
             autoComplete="off"

@@ -7,7 +7,7 @@ import {
 } from '../../store/api-actions';
 import {
   getCameraLoadingStatus,
-  getCamera,
+  getCamera
 } from '../../store/camera-process/selector';
 import { Camera } from '../../types/camera';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
@@ -28,6 +28,7 @@ function ProductPage(): JSX.Element {
   const [camerasUrl,] = useState(location.pathname.split('/')[1]);
   const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
   const [activePopup, setActivePopup] = useState<string | undefined>(undefined);
+  const [activeSuccessPopup, setActiveSuccessPopup] = useState(false);
   const isCameraLoading = useAppSelector(getCameraLoadingStatus);
 
   const handleBuyButtonClick = (selectedCamera: Camera) => {
@@ -45,17 +46,22 @@ function ProductPage(): JSX.Element {
     }
   };
 
-  const handleClosePopup = () => {
+  const handleAddItemPopupClose = () => {
     setActivePopup(undefined);
   };
 
-  const handleSuccessPopupOpen = () => {
-    setActivePopup(Popup.ReviewSuccessPopup);
+  const handleAddReviewPopupClose = () => {
+    setActivePopup(undefined);
+
   };
 
-  const handleSuccessClosePopup = () => {
+  const handleSuccessPopupOpen = () => {
+    setActiveSuccessPopup(true);
+  };
+
+  const handleSuccessPopupClose = () => {
     if (id) {
-      setActivePopup(undefined);
+      setActiveSuccessPopup(false);
     }
   };
 
@@ -94,18 +100,18 @@ function ProductPage(): JSX.Element {
         {activePopup === Popup.BasketPopup &&
           <AddItemPopup
             camera={chosenCamera}
-            handleClosePopup={handleClosePopup}
+            handleClosePopup={handleAddItemPopupClose}
             handleEscKeydown={handleEscKeydown}
           />}
         {activePopup === Popup.ReviewPopup &&
           <AddReviewPopup
-            handleClosePopup={handleClosePopup}
+            handleClosePopup={handleAddReviewPopupClose}
             handleSuccessPopupOpen={handleSuccessPopupOpen}
             handleEscKeydown={handleEscKeydown}
           />}
-        {activePopup === Popup.ReviewSuccessPopup &&
+        {activeSuccessPopup &&
           <AddReviewSuccessPopup
-            handleClosePopup={handleSuccessClosePopup}
+            handleClosePopup={handleSuccessPopupClose}
             handleEscKeydown={handleEscKeydown}
           />}
       </main>

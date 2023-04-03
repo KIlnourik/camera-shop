@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
+import { Fragment, SyntheticEvent, useState, KeyboardEvent } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
+import { RemoveScroll } from 'react-remove-scroll';
+import ReactFocusLock from 'react-focus-lock';
 import { getRatingValues } from '../../utils/utils';
 import { MAX_RATING_COUNT, RatingValues } from '../../const';
 import { ReviewPost } from '../../types/review-post';
-import { Fragment, SyntheticEvent, useState, KeyboardEvent } from 'react';
-import { useParams } from 'react-router-dom';
-import { useAppDispatch} from '../../hooks';
+import { useAppDispatch } from '../../hooks';
 import { sendReviewAction } from '../../store/api-actions';
-import { RemoveScroll } from 'react-remove-scroll';
-import ReactFocusLock from 'react-focus-lock';
 
 type Props = {
   handleClosePopup(): void;

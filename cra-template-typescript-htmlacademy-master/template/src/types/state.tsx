@@ -22,5 +22,6 @@ export type CameraProcess = {
 export type ReviewProcess = {
   reviews: Review[];
   isReviewsLoading: boolean;
-  isReviewSent: boolean | undefined;
+  isReviewSent: boolean;
+  isReviewSending: boolean;
 }

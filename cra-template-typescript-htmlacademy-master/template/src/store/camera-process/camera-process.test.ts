@@ -118,10 +118,10 @@ describe('Reducer: cameraProcess', () => {
   it('should update Promo by load promo', () => {
     const state = {
       cameras: [],
-      promo: undefined,
-      camera: undefined,
       allCameras: [],
       isAllCamerasLoading: false,
+      promo: undefined,
+      camera: undefined,
       similarCameras: [],
       isCamerasLoading: false,
       isPromoLoading: false,

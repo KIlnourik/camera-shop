@@ -19,6 +19,7 @@ const mockStore = configureMockStore();
 const store = mockStore({
   Camera: {
     cameras: [...makeFakeCameraList()],
+    allCameras: [...makeFakeCameraList()],
     promo: makeFakePromo(),
     camera: makeFakeCameraInfo(),
     similarCameras: [...makeFakeCameraList()],
@@ -44,7 +45,7 @@ const fakeApp = (
 
 describe('Application Routing', () => {
   it('should render "CatalogPage" when user navigate to "/"', () => {
-    history.push(AppRoute.Catalog);
+    history.push(`${AppRoute.Catalog}?`);
     render(fakeApp);
 
     expect(screen.getByText(/Каталог фото- и видеотехники/i)).toBeInTheDocument();

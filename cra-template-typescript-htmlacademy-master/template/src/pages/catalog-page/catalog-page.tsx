@@ -1,5 +1,4 @@
 import { useState, KeyboardEvent, useEffect } from 'react';
-// import { useState, KeyboardEvent, useEffect, SyntheticEvent } from 'react';
 import { DEBOUNCE_TIMEOUT, MAX_CARDS_PER_PAGE, Sorts } from '../../const';
 import { Camera } from '../../types/camera';
 import { useParams, useSearchParams } from 'react-router-dom';
@@ -66,10 +65,11 @@ function CatalogPage(): JSX.Element {
     if (levels.length) {
       levels.map((level) => queryParams.append('level', level));
     }
-
     setSearchParams(queryParams);
 
-    dispatch(fetchCamerasAction(queryParams));
+    if (queryParams) {
+      dispatch(fetchCamerasAction(queryParams));
+    }
 
     setSummaryPages(Math.ceil(cameras.length / MAX_CARDS_PER_PAGE));
 
@@ -119,6 +119,9 @@ function CatalogPage(): JSX.Element {
   }
 
   const handleSortChange = (chosenSort: string) => {
+    if (!order.length) {
+      setOrder(Sorts.ASC);
+    }
     setSort(chosenSort);
   };
 
@@ -158,7 +161,6 @@ function CatalogPage(): JSX.Element {
       if (value && Number(value) < Number(price)) {
         setPriceUp(price);
       }
-
     }, DEBOUNCE_TIMEOUT);
   };
 

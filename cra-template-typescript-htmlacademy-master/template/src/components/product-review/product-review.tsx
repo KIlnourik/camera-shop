@@ -36,10 +36,6 @@ function ProductReview({ handleLeaveReviewBtnClick }: Props): JSX.Element {
     return <Spinner />;
   }
 
-  if (!id) {
-    return <NotFoundPage />;
-  }
-
   return (
     <section className="review-block">
       <div className="container">

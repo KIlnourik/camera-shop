@@ -40,10 +40,6 @@ function SimilarProductsSlider({ handleBuyButtonClick }: Props): JSX.Element {
     return <Spinner />;
   }
 
-  if (!id) {
-    return <NotFoundPage />;
-  }
-
   return (
     <section className="product-similar">
       <div className="container">

@@ -9,6 +9,7 @@ const mockStore = configureMockStore();
 const store = mockStore({
   Camera: {
     cameras: [...makeFakeCameraList()],
+    allCameras: [...makeFakeCameraList()],
     promo: makeFakePromo(),
     camera: makeFakeCameraInfo(),
     similarCameras: [...makeFakeCameraList()],

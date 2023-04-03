@@ -9,7 +9,8 @@ import {
 const initialState: ReviewProcess = {
   reviews: [],
   isReviewsLoading: false,
-  isReviewSent: undefined,
+  isReviewSent: false,
+  isReviewSending: false,
 };
 
 export const reviewProcess = createSlice({
@@ -25,11 +26,13 @@ export const reviewProcess = createSlice({
         state.reviews = action.payload;
         state.isReviewsLoading = false;
       })
-      .addCase(sendReviewAction.fulfilled, (state) => {
-        state.isReviewSent = true;
-      })
       .addCase(sendReviewAction.pending, (state) => {
         state.isReviewSent = false;
+        state.isReviewSending = true;
+      })
+      .addCase(sendReviewAction.fulfilled, (state) => {
+        state.isReviewSent = true;
+        state.isReviewSending = false;
       });
   }
 });

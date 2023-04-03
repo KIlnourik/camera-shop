@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
-import { getCameras } from '../../store/camera-process/selector';
+import { getAllCameras } from '../../store/camera-process/selector';
 import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
 import { KeyboardEvent, useRef, useState } from 'react';
@@ -10,7 +10,7 @@ type Props = {
 };
 
 function HeaderSearchFormList({ filteredCameras }: Props): JSX.Element {
-  const cameras = useAppSelector(getCameras);
+  const cameras = useAppSelector(getAllCameras);
   const [activeCamera, setActiveCamera] = useState(0);
   const navigate = useNavigate();
   const localListRef = useRef<HTMLUListElement>(null);

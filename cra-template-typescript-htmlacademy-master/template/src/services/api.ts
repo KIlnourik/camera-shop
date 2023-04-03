@@ -18,9 +18,11 @@ export const createAPI = (): AxiosInstance => {
 
   api.interceptors.response.use(
     (response) => response,
-    (error: AxiosError<{ error: string }>) => {
+    (error: AxiosError<{ messages: string }>) => {
       if (error.response && shouldDisplayResponseError(error.response)) {
-        toast.error(error.response.data.error);
+        const errorMessage = error.response.data.messages[0];
+        toast.error(error.message);
+        toast.error(errorMessage);
       }
       throw error;
     }

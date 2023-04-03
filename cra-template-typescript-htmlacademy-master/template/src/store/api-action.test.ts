@@ -14,6 +14,7 @@ import {
 } from '../utils/mocks';
 import { APIRoute } from '../const';
 import {
+  fetchAllCamerasAction,
   fetchCameraAction,
   fetchCamerasAction,
   fetchPromoAction,
@@ -36,12 +37,12 @@ describe('Async actions', () => {
   >(middlewares);
 
 
-  it('should dispatch Load_Cameras when GET /cameras', async () => {
+  it('should dispatch Load_Cameras when GET /cameras?', async () => {
     const mockCameras = makeFakeCameraList();
     const queryParams = makeFakeQueryParams();
 
     mockAPI
-      .onGet(APIRoute.Cameras)
+      .onGet(`${APIRoute.Cameras}?`)
       .reply(200, mockCameras);
 
     const store = mockStore();
@@ -52,7 +53,26 @@ describe('Async actions', () => {
 
     expect(actions).toEqual([
       fetchCamerasAction.pending.type,
-      fetchCamerasAction.fulfilled.type
+      fetchCamerasAction.fulfilled.type,
+    ]);
+  });
+
+  it('should dispatch Load_All_Cameras when GET /cameras', async () => {
+    const mockCameras = makeFakeCameraList();
+
+    mockAPI
+      .onGet(APIRoute.Cameras)
+      .reply(200, mockCameras);
+
+    const store = mockStore();
+
+    await store.dispatch(fetchAllCamerasAction());
+
+    const actions = store.getActions().map(({ type }) => type);
+
+    expect(actions).toEqual([
+      fetchAllCamerasAction.pending.type,
+      fetchAllCamerasAction.fulfilled.type,
     ]);
   });
 
@@ -134,7 +154,7 @@ describe('Async actions', () => {
 
     mockAPI
       .onPost(APIRoute.Reviews)
-      .reply(200)
+      .reply(201)
       .onGet(`${APIRoute.Cameras}/6${APIRoute.Reviews}`)
       .reply(200);
 
@@ -148,9 +168,11 @@ describe('Async actions', () => {
 
     expect(actions).toEqual([
       sendReviewAction.pending.type,
+      fetchReviewsAction.pending.type,
       sendReviewAction.fulfilled.type,
       fetchReviewsAction.pending.type,
-      fetchReviewsAction.fulfilled.type
+      fetchReviewsAction.rejected.type,
+      fetchReviewsAction.fulfilled.type,
     ]);
   });
 

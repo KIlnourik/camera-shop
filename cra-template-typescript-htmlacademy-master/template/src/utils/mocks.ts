@@ -6,7 +6,7 @@ import {Promo} from '../types/promo';
 import { URLSearchParams } from 'url';
 
 export const makeFakeCameraInfo = (): Camera => ({
-  id: Number(datatype.uuid()),
+  id: Number(random.alphaNumeric(1000)),
   name: commerce.productName(),
   vendorCode: random.alphaNumeric(),
   type: commerce.product(),
