@@ -17,12 +17,6 @@ function HeaderSearchForm(): JSX.Element {
   const [filteredCameras, setFilteredCameras] = useState<Camera[] | undefined>(cameras);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  // const handleInputChange = () => {
-  //   if (inputRef.current?.value && inputRef.current?.value !== '') {
-
-  //   }
-  // };
-
   const handleEscKeydown = (evt: KeyboardEvent) => {
     if (evt.key === 'Escape' || evt.key === 'Esc') {
       setFormActive(false);
@@ -35,8 +29,11 @@ function HeaderSearchForm(): JSX.Element {
   useEffect(() => {
     if (inputRef.current?.value) {
       setFilteredCameras(filterCameras(inputRef.current?.value, cameras));
-    } else {
-      setFilteredCameras(cameras);
+      if (filteredCameras && filteredCameras.length) {
+        setFormActive(true);
+      } else {
+        setFormActive(false);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cameras, inputRef.current?.value]);
@@ -51,10 +48,13 @@ function HeaderSearchForm(): JSX.Element {
   };
 
   const handleInputChange = () => {
-    if (inputRef) {
-      setFormActive(true);
+    if (inputRef.current?.value && inputRef.current?.value !== '') {
       setFilteredCameras(filterCameras(inputRef.current?.value, cameras));
+      setFormActive(true);
+    } else {
+      setFormActive(false);
     }
+
   };
 
   return (

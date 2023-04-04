@@ -36,7 +36,7 @@ function HeaderSearchFormList({ filteredCameras }: Props): JSX.Element {
 
   return (
     <ul className="form-search__select-list " ref={localListRef}>
-      {filteredCameras ? (filteredCameras.map((camera) => (
+      {filteredCameras && (filteredCameras.map((camera) => (
         <li className="form-search__select-item"
           key={camera.id}
           tabIndex={0}
@@ -45,16 +45,7 @@ function HeaderSearchFormList({ filteredCameras }: Props): JSX.Element {
         >
           {camera.name}
         </li >
-      )))
-        : cameras.map((camera) => (
-          <li className="form-search__select-item"
-            tabIndex={1} key={camera.id}
-            onClick={() => handleItemClick(camera.id)}
-            onKeyDown={handleKeydown}
-          >
-            {camera.name}
-          </li>
-        ))}
+      )))}
     </ul >
   );
 
