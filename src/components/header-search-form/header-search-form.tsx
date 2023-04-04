@@ -17,24 +17,10 @@ function HeaderSearchForm(): JSX.Element {
   const [filteredCameras, setFilteredCameras] = useState<Camera[] | undefined>(cameras);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  const handleFormClick = () => {
-    setFormActive(true);
-  };
-  const handleFormFocus = () => {
-    setFormActive(true);
-  };
+  // const handleInputChange = () => {
+  //   if (inputRef.current?.value && inputRef.current?.value !== '') {
 
-  // const handleFormBlur = () => {
-  //   if (inputRef.current?.onblur) {
-  //     setFormActive(true);
-  //   } else {
-  //     setFormActive(false);
   //   }
-  // };
-
-  // const handleInputBlur = (evt: SyntheticEvent<HTMLInputElement>) => {
-  //   evt.preventDefault();
-  //   setFormActive(false);
   // };
 
   const handleEscKeydown = (evt: KeyboardEvent) => {
@@ -59,27 +45,23 @@ function HeaderSearchForm(): JSX.Element {
     evt.preventDefault();
     if (inputRef.current?.value) {
       inputRef.current.value = '';
+      setFormActive(false);
       setFilteredCameras(cameras);
     }
   };
 
   const handleInputChange = () => {
     if (inputRef) {
+      setFormActive(true);
       setFilteredCameras(filterCameras(inputRef.current?.value, cameras));
     }
   };
 
   return (
     <div className={`form-search ${isFormActive ? 'list-opened' : ''}`}
-      onClick={handleFormClick}
-      onFocus={handleFormFocus}
       onKeyDown={handleEscKeydown}
-    // onBlur={handleFormBlur}
     >
-      <form
-        // onBlur={handleFormBlur}
-        onFocus={handleFormFocus}
-      >
+      <form >
         <label>
           <svg className="form-search__icon" width="16" height="16" aria-hidden="true">
             <use xlinkHref="#icon-lens"></use>
