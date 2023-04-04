@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import HistoryRouter from '../history-route/history-route';
 import { AppRoute } from '../../const';
@@ -13,8 +14,8 @@ import {
 import App from './app';
 
 const history = createMemoryHistory();
-
-const mockStore = configureMockStore();
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 
 const store = mockStore({
   Camera: {

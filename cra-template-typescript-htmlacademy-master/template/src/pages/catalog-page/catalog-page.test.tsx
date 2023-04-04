@@ -2,11 +2,13 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import { makeFakeCameraInfo, makeFakeCameraList, makeFakePromo, makeFakeReviewList } from '../../utils/mocks';
 import HistoryRouter from '../../components/history-route/history-route';
 import CatalogPage from './catalog-page';
 
-const mockStore = configureMockStore();
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
 const store = mockStore({
   Camera: {
     cameras: [...makeFakeCameraList()],
