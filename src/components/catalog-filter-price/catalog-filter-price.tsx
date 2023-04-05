@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 type Props = {
   minPrice: string;
   maxPrice: string;
-  handlePriceChange(value: string | undefined): void;
-  handlePriceUpChange(value: string | undefined): void;
+  handlePriceChange(value?: string): void;
+  handlePriceUpChange(value?: string): void;
 }
 
 const getValidClassname = (validationStatus: boolean | undefined) => {

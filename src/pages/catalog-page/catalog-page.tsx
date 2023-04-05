@@ -1,5 +1,5 @@
 import { useState, KeyboardEvent, useEffect } from 'react';
-import { DEBOUNCE_TIMEOUT, MAX_CARDS_PER_PAGE, Sorts } from '../../const';
+import { DEBOUNCE_TIMEOUT, MAX_CARDS_PER_PAGE, Sorts, STATE_ONE, STATE_ZERO, OFFSET_ONE, OFFSET_TWO, INDEX_OF_SPLITTED_URL} from '../../const';
 import { Camera } from '../../types/camera';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { getCameras, getAllCameras } from '../../store/camera-process/selector';
@@ -19,9 +19,9 @@ function CatalogPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const cameras = useAppSelector(getCameras);
   const { page } = useParams();
-  const [summaryPages, setSummaryPages] = useState(0);
-  const [chosenPage, setChosenPage] = useState(1);
-  const [offset, setOffset] = useState(0);
+  const [summaryPages, setSummaryPages] = useState(STATE_ZERO);
+  const [chosenPage, setChosenPage] = useState(STATE_ONE);
+  const [offset, setOffset] = useState(STATE_ZERO);
   const [isActivePopup, setActivePopup] = useState(false);
   const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
 
@@ -30,8 +30,8 @@ function CatalogPage(): JSX.Element {
   const [price, setPrice] = useState(searchParams.get('price_gte') || '');
   const [priceUp, setPriceUp] = useState(searchParams.get('price_lte') || '');
   const allCameras = useAppSelector(getAllCameras);
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(0);
+  const [minPrice, setMinPrice] = useState(STATE_ZERO);
+  const [maxPrice, setMaxPrice] = useState(STATE_ZERO);
   const [types, setTypes] = useState(searchParams.getAll('type') || []);
   const [levels, setLevels] = useState(searchParams.getAll('level') || []);
   const [sort, setSort] = useState(searchParams.get('sort') || '');
@@ -73,16 +73,16 @@ function CatalogPage(): JSX.Element {
 
     setSummaryPages(Math.ceil(cameras.length / MAX_CARDS_PER_PAGE));
 
-    if (page && Number(page?.split('_')[1]) <= summaryPages) {
-      setChosenPage(Number(page?.split('_')[1]));
-      setOffset((Number(page?.split('_')[1]) - 1) * MAX_CARDS_PER_PAGE);
+    if (page && Number(page?.split('_')[INDEX_OF_SPLITTED_URL]) <= summaryPages) {
+      setChosenPage(Number(page?.split('_')[INDEX_OF_SPLITTED_URL]));
+      setOffset((Number(page?.split('_')[INDEX_OF_SPLITTED_URL]) - OFFSET_ONE) * MAX_CARDS_PER_PAGE);
     }
 
   }, [dispatch, page, cameras.length, summaryPages, setSearchParams, category, allCameras, price, priceUp, types, levels, sort, order]);
 
   const handlePageButtonClick = (currentPage: number, selectedPage: number) => {
     if (currentPage !== selectedPage) {
-      setOffset((selectedPage - 1) * MAX_CARDS_PER_PAGE);
+      setOffset((selectedPage - OFFSET_ONE) * MAX_CARDS_PER_PAGE);
       setChosenPage(selectedPage);
     } else {
       setOffset(offset);
@@ -90,13 +90,13 @@ function CatalogPage(): JSX.Element {
   };
 
   const handleBackButtonClick = (currentPage: number) => {
-    setOffset((currentPage - 2) * MAX_CARDS_PER_PAGE);
-    setChosenPage(currentPage - 1);
+    setOffset((currentPage - OFFSET_TWO) * MAX_CARDS_PER_PAGE);
+    setChosenPage(currentPage - OFFSET_ONE);
   };
 
   const handleNextButtonClick = (currentPage: number) => {
     setOffset(currentPage * MAX_CARDS_PER_PAGE);
-    setChosenPage(currentPage + 1);
+    setChosenPage(currentPage + OFFSET_ONE);
   };
 
   const handleBuyButtonClick = (camera: Camera) => {
@@ -114,7 +114,7 @@ function CatalogPage(): JSX.Element {
     }
   };
 
-  if (Number(page?.split('_')[1]) > summaryPages) {
+  if (Number(page?.split('_')[INDEX_OF_SPLITTED_URL]) > summaryPages) {
     return <NotFoundPage />;
   }
 

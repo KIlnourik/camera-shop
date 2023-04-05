@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { getAllCameras } from '../../store/camera-process/selector';
-import { AppRoute } from '../../const';
+import { AppRoute, STATE_ZERO, OFFSET_ONE } from '../../const';
 import { Camera } from '../../types/camera';
 import { KeyboardEvent, useRef, useState } from 'react';
 
@@ -11,7 +11,7 @@ type Props = {
 
 function HeaderSearchFormList({ filteredCameras }: Props): JSX.Element {
   const cameras = useAppSelector(getAllCameras);
-  const [activeCamera, setActiveCamera] = useState(0);
+  const [activeCamera, setActiveCamera] = useState(STATE_ZERO);
   const navigate = useNavigate();
   const localListRef = useRef<HTMLUListElement>(null);
 
@@ -21,15 +21,11 @@ function HeaderSearchFormList({ filteredCameras }: Props): JSX.Element {
 
   const handleKeydown = (evt: KeyboardEvent) => {
     if (evt.key === 'ArrowUp') {
-      // eslint-disable-next-line no-console
-      console.log('Arrow Clicked - 1');
-      activeCamera > 0 ? setActiveCamera(activeCamera - 1) : setActiveCamera(0);
+      activeCamera > 0 ? setActiveCamera(activeCamera - OFFSET_ONE) : setActiveCamera(STATE_ZERO);
     }
     if (evt.key === 'ArrowDown' &&
       ((filteredCameras && activeCamera <= filteredCameras?.length)
         || activeCamera <= cameras.length)) {
-      // eslint-disable-next-line no-console
-      console.log('Arrow Clicked + 1');
       setActiveCamera(activeCamera + 1);
     }
   };

@@ -83,3 +83,13 @@ export const MAX_RATING_VALUE = 5;
 export const CAMERAS_URL = 'cameras';
 
 export const DEBOUNCE_TIMEOUT = 500;
+
+export const STATE_ZERO = 0;
+
+export const STATE_ONE = 1;
+
+export const OFFSET_ONE = 1;
+
+export const OFFSET_TWO = 2;
+
+export const INDEX_OF_SPLITTED_URL = 1;

@@ -35,8 +35,8 @@ function HeaderSearchForm(): JSX.Element {
         setFormActive(false);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cameras, inputRef.current?.value]);
+
+  }, [cameras, filteredCameras, inputRef]);
 
   const handleClearButtonClick = (evt: SyntheticEvent) => {
     evt.preventDefault();
