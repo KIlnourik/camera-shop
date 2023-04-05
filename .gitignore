@@ -26,5 +26,5 @@ yarn-error.log*
 *.sublime*
 .vscode
 
-/build
+/markup
 /Camera_shop_name_photo
