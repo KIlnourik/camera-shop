@@ -1,7 +1,7 @@
 import { useState, KeyboardEvent, useEffect } from 'react';
-import { DEBOUNCE_TIMEOUT, MAX_CARDS_PER_PAGE, Sorts, STATE_ONE, STATE_ZERO, OFFSET_ONE, OFFSET_TWO, INDEX_OF_SPLITTED_URL} from '../../const';
+import { DEBOUNCE_TIMEOUT, MAX_CARDS_PER_PAGE, Sorts, STATE_ONE, STATE_ZERO, OFFSET_ONE, OFFSET_TWO, INDEX_OF_SPLITTED_URL, Filters, AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { getCameras, getAllCameras } from '../../store/camera-process/selector';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchCamerasAction } from '../../store/api-actions';
@@ -18,6 +18,7 @@ import NotFoundPage from '../not-found-page/not-found-page';
 function CatalogPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const cameras = useAppSelector(getCameras);
+  const navigate = useNavigate();
   const { page } = useParams();
   const [summaryPages, setSummaryPages] = useState(STATE_ZERO);
   const [chosenPage, setChosenPage] = useState(STATE_ONE);
@@ -141,6 +142,10 @@ function CatalogPage(): JSX.Element {
       if (value && Number(value) < minPrice) {
         setPrice(minPrice.toString());
       }
+      if (value && Number(value) > maxPrice) {
+        setPrice(maxPrice.toString());
+      }
+      navigate(`${AppRoute.Catalog}page_1`);
     }, DEBOUNCE_TIMEOUT);
   };
 
@@ -161,6 +166,7 @@ function CatalogPage(): JSX.Element {
       if (value && Number(value) < Number(price)) {
         setPriceUp(price);
       }
+      navigate(`${AppRoute.Catalog}page_1`);
     }, DEBOUNCE_TIMEOUT);
   };
 
@@ -168,14 +174,21 @@ function CatalogPage(): JSX.Element {
     chosenCategory !== category ?
       setCategory(chosenCategory) :
       setCategory('');
+
+    if (chosenCategory === Filters.videocamera) {
+      setTypes(types.filter((type) => type !== Filters.snapshot && type !== Filters.film));
+    }
+    navigate(`${AppRoute.Catalog}page_1`);
   };
 
   const handleTypesChange = (type: string) => {
     setTypes(getFilterItems(type, types));
+    navigate(`${AppRoute.Catalog}page_1`);
   };
 
   const handleLevelsChange = (level: string) => {
     setLevels(getFilterItems(level, levels));
+    navigate(`${AppRoute.Catalog}page_1`);
   };
 
   const handleResetClick = () => {

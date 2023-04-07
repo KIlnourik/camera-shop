@@ -36,7 +36,8 @@ function CatalogFilterPrice({
   useEffect(() => {
     if (priceRef.current?.value) {
       ((priceRef.current.valueAsNumber < Number(minPrice)) ||
-        (priceRef.current?.value && priceRef.current.valueAsNumber < 0)) ?
+        (priceRef.current?.value && priceRef.current.valueAsNumber < 0) ||
+        (priceRef.current?.value && priceRef.current.valueAsNumber > Number(maxPrice))) ?
         setIsValidPrice(false) :
         setIsValidPrice(true);
     } else {
@@ -63,6 +64,9 @@ function CatalogFilterPrice({
       if ((priceRef.current.valueAsNumber < Number(minPrice)) ||
         (priceRef.current.valueAsNumber < 0)) {
         priceRef.current.value = minPrice;
+      }
+      if (priceRef.current.valueAsNumber > Number(maxPrice)) {
+        priceRef.current.value = maxPrice;
       }
     }
   };

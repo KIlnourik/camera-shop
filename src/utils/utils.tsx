@@ -25,6 +25,7 @@ export const getFilterItems = (item: string, filters: string[]) => {
   items.includes(item) ?
     items = items.filter((value) => value !== item) :
     items.push(item);
+
   return items;
 };
 
