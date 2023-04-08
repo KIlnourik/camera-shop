@@ -22,7 +22,7 @@ function HeaderSearchFormList({ filteredCameras }: Props): JSX.Element {
   };
 
   return (
-    <ul className="form-search__select-list " ref={localListRef}>
+    <ul className="form-search__select-list scroller" ref={localListRef}>
       {filteredCameras && (filteredCameras.map((camera) => (
         <li className="form-search__select-item"
           key={camera.id}
