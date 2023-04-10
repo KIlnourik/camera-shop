@@ -3,10 +3,11 @@ import { useAppSelector } from '../../hooks';
 import { getAllCameras } from '../../store/camera-process/selector';
 import { Camera } from '../../types/camera';
 import HeaderSearchFormList from '../header-search-from-list/header-search-form-list';
+import { getCameraTitle } from '../../utils/utils';
 
 const filterCameras = (inputValue: string | undefined, cameras: Camera[]) => {
   if (inputValue && cameras) {
-    return cameras.filter((camera) => camera.name.toLowerCase().includes(inputValue.toLowerCase()));
+    return cameras.filter((camera) => getCameraTitle(camera).toLowerCase().includes(inputValue.toLowerCase()));
   }
 };
 

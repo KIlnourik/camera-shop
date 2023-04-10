@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Camera } from '../../types/camera';
 import { KeyboardEvent, useRef } from 'react';
+import { getCameraTitle } from '../../utils/utils';
 
 type Props = {
   filteredCameras: Camera[] | undefined;
@@ -30,7 +31,7 @@ function HeaderSearchFormList({ filteredCameras }: Props): JSX.Element {
           onClick={() => handleItemClick(camera.id)}
           onKeyDown={(evt) => handleKeydown(camera.id, evt)}
         >
-          {camera.name}
+          {getCameraTitle(camera)}
         </li >
       )))}
     </ul >
