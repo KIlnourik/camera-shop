@@ -1,17 +1,30 @@
 import { Camera } from '../../types/camera';
 import { getCameraTitle, getPrice } from '../../utils/utils';
 import { KeyboardEvent } from 'react';
+import { RemoveScroll } from 'react-remove-scroll';
 import Spinner from '../spinner/spinner';
 import ReactFocusLock from 'react-focus-lock';
-import { RemoveScroll } from 'react-remove-scroll';
+import { useAppDispatch } from '../../hooks';
+import { addToCart } from '../../store/cart-process/cart-process';
 
 type Props = {
   camera?: Camera;
   handleClosePopup(): void;
   handleEscKeydown(evt: KeyboardEvent): void;
+  handleSuccessPopupOpen(): void;
 };
 
-function AddItemPopup({ camera, handleClosePopup, handleEscKeydown }: Props): JSX.Element {
+function AddItemPopup({ camera, handleClosePopup, handleEscKeydown, handleSuccessPopupOpen }: Props): JSX.Element {
+
+
+  const dispatch = useAppDispatch();
+
+  const handleAddClickButton = (product: Camera) => {
+    if (camera) {
+      dispatch(addToCart(product));
+      handleSuccessPopupOpen();
+    }
+  };
 
   if (!camera) {
     return <Spinner />;
@@ -49,7 +62,9 @@ function AddItemPopup({ camera, handleClosePopup, handleEscKeydown }: Props): JS
                 </div>
               </div>
               <div className="modal__buttons">
-                <button className="btn btn--purple modal__btn modal__btn--fit-width" type="button">
+                <button className="btn btn--purple modal__btn modal__btn--fit-width" type="button"
+                  onClick={() => handleAddClickButton(camera)}
+                >
                   <svg width="24" height="16" aria-hidden="true">
                     <use xlinkHref="#icon-add-basket"></use>
                   </svg>Добавить в корзину

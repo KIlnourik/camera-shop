@@ -4,13 +4,14 @@ export enum AppRoute {
   Product = '/cameras/:id',
   Parameters = 'parameters',
   Description = 'desc',
-  Basket = 'basket',
+  Cart = '/cart',
   NotFound = '*',
 }
 
 export enum NameSpace {
   Camera = 'Camera',
   Review = 'Review',
+  Cart = 'Cart',
 }
 
 export enum APIRoute {
@@ -93,3 +94,8 @@ export const OFFSET_ONE = 1;
 export const OFFSET_TWO = 2;
 
 export const INDEX_OF_SPLITTED_URL = 1;
+
+export enum ProductsCount {
+  minCount = 1,
+  maxCount = 99,
+}

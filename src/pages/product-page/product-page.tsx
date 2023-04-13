@@ -19,6 +19,7 @@ import AddItemPopup from '../../components/add-item-popup/add-item-popup';
 import AddReviewPopup from '../../components/add-review-popup/add-review-popup';
 import AddReviewSuccessPopup from '../../components/add-review-success-popup/add-review-success-popup';
 import NotFoundPage from '../not-found-page/not-found-page';
+import AddItemSuccessPopup from '../../components/add-item-success-popup/add-item-success-popup';
 
 function ProductPage(): JSX.Element {
   const location = useLocation();
@@ -29,6 +30,7 @@ function ProductPage(): JSX.Element {
   const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
   const [activePopup, setActivePopup] = useState<string | undefined>(undefined);
   const [activeSuccessPopup, setActiveSuccessPopup] = useState(false);
+  const [isAddItemSuccessPopup, setAddItemSuccessPopup] = useState(false);
   const isCameraLoading = useAppSelector(getCameraLoadingStatus);
 
   const handleBuyButtonClick = (selectedCamera: Camera) => {
@@ -53,6 +55,15 @@ function ProductPage(): JSX.Element {
   const handleAddReviewPopupClose = () => {
     setActivePopup(undefined);
 
+  };
+
+  const handleAddItemSuccessPopupOpen = () => {
+    setActivePopup(undefined);
+    setAddItemSuccessPopup(true);
+  };
+
+  const handleAddItemSuccessPopupClose = () => {
+    setAddItemSuccessPopup(false);
   };
 
   const handleSuccessPopupOpen = () => {
@@ -102,6 +113,7 @@ function ProductPage(): JSX.Element {
             camera={chosenCamera}
             handleClosePopup={handleAddItemPopupClose}
             handleEscKeydown={handleEscKeydown}
+            handleSuccessPopupOpen={handleAddItemSuccessPopupOpen}
           />}
         {activePopup === Popup.ReviewPopup &&
           <AddReviewPopup
@@ -112,6 +124,12 @@ function ProductPage(): JSX.Element {
         {activeSuccessPopup &&
           <AddReviewSuccessPopup
             handleClosePopup={handleSuccessPopupClose}
+            handleEscKeydown={handleEscKeydown}
+          />}
+
+        {isAddItemSuccessPopup &&
+          <AddItemSuccessPopup
+            handleClosePopup={handleAddItemSuccessPopupClose}
             handleEscKeydown={handleEscKeydown}
           />}
       </main>

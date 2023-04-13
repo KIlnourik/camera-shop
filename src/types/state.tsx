@@ -25,3 +25,7 @@ export type ReviewProcess = {
   isReviewSent: boolean;
   isReviewSending: boolean;
 }
+
+export type CartProcess = {
+  cartProducts: Camera[];
+}
