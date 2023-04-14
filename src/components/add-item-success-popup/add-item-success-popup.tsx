@@ -2,7 +2,8 @@ import { KeyboardEvent } from 'react';
 import { RemoveScroll } from 'react-remove-scroll';
 import ReactFocusLock from 'react-focus-lock';
 import { AppRoute } from '../../const';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+// import { Link, useNavigate } from 'react-router-dom';
 
 type Props = {
   handleClosePopup(): void;
@@ -11,10 +12,10 @@ type Props = {
 
 function AddItemSuccessPopup({ handleClosePopup, handleEscKeydown }: Props): JSX.Element {
 
-  const navigate = useNavigate();
-  const handleGoToCartClickButton = () => {
-    navigate(AppRoute.Cart);
-  };
+  // const navigate = useNavigate();
+  // const handleGoToCartClickButton = () => {
+  //   navigate(AppRoute.Cart);
+  // };
 
   return (
     <RemoveScroll>
@@ -32,11 +33,12 @@ function AddItemSuccessPopup({ handleClosePopup, handleEscKeydown }: Props): JSX
                   onClick={handleClosePopup}
                 >Продолжить покупки
                 </button>
-                <button className="btn btn--purple modal__btn modal__btn--fit-width"
-                  onClick={handleGoToCartClickButton}
+                <Link className="btn btn--purple modal__btn modal__btn--fit-width"
+                  to={AppRoute.Cart}
+                // onClick={handleGoToCartClickButton}
                 >
                   Перейти в корзину
-                </button>
+                </Link>
               </div>
               <button className="cross-btn"
                 type="button"

@@ -5,6 +5,7 @@ import { AppRoute } from '../../const';
 import Rating from '../rating/rating';
 import { useAppSelector } from '../../hooks';
 import { getCartProducts } from '../../store/cart-process/selector';
+import { useEffect, useState } from 'react';
 
 type Props = {
   camera: Camera;
@@ -14,9 +15,16 @@ type Props = {
 
 function CatalogCard({ camera, handleBuyButtonClick, isActive }: Props): JSX.Element {
 
+  const [isInCart, setIsInCart] = useState(false);
   const cartProducts = useAppSelector(getCartProducts);
-  const isInCart = cartProducts.includes(camera);
 
+  useEffect(() => {
+    cartProducts.forEach((product) => {
+      if (product.id === camera.id) {
+        setIsInCart(true);
+      }
+    });
+  }, [camera.id, cartProducts]);
 
   return (
     <div className={`product-card  ${isActive ? 'is-active' : ''}`} >

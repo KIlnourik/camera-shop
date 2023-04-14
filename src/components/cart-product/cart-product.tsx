@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { Camera } from '../../types/camera';
 import { getCameraTitle, getPrice } from '../../utils/utils';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCartProducts } from '../../store/cart-process/selector';
 import { Filters, ProductsCount } from '../../const';
+import { addToCart, removeProduct, decreaseProducts } from '../../store/cart-process/cart-process';
 
 type Props = {
   cartProduct: Camera;
@@ -21,19 +22,20 @@ const getProductCount = (productsList: Camera[], currentProduct: Camera) => {
 
 function CartProduct({ cartProduct }: Props): JSX.Element {
   const [totalPrice, setTotalPrice] = useState(cartProduct.price);
-  const cartPorducts = useAppSelector(getCartProducts);
+  const cartProducts = useAppSelector(getCartProducts);
+  const dispatch = useAppDispatch();
 
   const productCountRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     if (productCountRef.current !== null) {
-      productCountRef.current.value = getProductCount(cartPorducts, cartProduct).toString();
+      productCountRef.current.value = getProductCount(cartProducts, cartProduct).toString();
     }
 
     if (productCountRef.current?.value) {
       setTotalPrice(cartProduct.price * productCountRef.current.valueAsNumber);
     }
-  }, [cartPorducts, cartProduct]);
+  }, [cartProducts, cartProduct]);
 
   const handleInputBlur = () => {
     if (productCountRef.current?.value) {
@@ -50,16 +52,20 @@ function CartProduct({ cartProduct }: Props): JSX.Element {
 
   const handleDeleteCountBtnClick = () => {
     if (productCountRef.current?.value) {
-      productCountRef.current.valueAsNumber = productCountRef.current?.valueAsNumber - ProductsCount.minCount;
+      dispatch(decreaseProducts(cartProduct));
       setTotalPrice(cartProduct.price * productCountRef.current.valueAsNumber);
     }
   };
 
   const handleAddCountBtnClick = () => {
     if (productCountRef.current?.value) {
-      productCountRef.current.valueAsNumber = productCountRef.current?.valueAsNumber + ProductsCount.minCount;
+      dispatch(addToCart(cartProduct));
       setTotalPrice(cartProduct.price * productCountRef.current.valueAsNumber);
     }
+  };
+
+  const handleDeleteButtonClick = (product: Camera) => {
+    dispatch(removeProduct(product));
   };
 
   return (
@@ -88,6 +94,7 @@ function CartProduct({ cartProduct }: Props): JSX.Element {
         <button className="btn-icon btn-icon--prev"
           onClick={handleDeleteCountBtnClick}
           aria-label="уменьшить количество товара"
+          disabled={productCountRef.current?.value !== undefined && productCountRef.current?.valueAsNumber <= ProductsCount.minCount}
         >
           <svg width="7" height="12" aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>
@@ -102,6 +109,7 @@ function CartProduct({ cartProduct }: Props): JSX.Element {
         <button className="btn-icon btn-icon--next"
           onClick={handleAddCountBtnClick}
           aria-label="увеличить количество товара"
+          disabled={productCountRef.current?.value !== undefined && productCountRef.current?.valueAsNumber >= ProductsCount.maxCount}
         >
           <svg width="7" height="12" aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>
@@ -109,7 +117,7 @@ function CartProduct({ cartProduct }: Props): JSX.Element {
         </button>
       </div>
       <div className="basket-item__total-price"><span className="visually-hidden">Общая цена:</span>{getPrice(totalPrice)} ₽</div>
-      <button className="cross-btn" type="button" aria-label="Удалить товар">
+      <button className="cross-btn" type="button" onClick={() => handleDeleteButtonClick(cartProduct)} aria-label="Удалить товар">
         <svg width="10" height="10" aria-hidden="true">
           <use xlinkHref="#icon-close"></use>
         </svg>
