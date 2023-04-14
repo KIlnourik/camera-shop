@@ -17,14 +17,15 @@ export const cartProcess = createSlice({
     removeProduct: (state, action: PayloadAction<Camera>) => {
       state.cartProducts = [...state.cartProducts].filter((product) => product.id !== action.payload.id);
     },
-    increaseProducts: (state, action: PayloadAction<Camera>) => {
-      state.cartProducts.fill({length: {...action.payload}}, );
-    },
     decreaseProducts: (state, action: PayloadAction<Camera>) => {
       const index = state.cartProducts.findIndex((product) => product.id === action.payload.id);
       state.cartProducts.splice(index, 1);
+    },
+    setProductsCount: (state, action: PayloadAction<Camera[]>) => {
+      state.cartProducts = [...state.cartProducts].filter((product) => product.id !== action.payload[0].id);
+      state.cartProducts.push(...action.payload);
     }
   },
 });
 
-export const { addToCart, removeProduct, decreaseProducts } = cartProcess.actions;
+export const { addToCart, removeProduct, decreaseProducts, setProductsCount } = cartProcess.actions;

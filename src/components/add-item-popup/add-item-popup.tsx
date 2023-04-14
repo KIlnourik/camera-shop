@@ -1,8 +1,8 @@
 import { Camera } from '../../types/camera';
 import { getCameraTitle, getPrice } from '../../utils/utils';
 import { KeyboardEvent } from 'react';
-import { RemoveScroll } from 'react-remove-scroll';
 import Spinner from '../spinner/spinner';
+import { RemoveScroll } from 'react-remove-scroll';
 import ReactFocusLock from 'react-focus-lock';
 import { useAppDispatch } from '../../hooks';
 import { addToCart } from '../../store/cart-process/cart-process';

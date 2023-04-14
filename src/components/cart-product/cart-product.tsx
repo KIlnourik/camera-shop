@@ -4,10 +4,11 @@ import { getCameraTitle, getPrice } from '../../utils/utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCartProducts } from '../../store/cart-process/selector';
 import { Filters, ProductsCount } from '../../const';
-import { addToCart, removeProduct, decreaseProducts } from '../../store/cart-process/cart-process';
+import { addToCart, decreaseProducts, setProductsCount } from '../../store/cart-process/cart-process';
 
 type Props = {
   cartProduct: Camera;
+  handleDeleteButtonClick(product: Camera): void;
 };
 
 const getProductCount = (productsList: Camera[], currentProduct: Camera) => {
@@ -20,16 +21,26 @@ const getProductCount = (productsList: Camera[], currentProduct: Camera) => {
   return items.length;
 };
 
-function CartProduct({ cartProduct }: Props): JSX.Element {
+function CartProduct({ cartProduct, handleDeleteButtonClick }: Props): JSX.Element {
   const [totalPrice, setTotalPrice] = useState(cartProduct.price);
+  const [isDisabledPlusBtn, setDisabledPlusBtn] = useState(false);
+  const [isDisabledMinusBtn, setDisabledMinusBtn] = useState(false);
   const cartProducts = useAppSelector(getCartProducts);
   const dispatch = useAppDispatch();
-
   const productCountRef = useRef<HTMLInputElement | null>(null);
+
+  // eslint-disable-next-line no-console
+  console.log(cartProducts);
 
   useEffect(() => {
     if (productCountRef.current !== null) {
       productCountRef.current.value = getProductCount(cartProducts, cartProduct).toString();
+      (productCountRef.current.valueAsNumber <= ProductsCount.minCount) ?
+        setDisabledMinusBtn(true) :
+        setDisabledMinusBtn(false);
+      (productCountRef.current.valueAsNumber >= ProductsCount.maxCount) ?
+        setDisabledPlusBtn(true) :
+        setDisabledPlusBtn(false);
     }
 
     if (productCountRef.current?.value) {
@@ -47,6 +58,10 @@ function CartProduct({ cartProduct }: Props): JSX.Element {
         productCountRef.current.value = ProductsCount.maxCount.toString();
         setTotalPrice(cartProduct.price * productCountRef.current.valueAsNumber);
       }
+
+      dispatch(setProductsCount(Array(productCountRef.current?.valueAsNumber).fill(cartProduct) as Camera[]));
+      // eslint-disable-next-line no-console
+      console.log(cartProducts);
     }
   };
 
@@ -62,10 +77,6 @@ function CartProduct({ cartProduct }: Props): JSX.Element {
       dispatch(addToCart(cartProduct));
       setTotalPrice(cartProduct.price * productCountRef.current.valueAsNumber);
     }
-  };
-
-  const handleDeleteButtonClick = (product: Camera) => {
-    dispatch(removeProduct(product));
   };
 
   return (
@@ -94,7 +105,7 @@ function CartProduct({ cartProduct }: Props): JSX.Element {
         <button className="btn-icon btn-icon--prev"
           onClick={handleDeleteCountBtnClick}
           aria-label="уменьшить количество товара"
-          disabled={productCountRef.current?.value !== undefined && productCountRef.current?.valueAsNumber <= ProductsCount.minCount}
+          disabled={isDisabledMinusBtn}
         >
           <svg width="7" height="12" aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>
@@ -109,7 +120,7 @@ function CartProduct({ cartProduct }: Props): JSX.Element {
         <button className="btn-icon btn-icon--next"
           onClick={handleAddCountBtnClick}
           aria-label="увеличить количество товара"
-          disabled={productCountRef.current?.value !== undefined && productCountRef.current?.valueAsNumber >= ProductsCount.maxCount}
+          disabled={isDisabledPlusBtn}
         >
           <svg width="7" height="12" aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>
