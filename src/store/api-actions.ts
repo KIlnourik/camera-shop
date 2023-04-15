@@ -7,6 +7,7 @@ import { Promo } from '../types/promo';
 import { Review } from '../types/review';
 import { ReviewPost } from '../types/review-post';
 import { URLSearchParams } from 'url';
+import { CouponPost } from '../types/coupon-post';
 
 export const fetchCamerasAction = createAsyncThunk<Camera[], URLSearchParams, {
   dispatch: AppDispatch;
@@ -92,3 +93,15 @@ export const sendReviewAction = createAsyncThunk<void, ReviewPost, {
   }
 );
 
+export const validateCoupon = createAsyncThunk<number, CouponPost, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/couponPost',
+  async (coupon, { extra: api}) => {
+    const response = await api.post<number>(APIRoute.Coupons, { ...coupon });
+    return response.data;
+
+  }
+);

@@ -29,3 +29,8 @@ export type ReviewProcess = {
 export type CartProcess = {
   cartProducts: Camera[];
 }
+
+export type CouponProcess = {
+  discountValue?: number;
+  isValidCoupon?: boolean;
+}

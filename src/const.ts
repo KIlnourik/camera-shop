@@ -12,6 +12,7 @@ export enum NameSpace {
   Camera = 'Camera',
   Review = 'Review',
   Cart = 'Cart',
+  Coupon = 'Coupon',
 }
 
 export enum APIRoute {
@@ -99,3 +100,5 @@ export enum ProductsCount {
   minCount = 1,
   maxCount = 99,
 }
+
+export const MAX_DIGITS_AFTER_POINT = 2;

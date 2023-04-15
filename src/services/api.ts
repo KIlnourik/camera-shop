@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
   [StatusCodes.NOT_FOUND]: true,
+  [StatusCodes.INTERNAL_SERVER_ERROR]: true,
 };
 
 const shouldDisplayResponseError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
@@ -20,9 +21,8 @@ export const createAPI = (): AxiosInstance => {
     (response) => response,
     (error: AxiosError<{ messages: string }>) => {
       if (error.response && shouldDisplayResponseError(error.response)) {
-        const errorMessage = error.response.data.messages[0];
         toast.error(error.message);
-        toast.error(errorMessage);
+        toast.error(error.response.data.messages[0]);
       }
       throw error;
     }

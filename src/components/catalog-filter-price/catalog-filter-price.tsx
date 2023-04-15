@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-
+import { getValidClassname } from '../../utils/utils';
 
 type Props = {
   minPrice: string;
@@ -7,18 +7,6 @@ type Props = {
   handlePriceChange(value?: string): void;
   handlePriceUpChange(value?: string): void;
 }
-
-const getValidClassname = (validationStatus: boolean | undefined) => {
-  let validationClassname: string;
-  if (validationStatus === undefined) {
-    validationClassname = '';
-  } else if (validationStatus === false) {
-    validationClassname = 'is-invalid';
-  } else {
-    validationClassname = 'is-valid';
-  }
-  return validationClassname;
-};
 
 function CatalogFilterPrice({
   minPrice,

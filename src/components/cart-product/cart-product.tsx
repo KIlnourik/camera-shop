@@ -29,9 +29,6 @@ function CartProduct({ cartProduct, handleDeleteButtonClick }: Props): JSX.Eleme
   const dispatch = useAppDispatch();
   const productCountRef = useRef<HTMLInputElement | null>(null);
 
-  // eslint-disable-next-line no-console
-  console.log(cartProducts);
-
   useEffect(() => {
     if (productCountRef.current !== null) {
       productCountRef.current.value = getProductCount(cartProducts, cartProduct).toString();
@@ -90,7 +87,7 @@ function CartProduct({ cartProduct, handleDeleteButtonClick }: Props): JSX.Eleme
       <div className="basket-item__description">
         <p className="basket-item__title">{getCameraTitle(cartProduct)}</p>
         <ul className="basket-item__list">
-          <li className="basket-item__list-item"><span className="basket-item__article">Артикул:</span>
+          <li className="basket-item__list-item"><span className="basket-item__article">Артикул: </span>
             <span className="basket-item__number">{cartProduct.vendorCode}</span>
           </li>
           <li className="basket-item__list-item">{`${cartProduct.type} ${cartProduct.category === Filters.videocamera ? 'видеокамера' : 'фотокамера'}`}</li>
