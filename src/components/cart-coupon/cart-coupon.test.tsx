@@ -11,6 +11,9 @@ const store = mockStore({
     isValidCoupon: true,
     validCoupon: undefined,
   },
+  Order: {
+    orderStatus: true,
+  }
 });
 describe('Component: CartCoupon', () => {
 
