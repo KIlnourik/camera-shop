@@ -1,26 +1,39 @@
 import { useState, KeyboardEvent } from 'react';
+import { Camera } from '../../types/camera';
+import { Popup } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { getOrderStatus } from '../../store/order-process/selector';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CartProducts from '../../components/cart-products/cart-products';
-import CartSummary from '../../components/cart-summary/cart-summary';
 import DeleteItemPopup from '../../components/delete-item-popup/delete-item-popup';
-import { Camera } from '../../types/camera';
+import CartCoupon from '../../components/cart-coupon/cart-coupon';
+import CartSummaryOrder from '../../components/cart-summary-order/cart-summary-order';
+import OrderSuccessPopup from '../../components/order-success-popup/order-success-popup';
 
 function CartPage(): JSX.Element {
-  const [isDeletePopupActive, setDeletePopupActive] = useState(false);
+  const [isActivePopup, setActivePopup] = useState<string | undefined>(undefined);
   const [targetProduct, setTargetProduct] = useState<Camera | undefined>(undefined);
+  const orderStatus = useAppSelector(getOrderStatus);
 
   const handleDeleteButtonClick = (product: Camera) => {
-    setDeletePopupActive(true);
+    setActivePopup(Popup.DeleteProductPopup);
     setTargetProduct(product);
   };
 
+  const handleOrderSuccessPopupOpen = () => {
+    if (orderStatus) {
+      setActivePopup(undefined);
+      setActivePopup(Popup.OrderSuccessPopup);
+    }
+  };
+
   const handleClosePopup = () => {
-    setDeletePopupActive(false);
+    setActivePopup(undefined);
   };
 
   const handleEscKeydown = (evt: KeyboardEvent) => {
     if (evt.key === 'Escape' || evt.key === 'Esc') {
-      setDeletePopupActive(false);
+      setActivePopup(undefined);
     }
   };
 
@@ -32,13 +45,21 @@ function CartPage(): JSX.Element {
           <div className="container">
             <h1 className="title title--h2">Корзина</h1>
             {<CartProducts handleDeleteButtonClick={handleDeleteButtonClick} />}
-            {<CartSummary />}
+            <div className="basket__summary">
+              {<CartCoupon />}
+              {<CartSummaryOrder handleOrderSuccessPopupOpen={handleOrderSuccessPopupOpen}/>}
+            </div>
           </div>
         </section>
       </div>
-      {isDeletePopupActive &&
+      {isActivePopup === Popup.DeleteProductPopup &&
         <DeleteItemPopup
           cartProduct={targetProduct}
+          handleClosePopup={handleClosePopup}
+          handleEscKeydown={handleEscKeydown}
+        />}
+      {isActivePopup === Popup.OrderSuccessPopup &&
+        <OrderSuccessPopup
           handleClosePopup={handleClosePopup}
           handleEscKeydown={handleEscKeydown}
         />}

@@ -13,6 +13,7 @@ export enum NameSpace {
   Review = 'Review',
   Cart = 'Cart',
   Coupon = 'Coupon',
+  Order = 'Order'
 }
 
 export enum APIRoute {
@@ -33,6 +34,8 @@ export enum Popup {
   BasketPopup = 'basketPopup',
   ReviewPopup = 'reviewPopup',
   ReviewSuccessPopup = 'reviewSuccessPopup',
+  DeleteProductPopup = 'deleteProductPopup',
+  OrderSuccessPopup = 'orderSuccessPopup',
 }
 
 export enum Sorts {

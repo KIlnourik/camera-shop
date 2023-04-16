@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { CouponProcess } from '../../types/state';
-import { validateCoupon } from '../api-actions';
+import { validateCouponAction } from '../api-actions';
 
 const initialState: CouponProcess = {
   discountValue: undefined,
   isValidCoupon: undefined,
+  validCoupon: undefined
 };
 
 export const couponProcess = createSlice({
@@ -14,15 +15,18 @@ export const couponProcess = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(validateCoupon.pending, (state) => {
+      .addCase(validateCouponAction.pending, (state) => {
         state.isValidCoupon = undefined;
       })
-      .addCase(validateCoupon.fulfilled, (state, action) => {
-        state.discountValue = action.payload;
+      .addCase(validateCouponAction.fulfilled, (state, action) => {
+        const { discount, coupon } = action.payload;
+        state.discountValue = discount;
+        state.validCoupon = coupon;
         state.isValidCoupon = true;
       })
-      .addCase(validateCoupon.rejected, (state) => {
+      .addCase(validateCouponAction.rejected, (state) => {
         state.discountValue = undefined;
+        state.validCoupon = undefined;
         state.isValidCoupon = false;
       });
   },
