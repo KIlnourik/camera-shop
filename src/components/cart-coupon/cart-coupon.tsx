@@ -4,6 +4,8 @@ import { validateCouponAction } from '../../store/api-actions';
 import { getCouponValidationStatus, getDiscountValue, getValidCoupon } from '../../store/coupon-process/selector';
 import { CouponPost } from '../../types/coupon-post';
 import { getValidClassname } from '../../utils/utils';
+import { resetCoupon } from '../../store/coupon-process/coupon-process';
+import { getOrderStatus } from '../../store/order-process/selector';
 
 function CartCoupon(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -12,6 +14,7 @@ function CartCoupon(): JSX.Element {
   const couponRef = useRef<HTMLInputElement>(null);
   const validCoupon = useAppSelector(getValidCoupon);
   const [isValid, setValid] = useState<boolean | undefined>(undefined);
+  const orderStatus = useAppSelector(getOrderStatus);
 
   const onSubmit = (couponData: CouponPost) => {
     dispatch(validateCouponAction(couponData));
@@ -29,16 +32,19 @@ function CartCoupon(): JSX.Element {
   const handleInputChange = () => {
     if (!couponRef.current?.value) {
       setValid(undefined);
+      dispatch(resetCoupon());
     }
   };
 
   useEffect(() => {
     setValid(isValidCoupon);
-
-    if (validCoupon && couponRef.current !== null) {
+    if (isValidCoupon && validCoupon && couponRef.current !== null) {
       couponRef.current.value = validCoupon;
     }
-  }, [isValidCoupon, disount, validCoupon]);
+    if (orderStatus && couponRef.current !== null) {
+      couponRef.current.value = '';
+    }
+  }, [isValidCoupon, disount, validCoupon, orderStatus]);
 
   return (
     <div className="basket__promo">

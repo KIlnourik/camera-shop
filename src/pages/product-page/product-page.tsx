@@ -20,7 +20,8 @@ import AddReviewPopup from '../../components/add-review-popup/add-review-popup';
 import AddReviewSuccessPopup from '../../components/add-review-success-popup/add-review-success-popup';
 import NotFoundPage from '../not-found-page/not-found-page';
 import AddItemSuccessPopup from '../../components/add-item-success-popup/add-item-success-popup';
-import { getReviewSentStatus } from '../../store/review-process/selector';
+import { resetReviewSentStatus } from '../../store/review-process/review-process';
+
 
 function ProductPage(): JSX.Element {
   const location = useLocation();
@@ -31,7 +32,6 @@ function ProductPage(): JSX.Element {
   const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
   const [activePopup, setActivePopup] = useState<string | undefined>(undefined);
   const isCameraLoading = useAppSelector(getCameraLoadingStatus);
-  const sentReviewStatus = useAppSelector(getReviewSentStatus);
 
   const handleBuyButtonClick = (selectedCamera: Camera) => {
     setActivePopup(Popup.BasketPopup);
@@ -56,13 +56,16 @@ function ProductPage(): JSX.Element {
     setActivePopup(Popup.BasketSuccessPopup);
   };
 
-  const handleSuccessPopupOpen = () => {
-    sentReviewStatus && setActivePopup(Popup.ReviewSuccessPopup);
+  const handleSuccessPopupOpen = (reviewStatus?: boolean) => {
+    if (reviewStatus) {
+      setActivePopup(Popup.ReviewSuccessPopup);
+    }
   };
 
   const handleSuccessPopupClose = () => {
     if (id) {
       setActivePopup(undefined);
+      dispatch(resetReviewSentStatus());
     }
   };
 

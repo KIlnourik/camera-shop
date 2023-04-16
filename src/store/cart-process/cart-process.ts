@@ -36,8 +36,11 @@ export const cartProcess = createSlice({
       state.cartProducts = [...state.cartProducts].filter((product) => product.id !== action.payload[0].id);
       state.cartProducts.push(...action.payload);
       state.cartProducts.sort(sortCameras);
+    },
+    resetCart: (state) => {
+      state.cartProducts = [];
     }
   },
 });
 
-export const { addToCart, removeProduct, decreaseProducts, setProductsCount } = cartProcess.actions;
+export const { addToCart, removeProduct, decreaseProducts, setProductsCount, resetCart } = cartProcess.actions;

@@ -22,7 +22,7 @@ function OrderSuccessPopup({ handleClosePopup, handleEscKeydown }: Props): JSX.E
                 <use xlinkHref="#icon-review-success"></use>
               </svg>
               <div className="modal__buttons">
-                <Link className="btn btn--purple modal__btn modal__btn--fit-width" type="button" to={AppRoute.Catalog}>Вернуться к покупкам
+                <Link className="btn btn--purple modal__btn modal__btn--fit-width" type="button" to={AppRoute.Catalog} onClick={handleClosePopup}>Вернуться к покупкам
                 </Link>
               </div>
               <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleClosePopup}>

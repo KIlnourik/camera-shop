@@ -22,6 +22,7 @@ const getProductsIds = (products: Camera[]) => {
   return Array.from(new Set(items));
 };
 
+
 function CartSummaryOrder({ handleOrderSuccessPopupOpen }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const discount = useAppSelector(getDiscountValue);
@@ -50,7 +51,6 @@ function CartSummaryOrder({ handleOrderSuccessPopupOpen }: Props): JSX.Element {
         coupon: null,
       });
     }
-
   };
 
   useEffect(() => {
@@ -66,7 +66,6 @@ function CartSummaryOrder({ handleOrderSuccessPopupOpen }: Props): JSX.Element {
 
     setTotalSum(summaryValue - discountSum);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartProducts, discount, discountSum, orderSendStatus, summaryValue]);
 
   return (

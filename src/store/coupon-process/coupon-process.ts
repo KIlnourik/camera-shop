@@ -12,7 +12,13 @@ const initialState: CouponProcess = {
 export const couponProcess = createSlice({
   name: NameSpace.Coupon,
   initialState,
-  reducers: {},
+  reducers: {
+    resetCoupon: (state) => {
+      state.discountValue = undefined;
+      state.isValidCoupon = undefined;
+      state.isValidCoupon = undefined;
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(validateCouponAction.pending, (state) => {
@@ -31,3 +37,5 @@ export const couponProcess = createSlice({
       });
   },
 });
+
+export const {resetCoupon} = couponProcess.actions;

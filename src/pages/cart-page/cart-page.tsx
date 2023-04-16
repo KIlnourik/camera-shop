@@ -1,6 +1,10 @@
 import { useState, KeyboardEvent } from 'react';
 import { Camera } from '../../types/camera';
 import { Popup } from '../../const';
+import { resetCart } from '../../store/cart-process/cart-process';
+import { resetCoupon } from '../../store/coupon-process/coupon-process';
+import { resetOrderStatus } from '../../store/order-process/order-process';
+import { useAppDispatch } from '../../hooks';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CartProducts from '../../components/cart-products/cart-products';
 import DeleteItemPopup from '../../components/delete-item-popup/delete-item-popup';
@@ -11,6 +15,7 @@ import OrderSuccessPopup from '../../components/order-success-popup/order-succes
 function CartPage(): JSX.Element {
   const [isActivePopup, setActivePopup] = useState<string | undefined>(undefined);
   const [targetProduct, setTargetProduct] = useState<Camera | undefined>(undefined);
+  const dispatch = useAppDispatch();
 
   const handleDeleteButtonClick = (product: Camera) => {
     setActivePopup(Popup.DeleteProductPopup);
@@ -26,6 +31,16 @@ function CartPage(): JSX.Element {
   };
 
   const handleClosePopup = () => {
+    setActivePopup(undefined);
+  };
+
+  const handleCloseSuccessPopup = (orderStatus?: boolean) => {
+    if (orderStatus) {
+      setActivePopup(undefined);
+      dispatch(resetCart());
+      dispatch(resetCoupon());
+      dispatch(resetOrderStatus());
+    }
     setActivePopup(undefined);
   };
 
@@ -58,7 +73,7 @@ function CartPage(): JSX.Element {
         />}
       {isActivePopup === Popup.OrderSuccessPopup &&
         <OrderSuccessPopup
-          handleClosePopup={handleClosePopup}
+          handleClosePopup={handleCloseSuccessPopup}
           handleEscKeydown={handleEscKeydown}
         />}
     </>
