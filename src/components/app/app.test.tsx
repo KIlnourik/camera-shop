@@ -33,6 +33,9 @@ const store = mockStore({
     reviews: [...makeFakeReviewList()],
     isReviewsLoading: false,
     isReviewSent: true,
+  },
+  Cart: {
+    cartProducts: [...makeFakeCameraList()],
   }
 });
 

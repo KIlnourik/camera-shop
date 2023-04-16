@@ -4,6 +4,8 @@ import { Review } from '../types/review';
 import { ReviewPost } from '../types/review-post';
 import {Promo} from '../types/promo';
 import { URLSearchParams } from 'url';
+import { CouponPost } from '../types/coupon-post';
+import { OrderPost } from '../types/order-post';
 
 export const makeFakeCameraInfo = (): Camera => ({
   id: Number(random.alphaNumeric(1000)),
@@ -62,4 +64,14 @@ export const makeFakeQueryParams = (): URLSearchParams => new URLSearchParams({
   type: 'type',
   level: 'level',
 });
+
+export const makeFakeCoupon = (): CouponPost => ({
+  coupon: random.word(),
+});
+
+export const makeFakeOrder = (): OrderPost => ({
+  camerasIds: [Number(random.alphaNumeric(1000))],
+  coupon: random.word(),
+});
+
 
