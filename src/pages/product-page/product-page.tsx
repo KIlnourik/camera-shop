@@ -20,6 +20,7 @@ import AddReviewPopup from '../../components/add-review-popup/add-review-popup';
 import AddReviewSuccessPopup from '../../components/add-review-success-popup/add-review-success-popup';
 import NotFoundPage from '../not-found-page/not-found-page';
 import AddItemSuccessPopup from '../../components/add-item-success-popup/add-item-success-popup';
+import { getReviewSentStatus } from '../../store/review-process/selector';
 
 function ProductPage(): JSX.Element {
   const location = useLocation();
@@ -29,9 +30,8 @@ function ProductPage(): JSX.Element {
   const [camerasUrl,] = useState(location.pathname.split('/')[1]);
   const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
   const [activePopup, setActivePopup] = useState<string | undefined>(undefined);
-  const [activeSuccessPopup, setActiveSuccessPopup] = useState(false);
-  const [isAddItemSuccessPopup, setAddItemSuccessPopup] = useState(false);
   const isCameraLoading = useAppSelector(getCameraLoadingStatus);
+  const sentReviewStatus = useAppSelector(getReviewSentStatus);
 
   const handleBuyButtonClick = (selectedCamera: Camera) => {
     setActivePopup(Popup.BasketPopup);
@@ -48,31 +48,21 @@ function ProductPage(): JSX.Element {
     }
   };
 
-  const handleAddItemPopupClose = () => {
+  const handleClosePopup = () => {
     setActivePopup(undefined);
-  };
-
-  const handleAddReviewPopupClose = () => {
-    setActivePopup(undefined);
-
   };
 
   const handleAddItemSuccessPopupOpen = () => {
-    setActivePopup(undefined);
-    setAddItemSuccessPopup(true);
-  };
-
-  const handleAddItemSuccessPopupClose = () => {
-    setAddItemSuccessPopup(false);
+    setActivePopup(Popup.BasketSuccessPopup);
   };
 
   const handleSuccessPopupOpen = () => {
-    setActiveSuccessPopup(true);
+    sentReviewStatus && setActivePopup(Popup.ReviewSuccessPopup);
   };
 
   const handleSuccessPopupClose = () => {
     if (id) {
-      setActiveSuccessPopup(false);
+      setActivePopup(undefined);
     }
   };
 
@@ -111,25 +101,24 @@ function ProductPage(): JSX.Element {
         {activePopup === Popup.BasketPopup &&
           <AddItemPopup
             camera={chosenCamera}
-            handleClosePopup={handleAddItemPopupClose}
+            handleClosePopup={handleClosePopup}
             handleEscKeydown={handleEscKeydown}
             handleSuccessPopupOpen={handleAddItemSuccessPopupOpen}
           />}
         {activePopup === Popup.ReviewPopup &&
           <AddReviewPopup
-            handleClosePopup={handleAddReviewPopupClose}
+            handleClosePopup={handleClosePopup}
             handleSuccessPopupOpen={handleSuccessPopupOpen}
             handleEscKeydown={handleEscKeydown}
           />}
-        {activeSuccessPopup &&
+        {activePopup === Popup.ReviewSuccessPopup &&
           <AddReviewSuccessPopup
             handleClosePopup={handleSuccessPopupClose}
             handleEscKeydown={handleEscKeydown}
           />}
-
-        {isAddItemSuccessPopup &&
+        {activePopup === Popup.BasketSuccessPopup &&
           <AddItemSuccessPopup
-            handleClosePopup={handleAddItemSuccessPopupClose}
+            handleClosePopup={handleClosePopup}
             handleEscKeydown={handleEscKeydown}
           />}
       </main>

@@ -35,7 +35,6 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
   const onSubmit: SubmitHandler<ReviewPost> = (data) => {
     if (id) {
       dispatch(sendReviewAction({ ...data, rating: adoptedRating, cameraId: Number(id) }));
-      handleClosePopup();
       handleSuccessPopupOpen();
     }
   };

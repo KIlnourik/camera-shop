@@ -57,8 +57,6 @@ function CartProduct({ cartProduct, handleDeleteButtonClick }: Props): JSX.Eleme
       }
 
       dispatch(setProductsCount(Array(productCountRef.current?.valueAsNumber).fill(cartProduct) as Camera[]));
-      // eslint-disable-next-line no-console
-      console.log(cartProducts);
     }
   };
 

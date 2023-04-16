@@ -16,6 +16,9 @@ const store = mockStore({
     discountValue: 25,
     isValidCoupon: true,
     validCoupon: 'coupon'
+  },
+  Order: {
+    orderStatus: false,
   }
 });
 

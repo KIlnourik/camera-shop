@@ -10,10 +10,10 @@ import { useEffect, useState } from 'react';
 type Props = {
   camera: Camera;
   handleBuyButtonClick(camera: Camera): void;
-  isActive?: boolean;
+  isSimilar?: boolean;
 }
 
-function CatalogCard({ camera, handleBuyButtonClick, isActive }: Props): JSX.Element {
+function CatalogCard({ camera, handleBuyButtonClick, isSimilar }: Props): JSX.Element {
 
   const [isInCart, setIsInCart] = useState(false);
   const cartProducts = useAppSelector(getCartProducts);
@@ -27,7 +27,7 @@ function CatalogCard({ camera, handleBuyButtonClick, isActive }: Props): JSX.Ele
   }, [camera.id, cartProducts]);
 
   return (
-    <div className={`product-card  ${isActive ? 'is-active' : ''}`} >
+    <div className={`product-card  ${isSimilar ? 'is-active' : ''}`} >
       <div className="product-card__img">
         <picture>
           <source type="image/webp" srcSet={`/${camera.previewImgWebp}, /${camera.previewImgWebp2x} 2x`} />

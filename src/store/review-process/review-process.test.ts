@@ -15,7 +15,7 @@ describe('Reducer: reviewProcess', () => {
       .toEqual({
         reviews: [],
         isReviewsLoading: false,
-        isReviewSent: false,
+        isReviewSent: undefined,
         isReviewSending: false,
       });
   });
@@ -40,7 +40,7 @@ describe('Reducer: reviewProcess', () => {
     const state = {
       reviews: [],
       isReviewsLoading: false,
-      isReviewSent: false,
+      isReviewSent: undefined,
       isReviewSending: false,
     };
     expect((reviewProcess.reducer(state, { type: sendReviewAction.fulfilled.type, payload: true })))

@@ -22,7 +22,7 @@ function SimilarProductsList({ sliderOffset, handleBuyButtonClick }: Props): JSX
             camera={similarCamera}
             key={similarCamera.id}
             handleBuyButtonClick={handleBuyButtonClick}
-            isActive
+            isSimilar
           />
         ))
       }

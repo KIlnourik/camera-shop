@@ -32,6 +32,7 @@ export enum Tabs {
 
 export enum Popup {
   BasketPopup = 'basketPopup',
+  BasketSuccessPopup = 'basketSuccessPopup',
   ReviewPopup = 'reviewPopup',
   ReviewSuccessPopup = 'reviewSuccessPopup',
   DeleteProductPopup = 'deleteProductPopup',

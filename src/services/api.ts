@@ -28,6 +28,17 @@ export const createAPI = (): AxiosInstance => {
     }
   );
 
+  api.interceptors.response.use(
+    (response) => response,
+    (error: AxiosError) => {
+      if (error.code === 'ERR_NETWORK') {
+        toast.error('Проблемы с сетью! Проверьте подключение!');
+        toast.error(`${error.code}::${error.message}`);
+      }
+      throw error;
+    }
+  );
+
   return api;
 };
 

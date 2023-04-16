@@ -1,8 +1,6 @@
 import { useState, KeyboardEvent } from 'react';
 import { Camera } from '../../types/camera';
 import { Popup } from '../../const';
-import { useAppSelector } from '../../hooks';
-import { getOrderStatus } from '../../store/order-process/selector';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import CartProducts from '../../components/cart-products/cart-products';
 import DeleteItemPopup from '../../components/delete-item-popup/delete-item-popup';
@@ -13,17 +11,17 @@ import OrderSuccessPopup from '../../components/order-success-popup/order-succes
 function CartPage(): JSX.Element {
   const [isActivePopup, setActivePopup] = useState<string | undefined>(undefined);
   const [targetProduct, setTargetProduct] = useState<Camera | undefined>(undefined);
-  const orderStatus = useAppSelector(getOrderStatus);
 
   const handleDeleteButtonClick = (product: Camera) => {
     setActivePopup(Popup.DeleteProductPopup);
     setTargetProduct(product);
   };
 
-  const handleOrderSuccessPopupOpen = () => {
+  const handleOrderSuccessPopupOpen = (orderStatus?: boolean) => {
     if (orderStatus) {
-      setActivePopup(undefined);
       setActivePopup(Popup.OrderSuccessPopup);
+    } else {
+      setActivePopup(undefined);
     }
   };
 
@@ -47,7 +45,7 @@ function CartPage(): JSX.Element {
             {<CartProducts handleDeleteButtonClick={handleDeleteButtonClick} />}
             <div className="basket__summary">
               {<CartCoupon />}
-              {<CartSummaryOrder handleOrderSuccessPopupOpen={handleOrderSuccessPopupOpen}/>}
+              {<CartSummaryOrder handleOrderSuccessPopupOpen={handleOrderSuccessPopupOpen} />}
             </div>
           </div>
         </section>

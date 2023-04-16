@@ -3,7 +3,6 @@ import { RemoveScroll } from 'react-remove-scroll';
 import ReactFocusLock from 'react-focus-lock';
 import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
-// import { Link, useNavigate } from 'react-router-dom';
 
 type Props = {
   handleClosePopup(): void;
@@ -11,11 +10,6 @@ type Props = {
 }
 
 function AddItemSuccessPopup({ handleClosePopup, handleEscKeydown }: Props): JSX.Element {
-
-  // const navigate = useNavigate();
-  // const handleGoToCartClickButton = () => {
-  //   navigate(AppRoute.Cart);
-  // };
 
   return (
     <RemoveScroll>
@@ -35,7 +29,6 @@ function AddItemSuccessPopup({ handleClosePopup, handleEscKeydown }: Props): JSX
                 </button>
                 <Link className="btn btn--purple modal__btn modal__btn--fit-width"
                   to={AppRoute.Cart}
-                // onClick={handleGoToCartClickButton}
                 >
                   Перейти в корзину
                 </Link>

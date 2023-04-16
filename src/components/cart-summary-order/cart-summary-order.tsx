@@ -7,9 +7,10 @@ import { STATE_ZERO } from '../../const';
 import { getDiscountValue, getValidCoupon } from '../../store/coupon-process/selector';
 import { OrderPost } from '../../types/order-post';
 import { sendOrderAction } from '../../store/api-actions';
+import { getOrderStatus } from '../../store/order-process/selector';
 
 type Props = {
-  handleOrderSuccessPopupOpen(): void;
+  handleOrderSuccessPopupOpen(orederStatus?: boolean): void;
 }
 
 const getSummaryValue = (products: Camera[]) => products.reduce((accum, product) =>
@@ -26,10 +27,11 @@ function CartSummaryOrder({ handleOrderSuccessPopupOpen }: Props): JSX.Element {
   const discount = useAppSelector(getDiscountValue);
   const cartProducts = useAppSelector(getCartProducts);
   const validCoupon = useAppSelector(getValidCoupon);
+  const orderSendStatus = useAppSelector(getOrderStatus);
+
   const [summaryValue, setSummaryValue] = useState(STATE_ZERO);
   const [discountSum, setDiscountSum] = useState(STATE_ZERO);
   const [totalSum, setTotalSum] = useState(STATE_ZERO);
-
 
   const onSubmit = (data: OrderPost) => {
     dispatch(sendOrderAction(data));
@@ -48,7 +50,7 @@ function CartSummaryOrder({ handleOrderSuccessPopupOpen }: Props): JSX.Element {
         coupon: null,
       });
     }
-    handleOrderSuccessPopupOpen();
+
   };
 
   useEffect(() => {
@@ -60,9 +62,12 @@ function CartSummaryOrder({ handleOrderSuccessPopupOpen }: Props): JSX.Element {
       setDiscountSum(STATE_ZERO);
     }
 
+    handleOrderSuccessPopupOpen(orderSendStatus);
+
     setTotalSum(summaryValue - discountSum);
 
-  }, [cartProducts, discount, discountSum, summaryValue]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartProducts, discount, discountSum, orderSendStatus, summaryValue]);
 
   return (
     <div className="basket__summary-order">
