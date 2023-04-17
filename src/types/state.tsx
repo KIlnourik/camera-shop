@@ -22,6 +22,25 @@ export type CameraProcess = {
 export type ReviewProcess = {
   reviews: Review[];
   isReviewsLoading: boolean;
-  isReviewSent: boolean;
+  isReviewSent?: boolean;
   isReviewSending: boolean;
+}
+
+export type CartProcess = {
+  cartProducts: Camera[];
+}
+
+export type CouponResponse = {
+  discount?: number;
+  coupon?: string;
+};
+
+export type CouponProcess = {
+  discountValue?: number;
+  isValidCoupon?: boolean;
+  validCoupon?: string;
+}
+
+export type OrderProcess = {
+  orderStatus?: boolean;
 }

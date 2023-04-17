@@ -2,7 +2,7 @@ import { useAppSelector } from '../../hooks';
 import { getSimilarCameras } from '../../store/camera-process/selector';
 import { MAX_SHOWN_SLIDER_CARDS } from '../../const';
 import { Camera } from '../../types/camera';
-import SimilarProduct from '../similar-product/similar-product';
+import CatalogCard from '../catalog-card/catalog-card';
 
 type Props = {
   sliderOffset: number;
@@ -18,10 +18,11 @@ function SimilarProductsList({ sliderOffset, handleBuyButtonClick }: Props): JSX
     <div className="product-similar__slider-list">
       {
         similarCameras.slice(sliderOffset, sliderOffset + MAX_SHOWN_SLIDER_CARDS).map((similarCamera) => (
-          <SimilarProduct
-            similarCamera={similarCamera}
+          <CatalogCard
+            camera={similarCamera}
             key={similarCamera.id}
             handleBuyButtonClick={handleBuyButtonClick}
+            isSimilar
           />
         ))
       }

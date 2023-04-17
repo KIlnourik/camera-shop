@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { Fragment, SyntheticEvent, useState, KeyboardEvent } from 'react';
+import { Fragment, SyntheticEvent, useState, KeyboardEvent, useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { RemoveScroll } from 'react-remove-scroll';
@@ -7,12 +7,13 @@ import ReactFocusLock from 'react-focus-lock';
 import { getRatingValues } from '../../utils/utils';
 import { MAX_RATING_COUNT, RatingValues } from '../../const';
 import { ReviewPost } from '../../types/review-post';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { sendReviewAction } from '../../store/api-actions';
+import { getReviewSentStatus } from '../../store/review-process/selector';
 
 type Props = {
   handleClosePopup(): void;
-  handleSuccessPopupOpen(): void;
+  handleSuccessPopupOpen(reviewStatus?: boolean): void;
   handleEscKeydown(evt: KeyboardEvent): void;
 }
 
@@ -22,6 +23,7 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
   const [adoptedRating, setAdoptedRating] = useState(0);
   const { id } = useParams();
   const { register, handleSubmit, formState: { errors } } = useForm<ReviewPost>();
+  const sentReviewStatus = useAppSelector(getReviewSentStatus);
 
   const handleRatingChange = (e: SyntheticEvent) => {
     const { value } = e.target as HTMLInputElement;
@@ -35,10 +37,12 @@ function AddReviewPopup({ handleClosePopup, handleSuccessPopupOpen, handleEscKey
   const onSubmit: SubmitHandler<ReviewPost> = (data) => {
     if (id) {
       dispatch(sendReviewAction({ ...data, rating: adoptedRating, cameraId: Number(id) }));
-      handleClosePopup();
-      handleSuccessPopupOpen();
     }
   };
+
+  useEffect(() => {
+    handleSuccessPopupOpen(sentReviewStatus);
+  }, [sentReviewStatus]);
 
   return (
     <RemoveScroll >

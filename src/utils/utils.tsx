@@ -1,13 +1,20 @@
 import { Camera } from '../types/camera';
-import { RETRO_CAMERA_NAME } from '../const';
+import { RETRO_CAMERA_NAME, MAX_DIGITS_AFTER_POINT } from '../const';
 
 export const getCameraTitle = (camera: Camera) => camera.name.split(' ')[0] === RETRO_CAMERA_NAME
   ? camera.name
   : `${camera.category} ${camera.name}`;
 
 export const getPrice = (price: number): string => {
-  const slicedHundredPrice = price.toString().slice(-3);
-  const slicedThousandPrice = price.toString().slice(0, -3);
+  let slicedHundredPrice;
+  let slicedThousandPrice;
+  if (price.toString().includes('.')) {
+    slicedHundredPrice = price.toFixed(MAX_DIGITS_AFTER_POINT).toString().slice(-6);
+    slicedThousandPrice = price.toFixed(MAX_DIGITS_AFTER_POINT).toString().slice(0, -6);
+  } else {
+    slicedHundredPrice = price.toString().slice(-3);
+    slicedThousandPrice = price.toString().slice(0, -3);
+  }
   return `${slicedThousandPrice} ${slicedHundredPrice}`;
 };
 
@@ -54,4 +61,16 @@ export const getMaxPrice = (cameras: Camera[]) => {
     return Math.max(...pricesList);
   }
   return 0;
+};
+
+export const getValidClassname = (validationStatus: boolean | undefined) => {
+  let validationClassname: string;
+  if (validationStatus === undefined) {
+    validationClassname = '';
+  } else if (validationStatus === false) {
+    validationClassname = 'is-invalid';
+  } else {
+    validationClassname = 'is-valid';
+  }
+  return validationClassname;
 };

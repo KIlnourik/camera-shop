@@ -5,9 +5,17 @@ import HeaderSearchForm from '../header-search-form/header-search-form';
 import Logo from '../logo/logo';
 import NavList from '../nav-list/nav-list';
 import SocialList from '../social-list/social-list';
+import { useEffect, useState } from 'react';
+import { useAppSelector } from '../../hooks';
+import { getCartProducts } from '../../store/cart-process/selector';
 
 function Layout(): JSX.Element {
+  const cartProducts = useAppSelector(getCartProducts);
+  const [cartProductsCount, setCartProductsCount] = useState<number>(0);
 
+  useEffect(() => {
+    setCartProductsCount(cartProducts.length);
+  }, [cartProducts]);
 
   return (
     <>
@@ -18,10 +26,11 @@ function Layout(): JSX.Element {
             <NavList />
           </nav>
           <HeaderSearchForm />
-          <Link className="header__basket-link" to={`${AppRoute.Catalog}/${AppRoute.Basket}`}>
+          <Link className="header__basket-link" to={AppRoute.Cart}>
             <svg width="16" height="16" aria-hidden="true">
               <use xlinkHref="#icon-basket"></use>
-            </svg><span className="header__basket-count">3</span>
+            </svg>
+            {cartProductsCount !== 0 && <span className="header__basket-count">{cartProductsCount}</span>}
           </Link>
         </div>
       </header>

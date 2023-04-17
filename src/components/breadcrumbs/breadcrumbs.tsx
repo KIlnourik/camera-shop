@@ -4,10 +4,11 @@ import { Camera } from '../../types/camera';
 
 type Props = {
   isProductPage?: boolean;
+  isCartPage?: boolean;
   camera?: Camera;
 };
 
-function Breadcrumbs({ isProductPage, camera }: Props): JSX.Element {
+function Breadcrumbs({ isProductPage, isCartPage, camera }: Props): JSX.Element {
 
   const location = useLocation();
   const { page } = useParams();
@@ -23,7 +24,8 @@ function Breadcrumbs({ isProductPage, camera }: Props): JSX.Element {
               </svg>
             </a>
           </li>
-          {((!page && location.pathname === AppRoute.Catalog) || (page && location.pathname === `/${page}`))
+          {((!page && location.pathname === AppRoute.Catalog)
+            || (page && location.pathname === `/${page}`))
             ?
             <li className="breadcrumbs__item">
               <span className="breadcrumbs__link breadcrumbs__link--active">Каталог</span>
@@ -41,6 +43,10 @@ function Breadcrumbs({ isProductPage, camera }: Props): JSX.Element {
               <span className="breadcrumbs__link breadcrumbs__link--active">
                 {camera?.name}
               </span>
+            </li>}
+          {isCartPage &&
+            <li className="breadcrumbs__item">
+              <span className="breadcrumbs__link breadcrumbs__link--active">Корзина</span>
             </li>}
         </ul>
       </div>

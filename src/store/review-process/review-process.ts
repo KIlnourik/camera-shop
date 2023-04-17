@@ -9,14 +9,18 @@ import {
 const initialState: ReviewProcess = {
   reviews: [],
   isReviewsLoading: false,
-  isReviewSent: false,
+  isReviewSent: undefined,
   isReviewSending: false,
 };
 
 export const reviewProcess = createSlice({
   name: NameSpace.Review,
   initialState,
-  reducers: {},
+  reducers: {
+    resetReviewSentStatus: (state) => {
+      state.isReviewSent = undefined;
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchReviewsAction.pending, (state) => {
@@ -27,12 +31,17 @@ export const reviewProcess = createSlice({
         state.isReviewsLoading = false;
       })
       .addCase(sendReviewAction.pending, (state) => {
-        state.isReviewSent = false;
+        state.isReviewSent = undefined;
         state.isReviewSending = true;
       })
       .addCase(sendReviewAction.fulfilled, (state) => {
         state.isReviewSent = true;
         state.isReviewSending = false;
+      })
+      .addCase(sendReviewAction.rejected, (state) => {
+        state.isReviewSent = false;
       });
   }
 });
+
+export const {resetReviewSentStatus} = reviewProcess.actions;

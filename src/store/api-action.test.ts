@@ -10,7 +10,9 @@ import {
   makeFakePromo,
   makeFakeReviewList,
   makeFakeUserReview,
-  makeFakeQueryParams
+  makeFakeQueryParams,
+  makeFakeOrder,
+  makeFakeCoupon
 } from '../utils/mocks';
 import { APIRoute } from '../const';
 import {
@@ -20,9 +22,13 @@ import {
   fetchPromoAction,
   fetchReviewsAction,
   fetchSimilarCamerasAction,
-  sendReviewAction
+  sendOrderAction,
+  sendReviewAction,
+  validateCouponAction
 } from './api-actions';
 import { ReviewPost } from '../types/review-post';
+import { CouponPost } from '../types/coupon-post';
+import { OrderPost } from '../types/order-post';
 
 
 describe('Async actions', () => {
@@ -173,6 +179,48 @@ describe('Async actions', () => {
       fetchReviewsAction.pending.type,
       fetchReviewsAction.rejected.type,
       fetchReviewsAction.fulfilled.type,
+    ]);
+  });
+
+  it('should ValidateCoupon when POST /coupons', async () => {
+
+    const fakeCoupon: CouponPost = makeFakeCoupon();
+
+    mockAPI
+      .onPost(APIRoute.Coupons)
+      .reply(201);
+
+    const store = mockStore();
+    Storage.prototype.setItem = jest.fn();
+
+    await store.dispatch(validateCouponAction(fakeCoupon));
+
+    const actions = store.getActions().map(({ type }) => type);
+
+    expect(actions).toEqual([
+      validateCouponAction.pending.type,
+      validateCouponAction.fulfilled.type,
+    ]);
+  });
+
+  it('should SendOrder when POST /orders', async () => {
+
+    const fakeOrder: OrderPost = makeFakeOrder();
+
+    mockAPI
+      .onPost(APIRoute.Orders)
+      .reply(201);
+
+    const store = mockStore();
+    Storage.prototype.setItem = jest.fn();
+
+    await store.dispatch(sendOrderAction(fakeOrder));
+
+    const actions = store.getActions().map(({ type }) => type);
+
+    expect(actions).toEqual([
+      sendOrderAction.pending.type,
+      sendOrderAction.fulfilled.type,
     ]);
   });
 

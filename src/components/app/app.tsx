@@ -6,6 +6,7 @@ import Layout from '../layout/layout';
 import ProductParametersTab from '../product-parameters-tab/product-parameters-tab';
 import ProductDescTab from '../product-desc-tab/product-desc-tab';
 import NotFoundScreen from '../../pages/not-found-page/not-found-page';
+import CartPage from '../../pages/cart-page/cart-page';
 
 function App(): JSX.Element {
   return (
@@ -17,6 +18,7 @@ function App(): JSX.Element {
           <Route path={AppRoute.Parameters} element={<ProductParametersTab />} />
           <Route path={AppRoute.Description} element={<ProductDescTab />} />
         </Route>
+        <Route path={AppRoute.Cart} element={<CartPage />} />
         <Route path={AppRoute.NotFound} element={<NotFoundScreen />} />
       </Route>
     </Routes>

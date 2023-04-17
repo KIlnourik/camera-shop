@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
 import { makeFakeCameraInfo } from '../../utils/mocks';
+import { createMemoryHistory } from 'history';
 import HistoryRouter from '../history-route/history-route';
 import Breadcrumbs from './breadcrumbs';
 

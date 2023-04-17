@@ -13,6 +13,7 @@ import CatalogFilter from '../../components/catalog-filter/catalog-filter';
 import CatalogPagination from '../../components/catalog-pagination/catalog-pagination';
 import CatalogSortForm from '../../components/catalog-sort-form/catalog-sort-form';
 import AddItemPopup from '../../components/add-item-popup/add-item-popup';
+import AddItemSuccessPopup from '../../components/add-item-success-popup/add-item-success-popup';
 import NotFoundPage from '../not-found-page/not-found-page';
 
 function CatalogPage(): JSX.Element {
@@ -24,6 +25,7 @@ function CatalogPage(): JSX.Element {
   const [chosenPage, setChosenPage] = useState(STATE_ONE);
   const [offset, setOffset] = useState(STATE_ZERO);
   const [isActivePopup, setActivePopup] = useState(false);
+  const [isActiveSuccessPopup, setActiveSuccessPopup] = useState(false);
   const [chosenCamera, setChosenCamera] = useState<Camera | undefined>(undefined);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -103,6 +105,15 @@ function CatalogPage(): JSX.Element {
   const handleBuyButtonClick = (camera: Camera) => {
     setActivePopup(!isActivePopup);
     setChosenCamera(camera);
+  };
+
+  const handleSuccessPopupOpen = () => {
+    setActivePopup(false);
+    setActiveSuccessPopup(true);
+  };
+
+  const handleSuccessPopupClose = () => {
+    setActiveSuccessPopup(false);
   };
 
   const handleClosePopup = () => {
@@ -250,6 +261,12 @@ function CatalogPage(): JSX.Element {
         <AddItemPopup
           camera={chosenCamera}
           handleClosePopup={handleClosePopup}
+          handleEscKeydown={handleEscKeydown}
+          handleSuccessPopupOpen={handleSuccessPopupOpen}
+        />}
+      {isActiveSuccessPopup &&
+        <AddItemSuccessPopup
+          handleClosePopup={handleSuccessPopupClose}
           handleEscKeydown={handleEscKeydown}
         />}
     </main>

@@ -3,16 +3,31 @@ import { Camera } from '../../types/camera';
 import { getCameraTitle, getPrice } from '../../utils/utils';
 import { AppRoute } from '../../const';
 import Rating from '../rating/rating';
+import { useAppSelector } from '../../hooks';
+import { getCartProducts } from '../../store/cart-process/selector';
+import { useEffect, useState } from 'react';
 
 type Props = {
   camera: Camera;
   handleBuyButtonClick(camera: Camera): void;
+  isSimilar?: boolean;
 }
 
-function CatalogCard({ camera, handleBuyButtonClick }: Props): JSX.Element {
+function CatalogCard({ camera, handleBuyButtonClick, isSimilar }: Props): JSX.Element {
+
+  const [isInCart, setIsInCart] = useState(false);
+  const cartProducts = useAppSelector(getCartProducts);
+
+  useEffect(() => {
+    cartProducts.forEach((product) => {
+      if (product.id === camera.id) {
+        setIsInCart(true);
+      }
+    });
+  }, [camera.id, cartProducts]);
 
   return (
-    <div className="product-card" >
+    <div className={`product-card  ${isSimilar ? 'is-active' : ''}`} >
       <div className="product-card__img">
         <picture>
           <source type="image/webp" srcSet={`/${camera.previewImgWebp}, /${camera.previewImgWebp2x} 2x`} />
@@ -30,8 +45,18 @@ function CatalogCard({ camera, handleBuyButtonClick }: Props): JSX.Element {
         </p>
       </div>
       <div className="product-card__buttons">
-        <button className="btn btn--purple product-card__btn" type="button" onClick={() => handleBuyButtonClick(camera)}>Купить
-        </button>
+        {isInCart ?
+          <button className="btn btn--purple-border">
+            <svg width="16" height="16" aria-hidden="true">
+              <use xlinkHref="#icon-basket"></use>
+            </svg>В корзине
+          </button>
+          :
+          <button className="btn btn--purple product-card__btn" type="button" onClick={() => handleBuyButtonClick(camera)}>
+            Купить
+          </button>}
+
+
         <Link className="btn btn--transparent" to={`/cameras/${camera.id}/${AppRoute.Parameters}`}>Подробнее
         </Link>
       </div>
