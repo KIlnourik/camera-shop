@@ -10,7 +10,7 @@ import { RemoveScroll } from 'react-remove-scroll';
 import ReactFocusLock from 'react-focus-lock';
 
 type Props = {
-  cartProduct?: Camera;
+  cartProduct?: Camera | null;
   handleClosePopup(): void;
   handleEscKeydown(evt: KeyboardEvent): void;
 }
