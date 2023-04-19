@@ -12,12 +12,8 @@ type Props = {
 };
 
 const getProductCount = (productsList: Camera[], currentProduct: Camera) => {
-  const items = [];
-  productsList.forEach((product) => {
-    if (product.id === currentProduct.id) {
-      items.push(product);
-    }
-  });
+  let items = [];
+  items = productsList.filter((product) => product.id === currentProduct.id);
   return items.length;
 };
 
@@ -28,13 +24,16 @@ function CartProduct({ cartProduct, handleDeleteButtonClick }: Props): JSX.Eleme
   const cartProducts = useAppSelector(getCartProducts);
   const dispatch = useAppDispatch();
   const productCountRef = useRef<HTMLInputElement | null>(null);
+  const [countValue, setCountValue] = useState('');
 
   useEffect(() => {
     if (productCountRef.current !== null) {
       productCountRef.current.value = getProductCount(cartProducts, cartProduct).toString();
+      setCountValue(productCountRef.current.value);
       (productCountRef.current.valueAsNumber <= ProductsCount.minCount) ?
         setDisabledMinusBtn(true) :
         setDisabledMinusBtn(false);
+
       (productCountRef.current.valueAsNumber >= ProductsCount.maxCount) ?
         setDisabledPlusBtn(true) :
         setDisabledPlusBtn(false);
@@ -43,6 +42,8 @@ function CartProduct({ cartProduct, handleDeleteButtonClick }: Props): JSX.Eleme
     if (productCountRef.current?.value) {
       setTotalPrice(cartProduct.price * productCountRef.current.valueAsNumber);
     }
+
+
   }, [cartProducts, cartProduct]);
 
   const handleInputBlur = () => {
@@ -56,6 +57,11 @@ function CartProduct({ cartProduct, handleDeleteButtonClick }: Props): JSX.Eleme
         setTotalPrice(cartProduct.price * productCountRef.current.valueAsNumber);
       }
 
+      dispatch(setProductsCount(Array(productCountRef.current?.valueAsNumber).fill(cartProduct) as Camera[]));
+    }
+    if (productCountRef.current?.value === '') {
+      productCountRef.current.value = countValue;
+      setTotalPrice(cartProduct.price * productCountRef.current.valueAsNumber);
       dispatch(setProductsCount(Array(productCountRef.current?.valueAsNumber).fill(cartProduct) as Camera[]));
     }
   };

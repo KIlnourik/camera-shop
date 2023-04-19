@@ -13,7 +13,7 @@ function CartCoupon(): JSX.Element {
   const disount = useAppSelector(getDiscountValue);
   const couponRef = useRef<HTMLInputElement>(null);
   const validCoupon = useAppSelector(getValidCoupon);
-  const [isValid, setValid] = useState<boolean | undefined>(undefined);
+  const [isValid, setValid] = useState<boolean | null | undefined>(undefined);
   const orderStatus = useAppSelector(getOrderStatus);
 
   const onSubmit = (couponData: CouponPost) => {
@@ -31,7 +31,7 @@ function CartCoupon(): JSX.Element {
 
   const handleInputChange = () => {
     if (!couponRef.current?.value) {
-      setValid(undefined);
+      setValid(null);
       dispatch(resetCoupon());
     }
   };

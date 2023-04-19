@@ -16,7 +16,7 @@ function AddItemSuccessPopup({ handleClosePopup, handleEscKeydown }: Props): JSX
       <ReactFocusLock>
         <div className="modal is-active modal--narrow" onKeyDown={handleEscKeydown}>
           <div className="modal__wrapper">
-            <div className="modal__overlay"></div>
+            <div className="modal__overlay" onClick={handleClosePopup}></div>
             <div className="modal__content">
               <p className="title title--h4">Товар успешно добавлен в корзину</p>
               <svg className="modal__icon" width="86" height="80" aria-hidden="true">

@@ -19,9 +19,9 @@ function AddItemPopup({ camera, handleClosePopup, handleEscKeydown, handleSucces
 
   const dispatch = useAppDispatch();
 
-  const handleAddClickButton = (product: Camera) => {
+  const handleAddClickButton = () => {
     if (camera) {
-      dispatch(addToCart(product));
+      dispatch(addToCart(camera));
       handleSuccessPopupOpen();
     }
   };
@@ -63,7 +63,7 @@ function AddItemPopup({ camera, handleClosePopup, handleEscKeydown, handleSucces
               </div>
               <div className="modal__buttons">
                 <button className="btn btn--purple modal__btn modal__btn--fit-width" type="button"
-                  onClick={() => handleAddClickButton(camera)}
+                  onClick={handleAddClickButton}
                 >
                   <svg width="24" height="16" aria-hidden="true">
                     <use xlinkHref="#icon-add-basket"></use>

@@ -63,9 +63,9 @@ export const getMaxPrice = (cameras: Camera[]) => {
   return 0;
 };
 
-export const getValidClassname = (validationStatus: boolean | undefined) => {
+export const getValidClassname = (validationStatus: boolean | null | undefined) => {
   let validationClassname: string;
-  if (validationStatus === undefined) {
+  if (validationStatus === null || validationStatus === undefined) {
     validationClassname = '';
   } else if (validationStatus === false) {
     validationClassname = 'is-invalid';

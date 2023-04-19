@@ -13,40 +13,42 @@ import CartSummaryOrder from '../../components/cart-summary-order/cart-summary-o
 import OrderSuccessPopup from '../../components/order-success-popup/order-success-popup';
 
 function CartPage(): JSX.Element {
-  const [isActivePopup, setActivePopup] = useState<string | undefined>(undefined);
-  const [targetProduct, setTargetProduct] = useState<Camera | undefined>(undefined);
+  const [isActivePopup, setActivePopup] = useState<string | null>(null);
+  const [targetProduct, setTargetProduct] = useState<Camera | undefined | null>(undefined);
   const dispatch = useAppDispatch();
 
   const handleDeleteButtonClick = (product: Camera) => {
-    setActivePopup(Popup.DeleteProductPopup);
-    setTargetProduct(product);
+    if (product !== null) {
+      setActivePopup(Popup.DeleteProductPopup);
+      setTargetProduct(product);
+    }
   };
 
   const handleOrderSuccessPopupOpen = (orderStatus?: boolean) => {
     if (orderStatus) {
       setActivePopup(Popup.OrderSuccessPopup);
     } else {
-      setActivePopup(undefined);
+      setActivePopup(null);
     }
   };
 
   const handleClosePopup = () => {
-    setActivePopup(undefined);
+    setActivePopup(null);
   };
 
   const handleCloseSuccessPopup = (orderStatus?: boolean) => {
     if (orderStatus) {
-      setActivePopup(undefined);
+      setActivePopup(null);
       dispatch(resetCart());
       dispatch(resetCoupon());
       dispatch(resetOrderStatus());
     }
-    setActivePopup(undefined);
+    setActivePopup(null);
   };
 
   const handleEscKeydown = (evt: KeyboardEvent) => {
     if (evt.key === 'Escape' || evt.key === 'Esc') {
-      setActivePopup(undefined);
+      setActivePopup(null);
     }
   };
 
