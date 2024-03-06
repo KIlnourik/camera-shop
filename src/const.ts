@@ -70,7 +70,7 @@ export const RatingValues: RatingValuesType = {
   1: 'Ужасно',
 };
 
-export const BACKEND_URL = 'https://camera-shop.accelerator.pages.academy/';
+export const BACKEND_URL = 'https://camera-shop.accelerator.htmlacademy.pro/';
 
 export const REQUEST_TIMEOUT = 5000;
 
